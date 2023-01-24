@@ -1,0 +1,2 @@
+pydantic==1.10.4
+setuptools==62.6.0
