@@ -20,3 +20,8 @@ class StandardMessage(BaseModel):
     flag_name: str
     flag_value: str
 
+    @property
+    def entity_id(self):
+        id_key = "{entity_type}_id".format(entity_type=self.entity_type.name.lower())
+        return getattr(self, id_key, None)
+
