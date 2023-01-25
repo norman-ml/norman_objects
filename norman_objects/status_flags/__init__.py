@@ -1,1 +1,2 @@
 import norman_objects.status_flags.status_flag
+import norman_objects.status_flags.status_flag_value
