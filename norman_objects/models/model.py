@@ -12,10 +12,8 @@ class Model(BaseModel):
     url: str
     logo_url: str
     url_request_type: str
-    url_content_type: str
     model_type: ModelType
     model_hosting_location: ModelHostingLocation
-    # uses_multipart_data: bool
     short_description: str
     long_description: str
 
