@@ -16,7 +16,7 @@ class StandardMessage(BaseModel):
 
     file_name: str
     file_size_in_bytes: int = 0
-    file_checksum: str
+    file_checksum: str = "Not yet implemented"
 
     flag_name: str
     flag_value: StatusFlagValue
