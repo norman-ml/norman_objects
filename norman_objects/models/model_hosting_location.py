@@ -1,6 +1,6 @@
 from enum import Enum
 
 
-class ModelHostingLocation(Enum):
+class ModelHostingLocation(str, Enum):
     External = "External"
     Internal = "Internal"

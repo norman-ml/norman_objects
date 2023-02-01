@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ModelParamHttpLocation(Enum):
+class ModelParamHttpLocation(str, Enum):
     Body = "Body"
     Path = "Path"
     Query = "Query"
