@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 from norman_objects.messages.entity_type import EntityType
+from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
 class StandardMessage(BaseModel):
@@ -18,7 +19,7 @@ class StandardMessage(BaseModel):
     file_checksum: str
 
     flag_name: str
-    flag_value: str
+    flag_value: StatusFlagValue
 
     @property
     def entity_id(self):
