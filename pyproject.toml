@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "norman-objects"
+description = "norman objects common classes"
+version = "0.0.1"
+authors = [
+    {name = "Yonatan Alon", email = "yonatankarimish@gmail.com"},
+]
+
+requires-python = ">=3.9"
+license = {text = "proprietary"}
+dependencies = [
+    "pydantic"
+]
+
+[tools.setuptools]
+packages = ["norman_objects"]
