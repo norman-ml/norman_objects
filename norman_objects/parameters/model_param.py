@@ -15,7 +15,7 @@ class ModelParam(BaseModel):
     model_id: str = "0"
     record_type: ModelParamRecordType
     parameter_domain: ModelParamDomain
-    parameter_mime_type: ModelParamnMimeType
+    parameter_mime_type: ModelParamMimeType
     parameter_receive_format: ModelParamReceiveFormat
     parameter_http_location: ModelParamHttpLocation
     parameter_name: str
