@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ModelParamnMimeType(str, Enum):
+class ModelParamMimeType(str, Enum):
     # Mime types will be added as our support extends with time
     Audio_Midi = "audio/midi"
     Audio_Xmidi = "audio/x-midi"
