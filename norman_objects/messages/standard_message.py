@@ -13,6 +13,7 @@ class StandardMessage(BaseModel):
     parameter_id: str = ""
     invocation_id: str = ""
     input_id: str = ""
+    output_id: str = ""
 
     file_name: str = ""
     file_size_in_bytes: int = 0
@@ -23,6 +24,10 @@ class StandardMessage(BaseModel):
 
     @property
     def entity_id(self):
-        id_key = "{entity_type}_id".format(entity_type=self.entity_type.name.lower())
-        return getattr(self, id_key, None)
+        if self.entity_type is not None:
+            entity_name = self.entity_type.name.lower()
+            id_key = f"{entity_name}_id"
+            return getattr(self, id_key, None)
+
+        return None
 
