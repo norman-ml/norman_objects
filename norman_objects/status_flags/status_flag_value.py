@@ -3,8 +3,8 @@ from functools import total_ordering
 
 
 @total_ordering
-class StatusFlagValue(str, Enum):
-    Error = -1
+class StatusFlagValue(int, Enum):
+    Error = 0
     Not_Started = 1
     Enqueued = 2
     In_Progress = 3
