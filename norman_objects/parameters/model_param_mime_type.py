@@ -3,14 +3,16 @@ from enum import Enum
 
 class ModelParamMimeType(str, Enum):
     # Mime types will be added as our support extends with time
-    Audio_Midi = "audio/midi"
-    Audio_Xmidi = "audio/x-midi"
-    Audio_Mp3 = "audio/mp3"
-    Audio_Mpeg = "audio/mpeg"
-    Audio_Wav = "audio/wav"
-    Audio_Xwav = "audio/x-wav"
-    Audio_Webm = "audio/webm"
-    Image_Jpeg = "image/jpeg"
-    Image_Png = "image/png"
-    Image_Webp = "image/webp"
-    Text_Plain = "text/plain"
+    Audio_Midi = "Audio_Midi"
+    Audio_Mp3 = "Audio_Mp3"
+    Audio_Mpeg = "Audio_Mpeg"
+    Audio_Wav = "Audio_Wav"
+    Audio_Webm = "Audio_Webm"
+    Image_Jpeg = "Image_Jpeg"
+    Image_Png = "Image_Png"
+    Image_Webp = "Image_Webp"
+    Text_Plain = "Text_Plain"
+
+    @property
+    def mime_type(self):
+        return self.name.lower().replace("_", "/")
