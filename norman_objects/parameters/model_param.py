@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List
 
 from pydantic import BaseModel
 
@@ -20,4 +20,6 @@ class ModelParam(BaseModel):
     parameter_http_location: ModelParamHttpLocation
     parameter_name: str
     parameter_display_title: str
+
     transforms: List[ModelParamTransform] = []
+    parameter_args: Dict[str, str] = {}
