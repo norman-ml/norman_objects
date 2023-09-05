@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 from norman_objects.parameters.model_param import ModelParam
 from norman_objects.parameters.param_domain import ParamDomain
-from norman_objects.parameters.param_receive_format import ParamReceiveFormat
+from norman_objects.signatures.receive_format import ReceiveFormat
 from norman_objects.signatures.signature_http_location import SignatureHttpLocation
 from norman_objects.signatures.signature_transform import SignatureTransform
 from norman_objects.signatures.signature_type import SignatureType
@@ -17,7 +17,7 @@ class ModelSignature(BaseModel):
     signature_domain: ParamDomain
     mime_type: str
     mime_subtype: str
-    receive_format: ParamReceiveFormat
+    receive_format: ReceiveFormat
     http_location: SignatureHttpLocation
     display_title: str
 

@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ParamReceiveFormat(str, Enum):
+class ReceiveFormat(str, Enum):
     File = "File"
     Link = "Link"
     Primitive = "Primitive"
