@@ -10,4 +10,4 @@ class ModelParam(BaseModel):
     parameter_domain: ParamDomain
     mime_type: str
     mime_subtype: str
-    name: str
+    parameter_name: str
