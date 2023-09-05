@@ -1,6 +1,6 @@
 from enum import Enum
 
 
-class ModelParamRecordType(str, Enum):
+class SignatureType(str, Enum):
     Input = "Input"
     Output = "Output"

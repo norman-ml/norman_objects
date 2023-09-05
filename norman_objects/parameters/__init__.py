@@ -1,7 +1,4 @@
 import norman_objects.parameters.model_param
-import norman_objects.parameters.model_param_domain
-import norman_objects.parameters.model_param_http_location
-import norman_objects.parameters.model_param_mime_type
-import norman_objects.parameters.model_param_receive_format
-import norman_objects.parameters.model_param_record_type
-import norman_objects.parameters.model_param_transform
+import norman_objects.parameters.param_domain
+import norman_objects.parameters.param_mime_type
+import norman_objects.parameters.param_receive_format

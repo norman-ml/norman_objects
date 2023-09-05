@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ModelParamDomain(str, Enum):
+class ParamDomain(str, Enum):
     Audio = "Audio"
     File = "File"
     Float = "Float"
