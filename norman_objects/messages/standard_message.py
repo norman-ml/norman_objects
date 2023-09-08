@@ -10,7 +10,7 @@ class StandardMessage(BaseModel):
     model_id: str
     model_name: str
 
-    parameter_id: str = ""
+    signature_id: str = ""
     invocation_id: str = ""
     input_id: str = ""
     output_id: str = ""
