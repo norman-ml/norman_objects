@@ -15,6 +15,8 @@ class StandardMessage(BaseModel):
     input_id: str = ""
     output_id: str = ""
 
+    asset_id: str = ""
+
     file_name: str = ""
     file_size_in_bytes: int = 0
     file_checksum: str = "Not yet implemented"
