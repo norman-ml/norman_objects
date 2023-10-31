@@ -13,7 +13,6 @@ class Model(BaseModel):
     id: str = "0"
     name: str
     url: str
-    logo: ModelAsset
     url_request_type: UrlRequestType
     model_type: ModelType
     model_hosting_location: ModelHostingLocation
@@ -23,3 +22,4 @@ class Model(BaseModel):
     inputs: List[ModelSignature] = []
     outputs: List[ModelSignature] = []
     http_headers: Dict[str, str] = {}
+    assets: List[ModelAsset] = []
