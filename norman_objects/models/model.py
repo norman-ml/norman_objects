@@ -2,6 +2,7 @@ from typing import Dict, List
 
 from pydantic import BaseModel
 
+from norman_objects.models.model_asset import ModelAsset
 from norman_objects.models.model_hosting_location import ModelHostingLocation
 from norman_objects.models.model_type import ModelType
 from norman_objects.models.url_request_type import UrlRequestType
@@ -12,7 +13,7 @@ class Model(BaseModel):
     id: str = "0"
     name: str
     url: str
-    logo_url: str
+    logo: ModelAsset
     url_request_type: UrlRequestType
     model_type: ModelType
     model_hosting_location: ModelHostingLocation
