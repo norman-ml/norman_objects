@@ -16,6 +16,7 @@ class Model(BaseModel):
     url_request_type: UrlRequestType
     model_type: ModelType
     model_hosting_location: ModelHostingLocation
+    output_format: OutputFormat
     short_description: str
     long_description: str
 
