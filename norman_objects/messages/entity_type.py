@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class EntityType(str, Enum):
-    Image = "Image"
+    Model = "Model"
     Asset = "Asset"
     Invocation = "Invocation"
     Input = "Input"
