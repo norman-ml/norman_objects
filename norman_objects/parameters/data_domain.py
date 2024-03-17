@@ -12,7 +12,7 @@ class DataDomain(str, Enum):
 
     @staticmethod
     def primitive_types():
-        return {DataDomain.Float, DataDomain.Image, DataDomain.Text}
+        return {DataDomain.Float, DataDomain.Integer, DataDomain.Text}
 
     def is_primitive(self):
         return self in DataDomain.primitive_types()
