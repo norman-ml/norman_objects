@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel
 
@@ -18,7 +18,9 @@ class ModelSignature(BaseModel):
     data_encoding: str
     receive_format: ReceiveFormat
     http_location: HttpLocation
+    hidden: bool
     display_title: str
+    default_value: Optional[str] = None
 
     parameters: List[ModelParam] = []
     transforms: List[SignatureTransform] = []
