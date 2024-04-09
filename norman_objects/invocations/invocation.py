@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import List
 
 from pydantic import BaseModel, Field
@@ -10,7 +10,7 @@ from norman_objects.outputs.invocation_output import InvocationOutput
 class Invocation(BaseModel):
     id: str = "0"
     model_id: str
-    creation_time: datetime = Field(default_factory=datetime.now)
+    creation_time: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
     inputs: List[InvocationInput] = []
     outputs: List[InvocationOutput] = []

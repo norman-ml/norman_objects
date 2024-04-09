@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Dict, List
 
 from pydantic import BaseModel, Field
@@ -13,7 +13,7 @@ from norman_objects.signatures.model_signature import ModelSignature
 
 class Model(BaseModel):
     id: str = "0"
-    creation_time: datetime = Field(default_factory=datetime.now)
+    creation_time: datetime = Field(default_factory=lambda: datetime.now(UTC))
     name: str
     url: str
     request_type: HttpRequestType
