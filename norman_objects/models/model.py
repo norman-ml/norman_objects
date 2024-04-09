@@ -1,6 +1,7 @@
+from datetime import datetime
 from typing import Dict, List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from norman_objects.models.model_asset import ModelAsset
 from norman_objects.models.model_hosting_location import ModelHostingLocation
@@ -12,6 +13,7 @@ from norman_objects.signatures.model_signature import ModelSignature
 
 class Model(BaseModel):
     id: str = "0"
+    creation_time: datetime = Field(default_factory=datetime.now)
     name: str
     url: str
     request_type: HttpRequestType
