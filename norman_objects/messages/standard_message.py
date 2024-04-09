@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 from norman_objects.messages.entity_type import EntityType
@@ -5,6 +7,7 @@ from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
 class StandardMessage(BaseModel):
+    update_time: datetime
     entity_type: EntityType
 
     model_id: str
