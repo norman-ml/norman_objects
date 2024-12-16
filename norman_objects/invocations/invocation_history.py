@@ -1,6 +1,7 @@
 from datetime import datetime, timezone, timedelta
 from pydantic import BaseModel, Field
 
+
 class InvocationHistory(BaseModel):
     id: str
     model_id: str
