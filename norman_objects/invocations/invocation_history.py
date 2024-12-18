@@ -7,7 +7,7 @@ class InvocationHistory(BaseModel):
     id: str
     model_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
-    status_flag_value: StatusFlagValue
+    flag_value: StatusFlagValue
     model_name: str
     asset_id: str
     asset_name: str
