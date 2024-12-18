@@ -1,6 +1,6 @@
 from datetime import datetime, timezone, timedelta
 from pydantic import BaseModel, Field
-from norman_objects.notifications.sevirity import Severity
+from norman_objects.notifications.severity import Severity
 
 class Notification(BaseModel):
     id: str
