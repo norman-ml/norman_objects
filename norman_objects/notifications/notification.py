@@ -1,11 +1,13 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime
+from typing import Optional
+
 from pydantic import BaseModel, Field
 from norman_objects.notifications.severity import Severity
 
 class Notification(BaseModel):
-    id: str
-    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
+    id: Optional[str] = None
+    creation_time: Optional[datetime] = None
     title: str
     message: str
-    read_status = int
+    read_status: int = 0
     severity: Severity
