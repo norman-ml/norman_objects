@@ -1,3 +1,4 @@
+import norman_objects.accounts
 import norman_objects.inputs
 import norman_objects.invocations
 import norman_objects.messages
@@ -6,4 +7,3 @@ import norman_objects.outputs
 import norman_objects.parameters
 import norman_objects.signatures
 import norman_objects.status_flags
-import norman_objects.accounts
