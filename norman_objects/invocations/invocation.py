@@ -9,6 +9,7 @@ from norman_objects.outputs.invocation_output import InvocationOutput
 
 class Invocation(BaseModel):
     id: str = "0"
+    account_id: str
     model_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
 

@@ -13,6 +13,7 @@ from norman_objects.signatures.model_signature import ModelSignature
 
 class Model(BaseModel):
     id: str = "0"
+    account_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     name: str
     url: str
