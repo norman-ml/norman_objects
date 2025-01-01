@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class Severity(str, Enum):
-    ERROR = "error"
-    INFO = "info"
-    SUCCESS = "success"
-    WARNING = "warning"
+    Error = "error"
+    Info = "info"
+    Success = "success"
+    Warning = "warning"
 
