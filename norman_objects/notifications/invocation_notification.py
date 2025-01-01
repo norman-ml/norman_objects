@@ -4,7 +4,7 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from norman_objects.notifications.severity import Severity
 
-from norman_objects.norman_objects.status_flags.status_flag_value import StatusFlagValue
+from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
 class InvocationNotification(BaseModel):
