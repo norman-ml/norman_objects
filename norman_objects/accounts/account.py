@@ -9,4 +9,3 @@ class Account(BaseModel):
     name: str
     email: Optional[str] = None
     password: str
-
