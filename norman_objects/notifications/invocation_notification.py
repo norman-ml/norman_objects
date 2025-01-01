@@ -4,6 +4,9 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from norman_objects.notifications.severity import Severity
 
+from norman_objects.norman_objects.status_flags.status_flag_value import StatusFlagValue
+
+
 class InvocationNotification(BaseModel):
     id: str = None
     account_id: str = None
@@ -14,3 +17,34 @@ class InvocationNotification(BaseModel):
     message: str
     read_status: int
     severity: Severity
+
+    @classmethod
+    def from_flag(cls, flag):
+        if flag.flag_value == StatusFlagValue.Error:
+            return cls(
+                account_id=flag.account_id,
+                entity_id=flag.entity_id,
+                title="Error in Output Processing",
+                message="Error encountered during output processing.",
+                read_status=0,
+                severity=Severity.ERROR
+            )
+
+        elif flag.flag_value == StatusFlagValue.Finished:
+            return cls(
+                account_id=flag.account_id,
+                entity_id=flag.entity_id,
+                title="Output Processing Finished",
+                message="Successfully finished output processing.",
+                read_status=0,
+                severity=Severity.INFO
+            )
+
+        return cls(
+            account_id=flag.account_id,
+            entity_id=flag.entity_id,
+            title="Unknown Flag State",
+            message="Flag does not match any recognized state.",
+            read_status=0,
+            severity=Severity.INFO
+        )
