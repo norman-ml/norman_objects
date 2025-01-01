@@ -20,7 +20,19 @@ class InvocationNotification(BaseModel):
 
     @classmethod
     def from_flag(cls, flag):
-        if flag.flag_value == StatusFlagValue.Error:
+        try:
+            flag_value = StatusFlagValue(flag.flag_value)  # Cast to Enum
+        except ValueError:
+            return cls(
+                account_id=flag.account_id,
+                entity_id=flag.entity_id,
+                title="Invalid Flag State",
+                message="Flag value is not recognized as valid.",
+                read_status=0,
+                severity=Severity.ERROR
+            )
+
+        if flag_value == StatusFlagValue.Error:
             return cls(
                 account_id=flag.account_id,
                 entity_id=flag.entity_id,
@@ -30,7 +42,7 @@ class InvocationNotification(BaseModel):
                 severity=Severity.ERROR
             )
 
-        elif flag.flag_value == StatusFlagValue.Finished:
+        elif flag_value == StatusFlagValue.Finished:
             return cls(
                 account_id=flag.account_id,
                 entity_id=flag.entity_id,
@@ -48,3 +60,4 @@ class InvocationNotification(BaseModel):
             read_status=0,
             severity=Severity.INFO
         )
+
