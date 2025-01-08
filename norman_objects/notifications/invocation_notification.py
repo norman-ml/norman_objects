@@ -6,9 +6,9 @@ from norman_objects.notifications.severity import Severity
 
 
 class InvocationNotification(BaseModel):
-    id: str = None
-    account_id: str = None
-    entity_id: str = None
+    id: str
+    account_id: str
+    entity_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     model_name: Optional[str] = None
     title: str
