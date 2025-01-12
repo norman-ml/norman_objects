@@ -10,6 +10,8 @@ class StandardMessage(BaseModel):
     update_time: datetime
     entity_type: EntityType
 
+    account_id:str
+
     model_id: str
     model_name: str
 
