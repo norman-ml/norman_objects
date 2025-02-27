@@ -1,16 +1,15 @@
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel
-
-from norman_objects.parameters.model_param import ModelParam
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.parameters.data_domain import DataDomain
-from norman_objects.signatures.receive_format import ReceiveFormat
+from norman_objects.parameters.model_param import ModelParam
 from norman_objects.signatures.http_location import HttpLocation
+from norman_objects.signatures.receive_format import ReceiveFormat
 from norman_objects.signatures.signature_transform import SignatureTransform
 from norman_objects.signatures.signature_type import SignatureType
 
 
-class ModelSignature(BaseModel):
+class ModelSignature(NormanBaseModel):
     id: str = "0"
     model_id: str = "0"
     signature_type: SignatureType
