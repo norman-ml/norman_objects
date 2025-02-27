@@ -1,12 +1,11 @@
 from datetime import datetime
 
-from pydantic import BaseModel
-
 from norman_objects.messages.entity_type import EntityType
+from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
 from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
-class StandardMessage(BaseModel):
+class StandardMessage(NormanBaseModel):
     update_time: datetime
     entity_type: EntityType
 

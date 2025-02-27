@@ -1,11 +1,10 @@
 from datetime import datetime
 
-from pydantic import BaseModel
-
+from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
 from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
-class StatusFlag(BaseModel):
+class StatusFlag(NormanBaseModel):
     id: str = "0"
     account_id: str
     entity_id: str = "0"

@@ -1,9 +1,11 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
+from pydantic import Field
 
-class Account(BaseModel):
+
+class Account(NormanBaseModel):
     id: str = "0"
     guest_id: Optional[str] = None
     user_id: Optional[str] = None

@@ -1,9 +1,11 @@
 from datetime import datetime, timezone, timedelta
-from pydantic import BaseModel, Field
+
+from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
 from norman_objects.status_flags.status_flag_value import StatusFlagValue
+from pydantic import Field
 
 
-class InvocationHistory(BaseModel):
+class InvocationHistory(NormanBaseModel):
     id: str
     account_id: str
     model_id: str

@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
 
 
-class InvocationOutput(BaseModel):
+class InvocationOutput(NormanBaseModel):
     id: str = "0"
     account_id: str
     model_id: str
