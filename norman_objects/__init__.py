@@ -1,4 +1,5 @@
 import norman_objects.accounts
+import norman_objects.norman_base_model
 import norman_objects.inputs
 import norman_objects.invocations
 import norman_objects.messages
