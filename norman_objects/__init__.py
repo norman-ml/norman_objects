@@ -4,6 +4,7 @@ import norman_objects.invocations
 import norman_objects.messages
 import norman_objects.models
 import norman_objects.norman_base_model
+import norman_objects.norman_update_schema
 import norman_objects.notifications
 import norman_objects.outputs
 import norman_objects.parameters
