@@ -19,11 +19,3 @@ class Account(NormanBaseModel):
         "name": "Name",
         "email": "Email"
     }
-
-    def to_sql_fields(self) -> dict:
-        account_data = self.dict(exclude_unset=True)
-
-        if not account_data:
-            raise ValueError("No fields provided for update")
-
-        return {self.__field_to_sql_mapping__[key]: value for key, value in account_data.items() if key in self.__field_to_sql_mapping__}
