@@ -12,9 +12,6 @@ class NormanBaseModel(BaseModel):
             _base_=cls
         )
 
-        setattr(cls.UpdateSchema, "to_sql_fields", NormanBaseModel.to_sql_fields)
-        setattr(cls.UpdateSchema, "to_sql_field_name", NormanBaseModel.to_sql_field_name)
-
     def to_sql_fields(self):
         field_dictionary = self.dict(exclude_unset=True)
         sql_dictionary = {self.to_sql_field_name(key): value for key, value in field_dictionary.items()}
