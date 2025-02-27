@@ -2,7 +2,6 @@ from pydantic import BaseModel, create_model
 from typing import Type, Optional
 
 class NormanBaseModel(BaseModel):
-    __field_to_sql_mapping__ = {}
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
@@ -12,14 +11,14 @@ class NormanBaseModel(BaseModel):
             **{field_name: (Optional[field_type], None) for field_name, field_type in cls.__annotations__.items()}
         )
 
-        cls.UpdateSchema.__field_to_sql_mapping__ = cls.__field_to_sql_mapping__
-
         setattr(cls.UpdateSchema, "to_sql_fields", NormanBaseModel.to_sql_fields)
 
-    def to_sql_fields(self) -> dict:
-        account_data = self.dict(exclude_unset=True)
+    def to_sql_fields(self):
+        field_dictionary = self.dict(exclude_unset=True)
+        sql_dictionary = {self.to_sql_field_name(key): value for key, value in field_dictionary}
+        return sql_dictionary
 
-        if not account_data:
-            raise ValueError("No fields provided for update")
-
-        return {self.__field_to_sql_mapping__[key]: value for key, value in account_data.items() if key in self.__field_to_sql_mapping__}
+    def to_sql_field_name(self, field_name: str):
+        split_names = field_name.split("_")
+        capitalized_names = [word.capitalize() for word in split_names]
+        return "_".join(capitalized_names)

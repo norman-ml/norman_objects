@@ -6,7 +6,7 @@ from norman_objects.models.model_asset import ModelAsset
 from norman_objects.models.model_hosting_location import ModelHostingLocation
 from norman_objects.models.model_type import ModelType
 from norman_objects.models.output_format import OutputFormat
-from norman_objects.norman_base_model.norman_base_model import NormanBaseModel
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.signatures.model_signature import ModelSignature
 from pydantic import Field
 

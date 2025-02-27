@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 
-from norman_objects.norman_base_model.norman_base_model import NormanBaseModel
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.parameters.data_domain import DataDomain
 from norman_objects.parameters.model_param import ModelParam
 from norman_objects.signatures.http_location import HttpLocation
