@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
-from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
+from norman_objects.norman_base_model.norman_base_model import NormanBaseModel
 from pydantic import Field
 
 

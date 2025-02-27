@@ -4,7 +4,7 @@ from pydantic import Field
 
 from norman_objects.inputs.invocation_input import InvocationInput
 from norman_objects.outputs.invocation_output import InvocationOutput
-from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
+from norman_objects.norman_base_model.norman_base_model import NormanBaseModel
 
 
 class Invocation(NormanBaseModel):

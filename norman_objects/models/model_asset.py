@@ -1,4 +1,4 @@
-from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
+from norman_objects.norman_base_model.norman_base_model import NormanBaseModel
 
 
 class ModelAsset(NormanBaseModel):

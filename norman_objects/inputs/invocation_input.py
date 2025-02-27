@@ -1,5 +1,5 @@
 from norman_objects.inputs.input_source import InputSource
-from norman_objects.norman_base_model.norman_bose_model import NormanBaseModel
+from norman_objects.norman_base_model.norman_base_model import NormanBaseModel
 
 
 class InvocationInput(NormanBaseModel):
