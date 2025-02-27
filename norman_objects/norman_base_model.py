@@ -9,7 +9,7 @@ class NormanBaseModel(BaseModel):
         cls.UpdateSchema: Type[BaseModel] = create_model(
             f"{cls.__name__}Update",
             **{field_name: (Optional[field_type], None) for field_name, field_type in cls.__annotations__.items()},
-            _base_=cls
+            _base_=NormanBaseModel
         )
 
     def to_sql_fields(self):
