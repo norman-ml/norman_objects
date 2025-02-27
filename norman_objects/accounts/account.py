@@ -12,3 +12,18 @@ class Account(NormanBaseModel):
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     name: str
     email: Optional[str] = None
+
+    __field_to_sql_mapping__ = {
+        "id": "ID",
+        "creation_time": "Creation_Time",
+        "name": "Name",
+        "email": "Email"
+    }
+
+    def to_sql_fields(self) -> dict:
+        account_data = self.dict(exclude_unset=True)
+
+        if not account_data:
+            raise ValueError("No fields provided for update")
+
+        return {self.__field_to_sql_mapping__[key]: value for key, value in account_data.items() if key in self.__field_to_sql_mapping__}
