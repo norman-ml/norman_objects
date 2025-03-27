@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class BinaryRelation(str, Enum):
     EQ = "="
     NE = "!="

@@ -1,6 +1,6 @@
 from typing import Set
 
-from norman_objects.query.sort.sort_direction import SortDirection
+from norman_objects.queries.sort_clauses.sort_direction import SortDirection
 from pydantic import BaseModel
 
 
