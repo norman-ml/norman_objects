@@ -1,9 +1,9 @@
 from typing import Optional, Set
 
-from norman_objects.query.filter.filter_clause import FilterClause
-from norman_objects.query.paging.page_clause import PageClause
-from norman_objects.query.parameterization_type import ParameterizationType
-from norman_objects.query.sort.sort_clause import SortClause
+from norman_objects.queries.filter_clauses.filter_clause import FilterClause
+from norman_objects.queries.page_clauses.page_clause import PageClause
+from norman_objects.queries.parameterization_type import ParameterizationType
+from norman_objects.queries.sort_clauses.sort_clause import SortClause
 from pydantic import BaseModel
 
 
