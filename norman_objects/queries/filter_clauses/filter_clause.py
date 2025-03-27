@@ -1,9 +1,9 @@
 from typing import List, Union, Set
 
-from norman_objects.query.filter.filter_node import FilterNode
-from norman_objects.query.logical_relations.unary_relation import UnaryRelation
-from norman_objects.query.parameterization_type import ParameterizationType
-from norman_objects.query.transforms.constraint_transform import ConstraintTransform
+from norman_objects.queries.filter_clauses.filter_node import FilterNode
+from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
+from norman_objects.queries.parameterization_type import ParameterizationType
+from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
 from pydantic import BaseModel
 
 

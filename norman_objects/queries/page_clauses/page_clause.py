@@ -1,6 +1,6 @@
 from typing import Optional
 
-from norman_objects.query.parameterization_type import ParameterizationType
+from norman_objects.queries.parameterization_type import ParameterizationType
 from pydantic import BaseModel
 
 

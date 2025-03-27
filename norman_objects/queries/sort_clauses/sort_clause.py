@@ -1,6 +1,6 @@
 from typing import List, Set
 
-from norman_objects.query.sort.sort_node import SortNode
+from norman_objects.queries.sort_clauses.sort_node import SortNode
 from pydantic import BaseModel
 
 
