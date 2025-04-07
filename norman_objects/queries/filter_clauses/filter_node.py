@@ -7,19 +7,28 @@ from pydantic import BaseModel
 
 
 class FilterNode(BaseModel):
+    table: str
     column: str
     operator: BinaryRelation
     value: Union[str, List[Union[str, int, float]]]
 
-    def validate_columns(self, allowed_columns: Set[str]):
-        column_allowed = self.column in allowed_columns
+    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
+        table_valid = self.validate_table(allowed_tables)
+        column_valid = self.validate_column(allowed_columns)
+        type_valid = self.validate_type()
 
-        if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
-            type_valid = isinstance(self.value, list)
-        else:
-            type_valid = isinstance(self.value, (str, int, float))
+        return table_valid and column_valid and type_valid
 
-        return column_allowed and type_valid
+    def validate_table(self, allowed_tables: Set[str]):
+        return self.table in allowed_tables
+
+    def validate_column(self, allowed_columns: Set[str]):
+        return self.column in allowed_columns
+
+    def validate_type(self):
+        if self.operator in (BinaryRelation.IN, BinaryRelation.NIN):
+            return isinstance(self.value, list)
+        return isinstance(self.value, (str, int, float))
 
     def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
         if parameterization_type == ParameterizationType.LIST_BASED:
@@ -44,19 +53,19 @@ class FilterNode(BaseModel):
             transformed_value = self.transform(transforms)
             parameters = [transformed_value]
 
-        clause = f" {self.column} {self.operator.value} {interpolation_placeholder} "
+        clause = f" {self.table}.{self.column} {self.operator.value} {interpolation_placeholder} "
         return clause, parameters
 
     def build_expression_as_dict(self, transforms: List[ConstraintTransform]):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
             raise ValueError(f"Collection operators not supported with dict parameterization")
 
-        interpolation_placeholder = f" %({self.column})s "
-        clause = f" {self.column} {self.operator.value} {interpolation_placeholder} "
+        interpolation_placeholder = f" %({self.table}.{self.column})s "
+        clause = f" {self.table}.{self.column} {self.operator.value} {interpolation_placeholder} "
 
         transformed_value = self.transform(transforms)
         parameters = {
-            f"{self.column}": transformed_value
+            f"{self.table}.{self.column}": transformed_value
         }
 
         return clause, parameters

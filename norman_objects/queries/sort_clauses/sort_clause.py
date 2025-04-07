@@ -7,9 +7,9 @@ from pydantic import BaseModel
 class SortClause(BaseModel):
     children: List[SortNode]
 
-    def validate_columns(self, allowed_columns: Set[str]):
+    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
         for child_node in self.children:
-            if not child_node.validate_columns(allowed_columns):
+            if not child_node.validate_expression(allowed_tables, allowed_columns):
                 return False
 
         return True

@@ -12,19 +12,19 @@ class QueryConstraints(BaseModel):
     sort: Optional[SortClause] = None
     page: Optional[PageClause] = None
 
-    def validate_columns(self, allowed_columns: Set[str]):
+    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
         constraint_valid = True
 
         if self.filter is not None:
-            filter_valid = self.filter.validate_columns(allowed_columns)
+            filter_valid = self.filter.validate_expression(allowed_tables, allowed_columns)
             constraint_valid = constraint_valid and filter_valid
 
         if self.sort is not None:
-            sort_valid = self.sort.validate_columns(allowed_columns)
+            sort_valid = self.sort.validate_expression(allowed_tables, allowed_columns)
             constraint_valid = constraint_valid and sort_valid
 
         if self.page is not None:
-            page_valid = self.page.validate_columns()
+            page_valid = self.page.validate_expression()
             constraint_valid = constraint_valid and page_valid
 
         if not constraint_valid:

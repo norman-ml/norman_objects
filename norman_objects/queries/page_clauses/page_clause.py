@@ -8,7 +8,7 @@ class PageClause(BaseModel):
     limit: Optional[int]
     offset: Optional[int]
 
-    def validate_columns(self):
+    def validate_expression(self):
         return (
             self.limit is None or self.limit >= 0
             and

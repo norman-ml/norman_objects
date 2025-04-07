@@ -5,11 +5,15 @@ from pydantic import BaseModel
 
 
 class SortNode(BaseModel):
+    table: str
     column: str
     direction: SortDirection
 
-    def validate_columns(self, allowed_columns: Set[str]):
-        return self.column in allowed_columns
+    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
+        table_valid = self.table in allowed_tables
+        column_valid = self.column in allowed_columns
+
+        return table_valid and column_valid
 
     def build_expression(self):
-        return f" {self.column} {self.direction.value} "
+        return f" {self.table}.{self.column} {self.direction.value} "
