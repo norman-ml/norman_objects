@@ -1,3 +1,8 @@
-def Sensitive(value=None):
-    setattr(value, "__sensitive__", True)
-    return value
+class SensitiveMarker:
+    __sensitive__ = True
+
+def Sensitive(*, default=None):
+    if default is None:
+        return SensitiveMarker()
+    setattr(default, "__sensitive__", True)
+    return default
