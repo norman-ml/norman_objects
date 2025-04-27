@@ -1,5 +1,3 @@
-from pydantic import Field
-from typing import Any
-
-def Sensitive(default: Any = ..., **kwargs):
-    return Field(default, sensitive=True, **kwargs)
+def Sensitive(*, default=None):
+    setattr(default, "__sensitive__", True)
+    return default
