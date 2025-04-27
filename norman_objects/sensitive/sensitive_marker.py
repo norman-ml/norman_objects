@@ -1,4 +1,5 @@
 from pydantic import Field
+from typing import Any
 
-def Sensitive():
-    return Field(..., sensitive=True)
+def Sensitive(default: Any = ..., **kwargs):
+    return Field(default, sensitive=True, **kwargs)
