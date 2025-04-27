@@ -1,3 +1,3 @@
-def Sensitive(*, default=None):
-    setattr(default, "__sensitive__", True)
-    return default
+def Sensitive(value=None):
+    setattr(value, "__sensitive__", True)
+    return value
