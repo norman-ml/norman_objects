@@ -7,12 +7,20 @@ class Sensitive:
     def value(self):
         return self._value
 
+    def dict(self):
+        print("__dict__")
+        return "<redacted>"
+
+    def json(self):
+        print("__json__")
+        return "<redacted>"
+
     def __str__(self):
-        print("here")
+        print("__str__")
         return "<redacted>"
 
     def __repr__(self):
-        print("here")
+        print("__repr__")
         return "<redacted>"
 
     def __bytes__(self):
