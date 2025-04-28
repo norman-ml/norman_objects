@@ -4,6 +4,9 @@ class Sensitive:
         self._value = value
         self.__sensitive__ = True
 
+    def __iter__(self):
+        return iter(str(self))
+
     def value(self):
         return self._value
 
