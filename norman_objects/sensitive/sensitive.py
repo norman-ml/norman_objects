@@ -1,4 +1,13 @@
 # pure python
+from norman_objects.sensitive.sensitive_type import SensitiveType
+from pydantic import BaseModel
+
+
+class Foo(BaseModel):
+    username: str
+    password: SensitiveType(str)
+
+
 class Sensitive:
     def __init__(self, value):
         self._value = value
