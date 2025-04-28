@@ -8,9 +8,11 @@ class Sensitive:
         return self._value
 
     def __str__(self):
+        print("here")
         return "<redacted>"
 
     def __repr__(self):
+        print("here")
         return "<redacted>"
 
     def __bytes__(self):
