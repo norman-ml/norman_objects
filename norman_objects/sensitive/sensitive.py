@@ -25,7 +25,7 @@ class Sensitive:
         return self.__redacted_place_holder
 
     def __bytes__(self):
-        return bytes(self.__redacted_place_holder)
+        return self.__redacted_place_holder.encode("utf-8")
 
     def __format__(self, format_spec):
         return self.__redacted_place_holder
