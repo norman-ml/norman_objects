@@ -143,7 +143,11 @@ class Sensitive:
         return ~self._value
 
     def __divmod__(self, other):
-        return divmod(self._value, other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return divmod(self._value, other.value)
+        return divmod(self._value, other)
 
     def __rdivmod__(self, other):
-        return divmod(other._value if isinstance(other, Sensitive) else other, self._value)
+        if isinstance(other, Sensitive):
+            return divmod(other.value, self._value)
+        return divmod(other, self._value)
