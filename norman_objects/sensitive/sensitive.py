@@ -1,4 +1,3 @@
-# pure python
 class Sensitive:
     __redacted_place_holder = "<redacted>"
 
@@ -42,58 +41,94 @@ class Sensitive:
         return self._value == other
 
     def __lt__(self, other):
-        return self._value < (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value < other.value
+        return self._value < other
 
     def __le__(self, other):
-        return self._value <= (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value <= other.value
+        return self._value <= other
 
     def __gt__(self, other):
-        return self._value > (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value > other.value
+        return self._value > other
 
     def __ge__(self, other):
-        return self._value >= (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value >= other.value
+        return self._value >= other
 
     def __add__(self, other):
-        return self._value + (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value + other.value
+        return self._value + other
 
     def __radd__(self, other):
-        return (other._value if isinstance(other, Sensitive) else other) + self._value
+        if isinstance(other, Sensitive):
+            return other.value + self._value
+        return other + self._value
 
     def __sub__(self, other):
-        return self._value - (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value - other.value
+        return self._value - other
 
     def __rsub__(self, other):
-        return (other._value if isinstance(other, Sensitive) else other) - self._value
+        if isinstance(other, Sensitive):
+            return other.value - self._value
+        return other - self._value
 
     def __mul__(self, other):
-        return self._value * (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value * other.value
+        return self._value * other
 
     def __rmul__(self, other):
-        return (other._value if isinstance(other, Sensitive) else other) * self._value
+        if isinstance(other, Sensitive):
+            return other.value * self._value
+        return other * self._value
 
     def __truediv__(self, other):
-        return self._value / (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value / other.value
+        return self._value / other
 
     def __rtruediv__(self, other):
-        return (other._value if isinstance(other, Sensitive) else other) / self._value
+        if isinstance(other, Sensitive):
+            return other.value / self._value
+        return other / self._value
 
     def __floordiv__(self, other):
-        return self._value // (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value // other.value
+        return self._value // other
 
     def __rfloordiv__(self, other):
-        return (other._value if isinstance(other, Sensitive) else other) // self._value
+        if isinstance(other, Sensitive):
+            return other.value // self._value
+        return other // self._value
 
     def __mod__(self, other):
-        return self._value % (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value % other.value
+        return self._value % other
 
     def __rmod__(self, other):
-        return (other._value if isinstance(other, Sensitive) else other) % self._value
+        if isinstance(other, Sensitive):
+            return other.value % self._value
+        return other % self._value
 
     def __pow__(self, other):
-        return self._value ** (other._value if isinstance(other, Sensitive) else other)
+        if isinstance(other, Sensitive):
+            return self._value ** other.value
+        return self._value ** other
 
     def __rpow__(self, other):
-        return (other._value if isinstance(other, Sensitive) else other) ** self._value
+        if isinstance(other, Sensitive):
+            return other.value ** self._value
+        return other ** self._value
 
     def __neg__(self):
         return -self._value
