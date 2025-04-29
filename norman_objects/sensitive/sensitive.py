@@ -1,5 +1,7 @@
 # pure python
 class Sensitive:
+    __redacted_place_holder = "<redacted>"
+
     def __init__(self, value):
         self._value = value
         self.__sensitive__ = True
@@ -11,29 +13,25 @@ class Sensitive:
         return self._value
 
     def dict(self):
-        print("__dict__")
-        return "<redacted>"
+        return self.__redacted_place_holder
 
     def json(self):
-        print("__json__")
-        return "<redacted>"
+        return self.__redacted_place_holder
 
     def __str__(self):
-        print("__str__")
-        return "<redacted>"
+        return self.__redacted_place_holder
 
     def __repr__(self):
-        print("__repr__")
-        return "<redacted>"
+        return self.__redacted_place_holder
 
     def __bytes__(self):
-        return b"<redacted>"
+        return bytes(self.__redacted_place_holder)
 
     def __format__(self, format_spec):
-        return "<redacted>"
+        return self.__redacted_place_holder
 
     def __reduce__(self):
-        return (str, ("<redacted>",))
+        return str, (self.__redacted_place_holder,)
 
     def __hash__(self):
         return hash(self._value)
