@@ -1,7 +1,8 @@
-from pydantic import BaseModel, create_model
+from pydantic import BaseModel, create_model, root_validator
 from typing import Type, Optional
 
 from norman_objects.norman_update_schema import NormanUpdateSchema
+from norman_objects.sensitive.sensitive import Sensitive
 
 
 class NormanBaseModel(BaseModel):
@@ -12,5 +13,19 @@ class NormanBaseModel(BaseModel):
         cls.UpdateSchema: Type[BaseModel] = create_model(
             f"{cls.__name__}Update",
             **{field_name: (Optional[field_type], None) for field_name, field_type in cls.__annotations__.items()},
-            __base__ = NormanUpdateSchema
+            __base__=NormanUpdateSchema
         )
+
+        cls._sensitive_fields = {
+            field_name: model_field.type_
+            for field_name, model_field in cls.__fields__.items()
+            if issubclass(model_field.type_, Sensitive)
+        }
+
+    @root_validator(pre=True)
+    def wrap_sensitive_fields(cls, values):
+        for field_name, field_type in cls._sensitive_fields.items():
+            value = values.get(field_name)
+            if value is not None and not isinstance(value, field_type):
+                values[field_name] = field_type(value)
+        return values
