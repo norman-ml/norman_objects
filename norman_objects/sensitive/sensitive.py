@@ -2,8 +2,12 @@ class Sensitive:
     __redacted_place_holder = "<redacted>"
 
     def __init__(self, value):
-        self._value = value
         self.__sensitive__ = True
+
+        if isinstance(value, Sensitive):
+            self._value = value.value()
+        else:
+            self._value = value
 
     def __iter__(self):
         return iter(str(self))
