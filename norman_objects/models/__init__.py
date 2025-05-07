@@ -1,4 +1,3 @@
-import norman_objects.models.get_models_request
 import norman_objects.models.model
 import norman_objects.models.model_asset
 import norman_objects.models.model_hosting_location
