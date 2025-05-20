@@ -6,6 +6,8 @@ from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
 class StandardMessage(NormanBaseModel):
+    access_token: str = ""
+
     update_time: datetime
     entity_type: EntityType
 
