@@ -33,17 +33,13 @@ class StandardMessage(NormanBaseModel, Mapping):
     flag_name: str
     flag_value: StatusFlagValue
 
-    class Config:
-        json_encoders = {
-            Sensitive: lambda v: str(v)
-        }
-
     @property
     def entity_id(self):
         if self.entity_type is not None:
             entity_name = self.entity_type.name.lower()
             id_key = f"{entity_name}_id"
             return getattr(self, id_key, None)
+
         return None
 
     def __getitem__(self, key):
