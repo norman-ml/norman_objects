@@ -1,17 +1,20 @@
-from datetime import datetime
+rom collections.abc from datetime import datetime
+
+import Mapping
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.sensitive.sensitive_type import SensitiveType
 from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
-class StandardMessage(NormanBaseModel):
+class StandardMessage(NormanBaseModel, Mapping):
+    # ──────────────────  data fields  ──────────────────
     access_token: SensitiveType(str) = ""
 
     update_time: datetime
     entity_type: EntityType
 
-    account_id:str
+    account_id: str
 
     model_id: str
     model_name: str
@@ -34,7 +37,14 @@ class StandardMessage(NormanBaseModel):
     def entity_id(self):
         if self.entity_type is not None:
             entity_name = self.entity_type.name.lower()
-            id_key = f"{entity_name}_id"
-            return getattr(self, id_key, None)
-
+            return getattr(self, f"{entity_name}_id", None)
         return None
+
+    def __getitem__(self, key):
+        return self.dict()[key]
+
+    def __iter__(self):
+        return iter(self.dict())
+
+    def __len__(self):
+        return len(self.dict())
