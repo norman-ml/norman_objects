@@ -1,12 +1,12 @@
 from datetime import datetime
-
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.sensitive.sensitive_type import SensitiveType
 from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
 class StandardMessage(NormanBaseModel):
-    access_token: str = ""
+    access_token: SensitiveType(str) = ""
 
     update_time: datetime
     entity_type: EntityType
