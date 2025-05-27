@@ -39,3 +39,13 @@ class StandardMessage(NormanBaseModel):
 
         return None
 
+    # Mapping interface implementation
+    def __getitem__(self, key):
+        return self.dict()[key]
+
+    def __iter__(self):
+        return iter(self.dict())
+
+    def __len__(self):
+        return len(self.dict())
+
