@@ -1,14 +1,14 @@
-rom collections.abc from datetime import datetime
+from collections.abc import Mapping
+from datetime import datetime
 
-import Mapping
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.sensitive.sensitive import Sensitive
 from norman_objects.sensitive.sensitive_type import SensitiveType
 from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
 class StandardMessage(NormanBaseModel, Mapping):
-    # ──────────────────  data fields  ──────────────────
     access_token: SensitiveType(str) = ""
 
     update_time: datetime
@@ -32,6 +32,11 @@ class StandardMessage(NormanBaseModel, Mapping):
 
     flag_name: str
     flag_value: StatusFlagValue
+
+    class Config:
+        json_encoders = {
+            Sensitive: lambda v: str(v)
+        }
 
     @property
     def entity_id(self):
