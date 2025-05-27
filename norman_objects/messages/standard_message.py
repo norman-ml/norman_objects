@@ -42,7 +42,8 @@ class StandardMessage(NormanBaseModel, Mapping):
     def entity_id(self):
         if self.entity_type is not None:
             entity_name = self.entity_type.name.lower()
-            return getattr(self, f"{entity_name}_id", None)
+            id_key = f"{entity_name}_id"
+            return getattr(self, id_key, None)
         return None
 
     def __getitem__(self, key):
