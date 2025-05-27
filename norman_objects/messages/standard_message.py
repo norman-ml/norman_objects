@@ -1,14 +1,12 @@
-from collections.abc import Mapping
 from datetime import datetime
 
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.sensitive.sensitive import Sensitive
 from norman_objects.sensitive.sensitive_type import SensitiveType
 from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
-class StandardMessage(NormanBaseModel, Mapping):
+class StandardMessage(NormanBaseModel):
     access_token: SensitiveType(str) = ""
 
     update_time: datetime
@@ -41,12 +39,3 @@ class StandardMessage(NormanBaseModel, Mapping):
             return getattr(self, id_key, None)
 
         return None
-
-    def __getitem__(self, key):
-        return self.dict()[key]
-
-    def __iter__(self):
-        return iter(self.dict())
-
-    def __len__(self):
-        return len(self.dict())
