@@ -23,6 +23,7 @@ class Model(NormanBaseModel):
     output_format: OutputFormat
     short_description: str
     long_description: str
+    version: str
 
     inputs: List[ModelSignature] = []
     outputs: List[ModelSignature] = []
