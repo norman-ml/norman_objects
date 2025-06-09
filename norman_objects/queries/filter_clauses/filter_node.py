@@ -1,4 +1,4 @@
-from typing import List, Union, Set
+from typing import Dict, List, Union, Set
 
 from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.parameterization_type import ParameterizationType
@@ -12,12 +12,17 @@ class FilterNode(BaseModel):
     operator: BinaryRelation
     value: Union[str, List[Union[str, int, float]]]
 
-    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
-        table_valid = self.validate_table(allowed_tables)
-        column_valid = self.validate_column(allowed_columns)
-        type_valid = self.validate_type()
+    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
+        if self.table not in allowed_tables_and_columns:
+            return False
 
-        return table_valid and column_valid and type_valid
+        if self.column not in allowed_tables_and_columns[self.table]:
+            return False
+
+        if not self.validate_type():
+            return False
+
+        return True
 
     def validate_table(self, allowed_tables: Set[str]):
         return self.table in allowed_tables

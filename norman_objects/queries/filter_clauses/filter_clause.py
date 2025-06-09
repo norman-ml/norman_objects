@@ -1,4 +1,4 @@
-from typing import List, Union, Set
+from typing import Dict, List, Union, Set
 
 from norman_objects.queries.filter_clauses.filter_node import FilterNode
 from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
@@ -11,9 +11,9 @@ class FilterClause(BaseModel):
     join_condition: UnaryRelation
     children: List[Union["FilterClause", FilterNode]]
 
-    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
+    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         for child_node in self.children:
-            if not child_node.validate_expression(allowed_tables, allowed_columns):
+            if not child_node.validate_expression(allowed_tables_and_columns):
                 return False
 
         return True
