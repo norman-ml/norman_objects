@@ -36,7 +36,7 @@ class QueryConstraints(BaseModel):
         elif parameterization_type == ParameterizationType.DICT_BASED:
             clause, parameters = self.build_expression_as_dict(parameterization_type, transforms)
         else:
-            raise ValueError(f"Unsupported parameterization type")
+            raise ValueError("Unsupported parameterization type")
 
         joint_query = f" {base_query} {clause} "
         return joint_query, parameters

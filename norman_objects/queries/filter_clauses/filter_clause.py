@@ -24,7 +24,7 @@ class FilterClause(BaseModel):
         elif parameterization_type == ParameterizationType.DICT_BASED:
             clause, parameters = self.build_expression_as_dict(parameterization_type, transforms)
         else:
-            raise ValueError(f"Unsupported parameterization type")
+            raise ValueError("Unsupported parameterization type")
 
         return clause, parameters
 
