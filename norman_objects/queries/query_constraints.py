@@ -1,10 +1,12 @@
-from typing import Dict, Optional, Set
+from typing import Dict, List, Optional, Set
+
+from pydantic import BaseModel
 
 from norman_objects.queries.filter_clauses.filter_clause import FilterClause
 from norman_objects.queries.page_clauses.page_clause import PageClause
 from norman_objects.queries.parameterization_type import ParameterizationType
 from norman_objects.queries.sort_clauses.sort_clause import SortClause
-from pydantic import BaseModel
+from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
 
 
 class QueryConstraints(BaseModel):
@@ -30,7 +32,7 @@ class QueryConstraints(BaseModel):
         if not constraint_valid:
             raise ValueError("Invalid column names in constraints.")
 
-    def build_expression(self, base_query: str, parameterization_type: ParameterizationType, transforms):
+    def build_expression(self, base_query: str, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(parameterization_type, transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
@@ -41,7 +43,7 @@ class QueryConstraints(BaseModel):
         joint_query = f" {base_query} {clause} "
         return joint_query, parameters
 
-    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms):
+    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
         child_clauses = []
         child_parameters = []
 
@@ -62,7 +64,7 @@ class QueryConstraints(BaseModel):
         clause = " ".join(child_clauses)
         return clause, child_parameters
 
-    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms):
+    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
         child_clauses = []
         child_parameters = {}
 
