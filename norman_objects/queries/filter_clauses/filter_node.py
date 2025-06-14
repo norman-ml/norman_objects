@@ -35,7 +35,7 @@ class FilterNode(BaseModel):
             return isinstance(self.value, list)
         return isinstance(self.value, (str, int, float))
 
-    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
@@ -45,7 +45,7 @@ class FilterNode(BaseModel):
 
         return clause, parameters
 
-    def build_expression_as_list(self, transforms: List[ConstraintTransform]):
+    def build_expression_as_list(self, transforms: List[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
             collection_placeholders = ["%s"] * len(self.value)
             interpolation_placeholder = f"({', '.join(collection_placeholders)})"
@@ -61,9 +61,9 @@ class FilterNode(BaseModel):
         clause = f" {self.table}.{self.column} {self.operator.value} {interpolation_placeholder} "
         return clause, parameters
 
-    def build_expression_as_dict(self, transforms: List[ConstraintTransform]):
+    def build_expression_as_dict(self, transforms: List[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
-            raise ValueError(f"Collection operators not supported with dict parameterization")
+            raise ValueError("Collection operators not supported with dict parameterization")
 
         interpolation_placeholder = f" %({self.table}.{self.column})s "
         clause = f" {self.table}.{self.column} {self.operator.value} {interpolation_placeholder} "
@@ -75,7 +75,10 @@ class FilterNode(BaseModel):
 
         return clause, parameters
 
-    def transform(self, transforms: List[ConstraintTransform]):
+    def transform(self, transforms: List[ConstraintTransform] = None):
+        if transforms is None:
+            return self.value
+
         for transform in transforms:
             if transform.column_name == self.column:
                 if isinstance(self.value, list):

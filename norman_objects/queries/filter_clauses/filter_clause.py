@@ -18,7 +18,7 @@ class FilterClause(BaseModel):
 
         return True
 
-    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(parameterization_type, transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
@@ -28,7 +28,7 @@ class FilterClause(BaseModel):
 
         return clause, parameters
 
-    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         clauses = []
         parameters = []
 
@@ -40,7 +40,7 @@ class FilterClause(BaseModel):
         joint_expression = f" {self.join_condition.value} ".join(clauses)
         return joint_expression, parameters
 
-    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         clauses = []
         parameters = {}
 

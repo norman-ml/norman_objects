@@ -32,7 +32,7 @@ class QueryConstraints(BaseModel):
         if not constraint_valid:
             raise ValueError("Invalid column names in constraints.")
 
-    def build_expression(self, base_query: str, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression(self, base_query: str, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(parameterization_type, transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
@@ -43,7 +43,7 @@ class QueryConstraints(BaseModel):
         joint_query = f" {base_query} {clause} "
         return joint_query, parameters
 
-    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         child_clauses = []
         child_parameters = []
 
@@ -64,7 +64,7 @@ class QueryConstraints(BaseModel):
         clause = " ".join(child_clauses)
         return clause, child_parameters
 
-    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         child_clauses = []
         child_parameters = {}
 
