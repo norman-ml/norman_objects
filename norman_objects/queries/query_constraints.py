@@ -14,6 +14,18 @@ class QueryConstraints(BaseModel):
     sort: Optional[SortClause] = None
     page: Optional[PageClause] = None
 
+    @classmethod
+    def equals(cls, table_name: str, column_name: str, value):
+        return cls(
+            filter=FilterClause.equals(table_name, column_name, value)
+        )
+
+    @classmethod
+    def matches(cls, table_name: str, column_name, value: str):
+        return cls(
+            filter=FilterClause.matches(table_name, column_name, value)
+        )
+
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         constraint_valid = True
 

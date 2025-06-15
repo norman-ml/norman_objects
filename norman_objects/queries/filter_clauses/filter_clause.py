@@ -1,6 +1,7 @@
 from typing import Dict, List, Union, Set
 
 from norman_objects.queries.filter_clauses.filter_node import FilterNode
+from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
 from norman_objects.queries.parameterization_type import ParameterizationType
 from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
@@ -8,8 +9,34 @@ from pydantic import BaseModel
 
 
 class FilterClause(BaseModel):
-    join_condition: UnaryRelation
+    join_condition: UnaryRelation = UnaryRelation.AND
     children: List[Union["FilterClause", FilterNode]]
+
+    @classmethod
+    def equals(cls, table_name: str, column_name: str, value):
+        return cls(
+            children=[
+                FilterNode(
+                    table=table_name,
+                    column=column_name,
+                    value=value
+                )
+            ]
+        )
+
+    @classmethod
+    def matches(cls, table_name: str, column_name, value: str):
+        return cls(
+            join_condition=UnaryRelation.OR,
+            children=[
+                FilterNode(
+                    table=table_name,
+                    column=column_name,
+                    operator=BinaryRelation.IN,
+                    value=value
+                )
+            ]
+        )
 
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         for child_node in self.children:

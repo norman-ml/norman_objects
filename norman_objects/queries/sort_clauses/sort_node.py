@@ -6,8 +6,8 @@ from pydantic import BaseModel
 
 class SortNode(BaseModel):
     table: str
-    column: str
-    direction: SortDirection
+    column: str = "ID"
+    direction: SortDirection = SortDirection.ASC
 
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         if self.table not in allowed_tables_and_columns:

@@ -8,8 +8,8 @@ from pydantic import BaseModel
 
 class FilterNode(BaseModel):
     table: str
-    column: str
-    operator: BinaryRelation
+    column: str = "ID"
+    operator: BinaryRelation = BinaryRelation.EQ
     value: Union[str, List[Union[str, int, float]]]
 
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
