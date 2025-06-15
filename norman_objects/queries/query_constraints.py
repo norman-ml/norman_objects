@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Union
 
 from pydantic import BaseModel
 
@@ -21,7 +21,7 @@ class QueryConstraints(BaseModel):
         )
 
     @classmethod
-    def matches(cls, table_name: str, column_name, value: str):
+    def matches(cls, table_name: str, column_name, value: List[Union[str, int, float]]):
         return cls(
             filter=FilterClause.matches(table_name, column_name, value)
         )

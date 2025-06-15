@@ -25,7 +25,7 @@ class FilterClause(BaseModel):
         )
 
     @classmethod
-    def matches(cls, table_name: str, column_name, value: str):
+    def matches(cls, table_name: str, column_name, value: List[Union[str, int, float]]):
         return cls(
             join_condition=UnaryRelation.OR,
             children=[
