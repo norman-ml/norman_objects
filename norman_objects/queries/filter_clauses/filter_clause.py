@@ -13,25 +13,25 @@ class FilterClause(BaseModel):
     children: List[Union["FilterClause", FilterNode]]
 
     @classmethod
-    def equals(cls, table_name: str, column_name: str, value):
+    def equals(cls, table: str, column: str, value):
         return cls(
             children=[
                 FilterNode(
-                    table=table_name,
-                    column=column_name,
+                    table=table,
+                    column=column,
                     value=value
                 )
             ]
         )
 
     @classmethod
-    def matches(cls, table_name: str, column_name, value: List[Union[str, int, float]]):
+    def matches(cls, table: str, column, value: List[Union[str, int, float]]):
         return cls(
             join_condition=UnaryRelation.OR,
             children=[
                 FilterNode(
-                    table=table_name,
-                    column=column_name,
+                    table=table,
+                    column=column,
                     operator=BinaryRelation.IN,
                     value=value
                 )

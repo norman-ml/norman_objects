@@ -15,15 +15,15 @@ class QueryConstraints(BaseModel):
     page: Optional[PageClause] = None
 
     @classmethod
-    def equals(cls, table_name: str, column_name: str, value):
+    def equals(cls, table: str, column: str, value):
         return cls(
-            filter=FilterClause.equals(table_name, column_name, value)
+            filter=FilterClause.equals(table, column, value)
         )
 
     @classmethod
-    def matches(cls, table_name: str, column_name, value: List[Union[str, int, float]]):
+    def matches(cls, table: str, column, value: List[Union[str, int, float]]):
         return cls(
-            filter=FilterClause.matches(table_name, column_name, value)
+            filter=FilterClause.matches(table, column, value)
         )
 
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
