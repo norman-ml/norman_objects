@@ -15,13 +15,13 @@ class QueryConstraints(BaseModel):
     page: Optional[PageClause] = None
 
     @classmethod
-    def equals(cls, table: str, column: str, value):
+    def equals(cls, table: str, column: str = "ID", value = None):
         return cls(
             filter=FilterClause.equals(table, column, value)
         )
 
     @classmethod
-    def matches(cls, table: str, column, value: List[Union[str, int, float]]):
+    def matches(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
         return cls(
             filter=FilterClause.matches(table, column, value)
         )

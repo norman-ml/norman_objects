@@ -13,7 +13,10 @@ class FilterClause(BaseModel):
     children: List[Union["FilterClause", FilterNode]]
 
     @classmethod
-    def equals(cls, table: str, column: str, value):
+    def equals(cls, table: str, column: str = "ID", value = None):
+        if value is None:
+            raise ValueError("Filter clause value cannot be None")
+
         return cls(
             children=[
                 FilterNode(
@@ -25,7 +28,13 @@ class FilterClause(BaseModel):
         )
 
     @classmethod
-    def matches(cls, table: str, column, value: List[Union[str, int, float]]):
+    def matches(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
+        if value is None:
+            raise ValueError("Filter clause value cannot be None")
+
+        if len(value) <= 0:
+            raise ValueError("Filter clause value cannot be an empty list")
+
         return cls(
             join_condition=UnaryRelation.OR,
             children=[
