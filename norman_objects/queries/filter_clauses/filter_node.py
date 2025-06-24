@@ -24,12 +24,6 @@ class FilterNode(BaseModel):
 
         return True
 
-    def validate_table(self, allowed_tables: Set[str]):
-        return self.table in allowed_tables
-
-    def validate_column(self, allowed_columns: Set[str]):
-        return self.column in allowed_columns
-
     def validate_type(self):
         if self.operator in (BinaryRelation.IN, BinaryRelation.NIN):
             return isinstance(self.value, list)
