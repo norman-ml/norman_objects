@@ -1,6 +1,7 @@
-from typing import List, Union, Set
+from typing import Dict, List, Union, Set
 
 from norman_objects.queries.filter_clauses.filter_node import FilterNode
+from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
 from norman_objects.queries.parameterization_type import ParameterizationType
 from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
@@ -8,27 +9,62 @@ from pydantic import BaseModel
 
 
 class FilterClause(BaseModel):
-    join_condition: UnaryRelation
+    join_condition: UnaryRelation = UnaryRelation.AND
     children: List[Union["FilterClause", FilterNode]]
 
-    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
+    @classmethod
+    def equals(cls, table: str, column: str = "ID", value = None):
+        if value is None:
+            raise ValueError("Filter clause value cannot be None")
+
+        return cls(
+            children=[
+                FilterNode(
+                    table=table,
+                    column=column,
+                    value=value
+                )
+            ]
+        )
+
+    @classmethod
+    def matches(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
+        if value is None:
+            raise ValueError("Filter clause value cannot be None")
+
+        if len(value) <= 0:
+            raise ValueError("Filter clause value cannot be an empty list")
+
+        return cls(
+            join_condition=UnaryRelation.OR,
+            children=[
+                FilterNode(
+                    table=table,
+                    column=column,
+                    operator=BinaryRelation.IN,
+                    value=value
+                )
+            ]
+        )
+
+    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         for child_node in self.children:
-            if not child_node.validate_expression(allowed_tables, allowed_columns):
+            if not child_node.validate_expression(allowed_tables_and_columns):
                 return False
 
         return True
 
-    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(parameterization_type, transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
             clause, parameters = self.build_expression_as_dict(parameterization_type, transforms)
         else:
-            raise ValueError(f"Unsupported parameterization type")
+            raise ValueError("Unsupported parameterization type")
 
         return clause, parameters
 
-    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         clauses = []
         parameters = []
 
@@ -40,7 +76,7 @@ class FilterClause(BaseModel):
         joint_expression = f" {self.join_condition.value} ".join(clauses)
         return joint_expression, parameters
 
-    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         clauses = []
         parameters = {}
 

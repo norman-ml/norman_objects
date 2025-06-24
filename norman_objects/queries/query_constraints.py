@@ -1,10 +1,12 @@
-from typing import Optional, Set
+from typing import Dict, List, Optional, Set, Union
+
+from pydantic import BaseModel
 
 from norman_objects.queries.filter_clauses.filter_clause import FilterClause
 from norman_objects.queries.page_clauses.page_clause import PageClause
 from norman_objects.queries.parameterization_type import ParameterizationType
 from norman_objects.queries.sort_clauses.sort_clause import SortClause
-from pydantic import BaseModel
+from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
 
 
 class QueryConstraints(BaseModel):
@@ -12,15 +14,27 @@ class QueryConstraints(BaseModel):
     sort: Optional[SortClause] = None
     page: Optional[PageClause] = None
 
-    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
+    @classmethod
+    def equals(cls, table: str, column: str = "ID", value = None):
+        return cls(
+            filter=FilterClause.equals(table, column, value)
+        )
+
+    @classmethod
+    def matches(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
+        return cls(
+            filter=FilterClause.matches(table, column, value)
+        )
+
+    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         constraint_valid = True
 
         if self.filter is not None:
-            filter_valid = self.filter.validate_expression(allowed_tables, allowed_columns)
+            filter_valid = self.filter.validate_expression(allowed_tables_and_columns)
             constraint_valid = constraint_valid and filter_valid
 
         if self.sort is not None:
-            sort_valid = self.sort.validate_expression(allowed_tables, allowed_columns)
+            sort_valid = self.sort.validate_expression(allowed_tables_and_columns)
             constraint_valid = constraint_valid and sort_valid
 
         if self.page is not None:
@@ -30,18 +44,18 @@ class QueryConstraints(BaseModel):
         if not constraint_valid:
             raise ValueError("Invalid column names in constraints.")
 
-    def build_expression(self, base_query: str, parameterization_type: ParameterizationType, transforms):
+    def build_expression(self, base_query: str, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(parameterization_type, transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
             clause, parameters = self.build_expression_as_dict(parameterization_type, transforms)
         else:
-            raise ValueError(f"Unsupported parameterization type")
+            raise ValueError("Unsupported parameterization type")
 
         joint_query = f" {base_query} {clause} "
         return joint_query, parameters
 
-    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms):
+    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         child_clauses = []
         child_parameters = []
 
@@ -62,7 +76,7 @@ class QueryConstraints(BaseModel):
         clause = " ".join(child_clauses)
         return clause, child_parameters
 
-    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms):
+    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         child_clauses = []
         child_parameters = {}
 

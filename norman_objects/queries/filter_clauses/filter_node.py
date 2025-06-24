@@ -1,4 +1,4 @@
-from typing import List, Union, Set
+from typing import Dict, List, Union, Set
 
 from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.parameterization_type import ParameterizationType
@@ -8,39 +8,38 @@ from pydantic import BaseModel
 
 class FilterNode(BaseModel):
     table: str
-    column: str
-    operator: BinaryRelation
+    column: str = "ID"
+    operator: BinaryRelation = BinaryRelation.EQ
     value: Union[str, List[Union[str, int, float]]]
 
-    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
-        table_valid = self.validate_table(allowed_tables)
-        column_valid = self.validate_column(allowed_columns)
-        type_valid = self.validate_type()
+    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
+        if self.table not in allowed_tables_and_columns:
+            return False
 
-        return table_valid and column_valid and type_valid
+        if self.column not in allowed_tables_and_columns[self.table]:
+            return False
 
-    def validate_table(self, allowed_tables: Set[str]):
-        return self.table in allowed_tables
+        if not self.validate_type():
+            return False
 
-    def validate_column(self, allowed_columns: Set[str]):
-        return self.column in allowed_columns
+        return True
 
     def validate_type(self):
         if self.operator in (BinaryRelation.IN, BinaryRelation.NIN):
             return isinstance(self.value, list)
         return isinstance(self.value, (str, int, float))
 
-    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform]):
+    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
             clause, parameters = self.build_expression_as_dict(transforms)
         else:
-            raise ValueError(f"Unsupported parameterization type")
+            raise ValueError("Unsupported parameterization type")
 
         return clause, parameters
 
-    def build_expression_as_list(self, transforms: List[ConstraintTransform]):
+    def build_expression_as_list(self, transforms: List[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
             collection_placeholders = ["%s"] * len(self.value)
             interpolation_placeholder = f"({', '.join(collection_placeholders)})"
@@ -56,9 +55,9 @@ class FilterNode(BaseModel):
         clause = f" {self.table}.{self.column} {self.operator.value} {interpolation_placeholder} "
         return clause, parameters
 
-    def build_expression_as_dict(self, transforms: List[ConstraintTransform]):
+    def build_expression_as_dict(self, transforms: List[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
-            raise ValueError(f"Collection operators not supported with dict parameterization")
+            raise ValueError("Collection operators not supported with dict parameterization")
 
         interpolation_placeholder = f" %({self.table}.{self.column})s "
         clause = f" {self.table}.{self.column} {self.operator.value} {interpolation_placeholder} "
@@ -70,7 +69,10 @@ class FilterNode(BaseModel):
 
         return clause, parameters
 
-    def transform(self, transforms: List[ConstraintTransform]):
+    def transform(self, transforms: List[ConstraintTransform] = None):
+        if transforms is None:
+            return self.value
+
         for transform in transforms:
             if transform.column_name == self.column:
                 if isinstance(self.value, list):

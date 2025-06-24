@@ -1,4 +1,4 @@
-from typing import List, Set
+from typing import Dict, List, Set
 
 from norman_objects.queries.sort_clauses.sort_node import SortNode
 from pydantic import BaseModel
@@ -7,9 +7,9 @@ from pydantic import BaseModel
 class SortClause(BaseModel):
     children: List[SortNode]
 
-    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
+    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         for child_node in self.children:
-            if not child_node.validate_expression(allowed_tables, allowed_columns):
+            if not child_node.validate_expression(allowed_tables_and_columns):
                 return False
 
         return True

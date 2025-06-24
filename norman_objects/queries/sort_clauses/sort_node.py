@@ -1,4 +1,4 @@
-from typing import Set
+from typing import Dict, Set
 
 from norman_objects.queries.sort_clauses.sort_direction import SortDirection
 from pydantic import BaseModel
@@ -6,14 +6,17 @@ from pydantic import BaseModel
 
 class SortNode(BaseModel):
     table: str
-    column: str
-    direction: SortDirection
+    column: str = "ID"
+    direction: SortDirection = SortDirection.ASC
 
-    def validate_expression(self, allowed_tables: Set[str], allowed_columns: Set[str]):
-        table_valid = self.table in allowed_tables
-        column_valid = self.column in allowed_columns
+    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
+        if self.table not in allowed_tables_and_columns:
+            return False
 
-        return table_valid and column_valid
+        if self.column not in allowed_tables_and_columns[self.table]:
+            return False
+
+        return True
 
     def build_expression(self):
         return f" {self.table}.{self.column} {self.direction.value} "
