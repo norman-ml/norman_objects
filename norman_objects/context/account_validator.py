@@ -1,6 +1,6 @@
 from contextlib import ContextDecorator
+
 from norman_objects.context.context_tokens import NormanContext
-from norman_objects.exceptions.unauthorized_exception import UnauthorizedException
 from norman_utils.cloud.cognito_utils import CognitoUtils
 
 
@@ -19,7 +19,7 @@ class AccountValidator(ContextDecorator):
             token_account_id = raw_decoded_token.get("cognito:username")
 
         if token_account_id != self.expected_account_id:
-            raise UnauthorizedException("Account ID mismatch. Access denied.")
+            raise PermissionError("Account ID mismatch. Access denied.")
 
         return self.expected_account_id
 
