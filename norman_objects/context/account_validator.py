@@ -11,8 +11,6 @@ class AccountValidator(ContextDecorator):
 
     def __enter__(self):
         decoded_token = NormanContext.decoded_access_token.get(None)
-        print("here")
-        print(decoded_token)
         if decoded_token is not None:
             token_account_id = decoded_token.get("cognito:username")
         else:
