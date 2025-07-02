@@ -1,3 +1,4 @@
+import asyncio
 import os
 from contextlib import ContextDecorator
 from typing import IO, Any
@@ -80,7 +81,16 @@ class SecureFileAccess(ContextDecorator):
         self._file = open(self.path, self.mode, **self.open_kwargs)
         return self._file
 
+    async def __aenter__(self):
+        result = self.__enter__()
+        if asyncio.iscoroutine(result):
+            return await result
+        return result
+
     def __exit__(self, exc_type, exc_val, exc_tb):
         if self._file:
             self._file.close()
         return False
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        return self.__exit__(exc_type, exc_val, exc_tb)
