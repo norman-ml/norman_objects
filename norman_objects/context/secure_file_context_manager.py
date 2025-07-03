@@ -5,47 +5,39 @@ from norman_objects.context.context_tokens import NormanContext
 
 
 class SecureFileContextManager:
-    def __init__(self, expected_account_id:str , path: str, open_file_context_manager: Callable = None, *args, **kwargs):
-        self.expected_account_id = expected_account_id
+    def __init__(self, account_id: str, path: str, file_method: Callable = None, *args, **kwargs):
+        self.account_id = account_id
         self.path = path
 
-        if open_file_context_manager is None:
-            open_file_context_manager = open
+        self.file_method = file_method
+        self.file_method_args = args
+        self.file_method_kwargs = kwargs
 
-        self.open_file_context_manager = open_file_context_manager
-        self.method_args = args
-        self.method_kwargs = kwargs
+        self.file_handler = None
 
     def __enter__(self):
-        self.__security_checks()
-        # keep a reference so we can close it later
-        self._handle = self.open_file_context_manager(
-            self.path, *self.method_args, **self.method_kwargs
-        )
-        return self._handle
+        self.security_checks()
 
+        if self.file_method is not None:
+            self.file_handler = self.file_method(self.path, *self.file_method_args, **self.file_method_kwargs)
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        """
-        exc_type, exc_val, exc_tb are required by the CM protocol.
-        We close the file if it was opened and propagate any exception
-        that occurred inside the with-block (return False).
-        """
-        if getattr(self, "_handle", None):
+        return self.file_handler
+
+    def __exit__(self, exc_type, exc_val, exc_tb):      # △ protocol signature
+        if self.file_handler and callable(getattr(self.file_handler, "close", None)):  # △
             try:
-                self._handle.close()
+                self.file_handler.close()
             except Exception:
-                # log or ignore – but don’t hide the original error
                 pass
-        return False    # re-raise exceptions from the with-block
+        return False
 
-    def __security_checks(self):
+    def security_checks(self):
         decoded_token = NormanContext.decoded_access_token.get(None)
         if decoded_token is None or not isinstance(decoded_token.value(), dict):
             raise ValueError("Cannot validate account without a proper access token")
 
         token_account_id = decoded_token.value().get("cognito:username")
-        if token_account_id != self.expected_account_id:
+        if token_account_id != self.account_id:
             raise PermissionError("Account ID mismatch. Access denied.")
 
         segments = os.path.normpath(self.path).split(os.sep)
@@ -62,8 +54,8 @@ class SecureFileContextManager:
                 f"File path {self.path!r} does not conform to expected 5-segment structure"
             )
 
-        if account_id_segment != self.expected_account_id:
+        if account_id_segment != self.account_id:
             raise PermissionError(
                 f"Path account segment {account_id_segment!r} does not match "
-                f"expected account ID {self.expected_account_id!r}"
+                f"expected account ID {self.account_id!r}"
             )
