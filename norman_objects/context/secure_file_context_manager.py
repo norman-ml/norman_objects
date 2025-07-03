@@ -5,31 +5,17 @@ from norman_objects.context.context_tokens import NormanContext
 
 
 class SecureFileContextManager:
-    def __init__(self, account_id: str, path: str, file_method: Callable = None, *args, **kwargs):
+    def __init__(self, account_id: str, path: str):
         self.account_id = account_id
         self.path = path
-
-        self.file_method = file_method
-        self.file_method_args = args
-        self.file_method_kwargs = kwargs
 
         self.file_handler = None
 
     def __enter__(self):
         self.security_checks()
 
-        if self.file_method is not None:
-            self.file_handler = self.file_method(self.path, *self.file_method_args, **self.file_method_kwargs)
-
-        return self.file_handler
-
-    def __exit__(self, exc_type, exc_val, exc_tb):      # △ protocol signature
-        if self.file_handler and callable(getattr(self.file_handler, "close", None)):  # △
-            try:
-                self.file_handler.close()
-            except Exception:
-                pass
-        return False
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass
 
     def security_checks(self):
         decoded_token = NormanContext.decoded_access_token.get(None)
