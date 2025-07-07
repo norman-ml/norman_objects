@@ -2,7 +2,6 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.notifications.severity import Severity
 from pydantic import Field
 
 class Notification(NormanBaseModel):
@@ -14,7 +13,7 @@ class Notification(NormanBaseModel):
     message: str
     read_status: int
     severity: Severity
-
+    notification_type: NotificationType
 
 
 
