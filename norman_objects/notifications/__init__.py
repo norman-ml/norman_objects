@@ -1,2 +1,5 @@
+import norman_objects.notifications.invocation_notification
+import norman_objects.notifications.model_notification
 import norman_objects.notifications.notification
+import norman_objects.notifications.notification_type
 import norman_objects.notifications.severity
