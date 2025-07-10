@@ -6,8 +6,6 @@ class SecureBucketContextManager:
         self.account_id = account_id
         self.key = key
 
-        self.file_handler = None
-
     def __enter__(self):
         self.security_checks()
 
