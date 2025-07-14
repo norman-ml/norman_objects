@@ -12,6 +12,7 @@ class Notification(NormanBaseModel):
     entity_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     title: str
+    model_name: Optional[str] = None
     message: str
     read_status: int
     severity: Severity
