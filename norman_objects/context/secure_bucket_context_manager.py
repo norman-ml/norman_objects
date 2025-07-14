@@ -2,9 +2,9 @@ from norman_objects.context.context_tokens import NormanContext
 
 
 class SecureBucketContextManager:
-    def __init__(self, account_id: str, key: str):
+    def __init__(self, account_id: str, bucket_key: str):
         self.account_id = account_id
-        self.key = key
+        self.bucket_key = bucket_key
 
     def __enter__(self):
         self.security_checks()
@@ -21,7 +21,7 @@ class SecureBucketContextManager:
         if token_account_id != self.account_id:
             raise PermissionError("Account ID mismatch. Access denied.")
 
-        segments = self.key.strip("/").split("/")
+        segments = self.bucket_key.strip("/").split("/")
         account_id_segment = segments[0]
 
         if account_id_segment != self.account_id:
