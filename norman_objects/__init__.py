@@ -15,3 +15,4 @@ import norman_objects.requests
 import norman_objects.sensitive
 import norman_objects.signatures
 import norman_objects.status_flags
+import norman_objects.tags
