@@ -13,7 +13,7 @@ from pydantic import Field
 class VersionInfo(NormanBaseModel):
     version: str
     version_id: str
-    created_at: datetime
+    creation_time: datetime
 
 class Model(NormanBaseModel):
     id: str = "0"
