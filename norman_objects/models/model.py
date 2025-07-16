@@ -28,7 +28,7 @@ class Model(NormanBaseModel):
     output_format: OutputFormat
     short_description: str
     long_description: str
-    version: str
+    version: str = "1.0.0"
     version_list: List[VersionInfo] = []
 
     inputs: List[ModelSignature] = []
