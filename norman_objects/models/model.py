@@ -10,9 +10,14 @@ from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.signatures.model_signature import ModelSignature
 from pydantic import Field
 
+class VersionInfo(NormanBaseModel):
+    version: str
+    version_id: str
+    created_at: datetime
 
 class Model(NormanBaseModel):
     id: str = "0"
+    base_id: str = "0"
     account_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     name: str
@@ -24,6 +29,7 @@ class Model(NormanBaseModel):
     short_description: str
     long_description: str
     version: str
+    version_list: List[VersionInfo] = []
 
     inputs: List[ModelSignature] = []
     outputs: List[ModelSignature] = []
