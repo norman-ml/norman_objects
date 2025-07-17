@@ -47,6 +47,15 @@ class FilterClause(BaseModel):
             ]
         )
 
+    def __and__(self, other):
+        if not isinstance(other, FilterClause):
+            raise ValueError("Logical AND is only supported between two filter clauses")
+
+        return FilterClause(
+            join_condition=UnaryRelation.AND,
+            children = [*self.children, *other.children]
+        )
+
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         for child_node in self.children:
             if not child_node.validate_expression(allowed_tables_and_columns):

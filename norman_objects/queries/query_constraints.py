@@ -27,6 +27,16 @@ class QueryConstraints(BaseModel):
             filter=FilterClause.matches(table, column, value)
         )
 
+    def __and__(self, other):
+        if not isinstance(other, QueryConstraints):
+            raise ValueError("Logical AND is only supported between two query constraints")
+
+        return QueryConstraints(
+            filter=self.filter & other.filter,
+            sort=self.sort & other.sort,
+            page=other.page
+        )
+
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
         constraint_valid = True
 
@@ -97,29 +107,3 @@ class QueryConstraints(BaseModel):
 
         clause = " ".join(child_clauses)
         return clause, child_parameters
-
-    def __and__(self, other):
-        new_filter: FilterClause
-
-        if isinstance(other, FilterNode):
-            other_filter = FilterClause(join_condition=UnaryRelation.AND, children=[other])
-        elif isinstance(other, FilterClause):
-            other_filter = other
-        elif isinstance(other, QueryConstraints):
-            other_filter = other.filter
-        else:
-            raise TypeError("Unsupported type for AND operation with QueryConstraints")
-
-        if self.filter is None:
-            new_filter = other_filter
-        else:
-            new_filter = FilterClause(
-                join_condition=UnaryRelation.AND,
-                children=[self.filter, other_filter]
-            )
-
-        return QueryConstraints(
-            filter=new_filter,
-            sort=self.sort,
-            page=self.page
-        )
