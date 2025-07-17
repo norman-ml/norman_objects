@@ -6,4 +6,3 @@ class Severity(str, Enum):
     Info = "Info"
     Success = "Success"
     Warning = "Warning"
-
