@@ -1,12 +1,13 @@
 from typing import Dict, List, Optional, Set, Union
 
-from pydantic import BaseModel
-
 from norman_objects.queries.filter_clauses.filter_clause import FilterClause
+from norman_objects.queries.filter_clauses.filter_node import FilterNode
+from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
 from norman_objects.queries.page_clauses.page_clause import PageClause
 from norman_objects.queries.parameterization_type import ParameterizationType
 from norman_objects.queries.sort_clauses.sort_clause import SortClause
 from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
+from pydantic import BaseModel
 
 
 class QueryConstraints(BaseModel):
@@ -96,3 +97,29 @@ class QueryConstraints(BaseModel):
 
         clause = " ".join(child_clauses)
         return clause, child_parameters
+
+    def __and__(self, other):
+        new_filter: FilterClause
+
+        if isinstance(other, FilterNode):
+            other_filter = FilterClause(join_condition=UnaryRelation.AND, children=[other])
+        elif isinstance(other, FilterClause):
+            other_filter = other
+        elif isinstance(other, QueryConstraints):
+            other_filter = other.filter
+        else:
+            raise TypeError("Unsupported type for AND operation with QueryConstraints")
+
+        if self.filter is None:
+            new_filter = other_filter
+        else:
+            new_filter = FilterClause(
+                join_condition=UnaryRelation.AND,
+                children=[self.filter, other_filter]
+            )
+
+        return QueryConstraints(
+            filter=new_filter,
+            sort=self.sort,
+            page=self.page
+        )
