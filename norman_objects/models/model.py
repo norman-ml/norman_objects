@@ -13,8 +13,8 @@ from pydantic import Field
 
 class Model(NormanBaseModel):
     id: str = "0"
-    base_id: str = "0"
-    version: str = "1.0.0"
+    model_base_id: str = "0"
+    version_label: str = "1.0.0"
     account_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     name: str
@@ -25,7 +25,7 @@ class Model(NormanBaseModel):
     output_format: OutputFormat
     short_description: str
     long_description: str
-    version_list: List[ModelVersionInfo] = []
+    version_info: List[ModelVersionInfo] = []
 
     inputs: List[ModelSignature] = []
     outputs: List[ModelSignature] = []
