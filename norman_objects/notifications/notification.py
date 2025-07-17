@@ -16,6 +16,3 @@ class Notification(NormanBaseModel):
     message: str
     read_status: int
     severity: Severity
-
-
-
