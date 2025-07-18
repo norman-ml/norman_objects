@@ -31,10 +31,22 @@ class QueryConstraints(BaseModel):
         if not isinstance(other, QueryConstraints):
             raise ValueError("Logical AND is only supported between two query constraints")
 
+        if self.filter is not None and other.filter is not None:
+            combined_filter = self.filter & other.filter
+        else:
+            combined_filter = self.filter or other.filter
+
+        if self.sort is not None and other.sort is not None:
+            combined_sort = self.sort & other.sort
+        else:
+            combined_sort = self.sort or other.sort
+
+        combined_page = self.page or other.page
+
         return QueryConstraints(
-            filter=self.filter & other.filter,
-            sort=self.sort & other.sort,
-            page=other.page
+            filter=combined_filter,
+            sort=combined_sort,
+            page=combined_page
         )
 
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
