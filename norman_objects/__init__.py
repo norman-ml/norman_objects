@@ -1,4 +1,5 @@
 import norman_objects.accounts
+import norman_objects.authentication
 import norman_objects.authorization
 import norman_objects.context
 import norman_objects.functions
