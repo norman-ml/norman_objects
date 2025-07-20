@@ -12,12 +12,14 @@ class Account(NormanBaseModel):
     name: str
     email: Optional[str] = None
     registered: int
+    confirmed: int
 
     @staticmethod
-    def from_signup_request(account_id: str, signup_request: SignupRequest, registered: bool):
+    def from_signup_request(account_id: str, signup_request: SignupRequest, registered: bool, confirmed: bool):
         return Account(
             id=account_id,
             name=signup_request.name,
             email=signup_request.email,
-            registered=registered
+            registered=registered,
+            confirmed=confirmed,
         )
