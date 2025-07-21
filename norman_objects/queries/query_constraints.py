@@ -45,9 +45,7 @@ class QueryConstraints(BaseModel):
         else:
             combined_sort = other.sort
 
-        if self.page is not None and other.page is not None:
-            combined_page = self.page & other.page
-        elif other.page is None:
+        if other.page is None:
             combined_page = self.page
         else:
             combined_page = other.page
