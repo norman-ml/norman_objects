@@ -33,15 +33,24 @@ class QueryConstraints(BaseModel):
 
         if self.filter is not None and other.filter is not None:
             combined_filter = self.filter & other.filter
+        elif other.filter is None:
+            combined_filter = self.filter
         else:
-            combined_filter = self.filter or other.filter
+            combined_filter = other.filter
 
         if self.sort is not None and other.sort is not None:
             combined_sort = self.sort & other.sort
+        elif other.sort is None:
+            combined_sort = self.sort
         else:
-            combined_sort = self.sort or other.sort
+            combined_sort = other.sort
 
-        combined_page = self.page or other.page
+        if self.page is not None and other.page is not None:
+            combined_page = self.page & other.page
+        elif other.page is None:
+            combined_page = self.page
+        else:
+            combined_page = other.page
 
         return QueryConstraints(
             filter=combined_filter,
