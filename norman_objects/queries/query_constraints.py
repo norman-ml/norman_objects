@@ -1,12 +1,13 @@
 from typing import Dict, List, Optional, Set, Union
 
-from pydantic import BaseModel
-
 from norman_objects.queries.filter_clauses.filter_clause import FilterClause
+from norman_objects.queries.filter_clauses.filter_node import FilterNode
+from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
 from norman_objects.queries.page_clauses.page_clause import PageClause
 from norman_objects.queries.parameterization_type import ParameterizationType
 from norman_objects.queries.sort_clauses.sort_clause import SortClause
 from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
+from pydantic import BaseModel
 
 
 class QueryConstraints(BaseModel):
@@ -24,6 +25,35 @@ class QueryConstraints(BaseModel):
     def matches(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
         return cls(
             filter=FilterClause.matches(table, column, value)
+        )
+
+    def __and__(self, other):
+        if not isinstance(other, QueryConstraints):
+            raise ValueError("Logical AND is only supported between two query constraints")
+
+        if self.filter is not None and other.filter is not None:
+            combined_filter = self.filter & other.filter
+        elif other.filter is None:
+            combined_filter = self.filter
+        else:
+            combined_filter = other.filter
+
+        if self.sort is not None and other.sort is not None:
+            combined_sort = self.sort & other.sort
+        elif other.sort is None:
+            combined_sort = self.sort
+        else:
+            combined_sort = other.sort
+
+        if other.page is None:
+            combined_page = self.page
+        else:
+            combined_page = other.page
+
+        return QueryConstraints(
+            filter=combined_filter,
+            sort=combined_sort,
+            page=combined_page
         )
 
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
