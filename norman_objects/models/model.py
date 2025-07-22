@@ -5,7 +5,6 @@ from norman_objects.models.http_request_type import HttpRequestType
 from norman_objects.models.model_asset import ModelAsset
 from norman_objects.models.model_hosting_location import ModelHostingLocation
 from norman_objects.models.model_type import ModelType
-from norman_objects.models.model_version_info import ModelVersionInfo
 from norman_objects.models.output_format import OutputFormat
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.signatures.model_signature import ModelSignature
@@ -25,7 +24,6 @@ class Model(NormanBaseModel):
     output_format: OutputFormat
     short_description: str
     long_description: str
-    version_info: List[ModelVersionInfo] = []
 
     inputs: List[ModelSignature] = []
     outputs: List[ModelSignature] = []
