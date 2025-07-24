@@ -23,3 +23,13 @@ class Account(NormanBaseModel):
             registered=registered,
             confirmed=confirmed,
         )
+
+    @staticmethod
+    def from_user_properties(user_properties):
+        return Account(
+            id=user_properties.account_id,
+            name=user_properties.name,
+            email=getattr(user_properties, "email", None),  # fallback if guest
+            registered=user_properties.registered,
+            confirmed=user_properties.confirmed,
+        )
