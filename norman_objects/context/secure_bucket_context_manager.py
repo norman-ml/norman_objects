@@ -13,7 +13,7 @@ class SecureBucketContextManager:
         pass
 
     def security_checks(self):
-        decoded_token = NormanContext.decoded_access_token.get(None)
+        decoded_token = NormanContext.get_decoded_access_token()
         if decoded_token is None or not isinstance(decoded_token.value(), dict):
             raise ValueError("Cannot validate account without a proper access token")
 
