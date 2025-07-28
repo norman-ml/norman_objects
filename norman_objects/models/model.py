@@ -1,21 +1,15 @@
-from datetime import datetime, timedelta, timezone
 from typing import Dict, List
 
 from norman_objects.models.http_request_type import HttpRequestType
-from norman_objects.models.model_asset import ModelAsset
 from norman_objects.models.model_hosting_location import ModelHostingLocation
+from norman_objects.models.model_preview import ModelPreview
 from norman_objects.models.model_type import ModelType
 from norman_objects.models.output_format import OutputFormat
-from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.signatures.model_signature import ModelSignature
-from pydantic import Field
 
-class Model(NormanBaseModel):
-    id: str = "0"
-    model_base_id: str = "0"
-    version_label: str = "1.0.0"
+class Model(ModelPreview):
     account_id: str
-    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
+    model_base_id: str = "0"
     name: str
     url: str
     request_type: HttpRequestType
@@ -28,4 +22,4 @@ class Model(NormanBaseModel):
     inputs: List[ModelSignature] = []
     outputs: List[ModelSignature] = []
     http_headers: Dict[str, str] = {}
-    assets: List[ModelAsset] = []
+
