@@ -1,0 +1,55 @@
+from datetime import datetime
+from typing import Any
+
+from norman_objects.files.file_properties import FileProperties
+from norman_objects.messages.asset_upload_message import AssetUploadMessage
+from norman_objects.messages.entity_type import EntityType
+from norman_objects.messages.input_message import InputMessage
+from norman_objects.messages.invocation_message import InvocationMessage
+from norman_objects.messages.output_message import OutputMessage
+from norman_objects.models.model import Model
+from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.sensitive.sensitive_type import SensitiveType
+from norman_objects.status_flags.status_flag import StatusFlag
+
+
+class NormanBaseMessage(NormanBaseModel):
+    access_token: SensitiveType(str)
+    update_time: datetime
+    entity_type: EntityType
+
+    model: Model
+    file_properties: FileProperties
+    status_flag: StatusFlag
+
+    @classmethod
+    def parse_obj(cls, raw_message: Any):
+        if raw_message is None:
+            raise ValueError("Cannot convert a None value to a Pydantic base message")
+
+        if not isinstance(raw_message, dict):
+            raise ValueError("Cannot convert a non-dict value to a Pydantic base message")
+
+        if "entity_type" not in raw_message:
+            raise ValueError("Cannot serialize Norman base message without an entity type field")
+
+        try:
+            entity_name = raw_message["entity_type"]
+            entity_type = EntityType(entity_name)
+        except Exception as e:
+            raise ValueError("entity type is not a valid enum literal for the EntityType enum")
+
+        # In Pydantic V2 there are more elegant solutions that do not require manually maintaining this if case
+        # Once we upgrade the library we can probably omit this in favour of these solutions.
+        if entity_type == EntityType.Model:
+            return NormanBaseMessage.parse_obj(raw_message)
+        elif entity_type == EntityType.Asset:
+            return AssetUploadMessage.parse_obj(raw_message)
+        elif entity_type == EntityType.Invocation:
+            return InvocationMessage.parse_obj(raw_message)
+        elif entity_type == EntityType.Input:
+            return InputMessage.parse_obj(raw_message)
+        elif entity_type == EntityType.Output:
+            return OutputMessage.parse_obj(raw_message)
+        else:
+            raise ValueError("No Norman base message subclass registered to serialize the given entity type")
