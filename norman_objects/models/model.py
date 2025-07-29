@@ -9,7 +9,6 @@ from norman_objects.signatures.model_signature import ModelSignature
 
 class Model(ModelPreview):
     account_id: str
-    model_base_id: str = "0"
     name: str
     url: str
     request_type: HttpRequestType
@@ -22,4 +21,3 @@ class Model(ModelPreview):
     inputs: List[ModelSignature] = []
     outputs: List[ModelSignature] = []
     http_headers: Dict[str, str] = {}
-
