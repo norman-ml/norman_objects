@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class FunctionStateReasonCodes(str, Enum):
+class FunctionStateReasonCode(str, Enum):
     Creating = "Creating"
     Restoring = "Restoring"
 
