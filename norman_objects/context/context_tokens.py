@@ -3,8 +3,8 @@ from norman_objects.sensitive.sensitive import Sensitive
 
 
 class NormanContext:
-    _access_token = ContextVar("norman_access_token")
-    _decoded_access_token = ContextVar("norman_decoded_access_token")
+    _access_token: ContextVar[SensitiveType(str)] = ContextVar("norman_access_token")
+    _decoded_access_token: ContextVar[SensitiveType(str)] = ContextVar("norman_decoded_access_token")
 
     @staticmethod
     def get_access_token():
