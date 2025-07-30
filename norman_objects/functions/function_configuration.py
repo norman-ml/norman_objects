@@ -1,5 +1,5 @@
-from norman_objects.functions.function_state_reason_codes import FunctionStateReasonCode
-from norman_objects.functions.function_states import FunctionState
+from norman_objects.functions.function_state_reason_code import FunctionStateReasonCode
+from norman_objects.functions.function_state import FunctionState
 from norman_objects.norman_base_model import NormanBaseModel
 
 
