@@ -1,6 +1,7 @@
 import norman_objects.accounts
 import norman_objects.authorization
 import norman_objects.context
+import norman_objects.functions
 import norman_objects.inputs
 import norman_objects.invocations
 import norman_objects.messages
