@@ -1,5 +1,6 @@
 from contextvars import ContextVar
 from norman_objects.sensitive.sensitive import Sensitive
+from norman_objects.sensitive.sensitive_type import SensitiveType
 
 
 class NormanContext:
