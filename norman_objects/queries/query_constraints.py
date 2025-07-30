@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional, Set, Union
 
 from norman_objects.queries.filter_clauses.filter_clause import FilterClause
-from norman_objects.queries.filter_clauses.filter_node import FilterNode
+from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
 from norman_objects.queries.page_clauses.page_clause import PageClause
 from norman_objects.queries.parameterization_type import ParameterizationType
@@ -22,21 +22,37 @@ class QueryConstraints(BaseModel):
         )
 
     @classmethod
-    def matches(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
+    def includes(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
         return cls(
-            filter=FilterClause.matches(table, column, value)
+            filter=FilterClause.includes(table, column, value)
+        )
+
+    @classmethod
+    def not_includes(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
+        return cls(
+            filter=FilterClause.not_includes(table, column, value)
+        )
+
+    @classmethod
+    def with_filter(cls, table: str, column: str = "ID", operator: BinaryRelation = BinaryRelation.EQ,
+                    value: Union[str | List[Union[str, int, float]]] = None, join_condition: UnaryRelation = UnaryRelation.AND):
+        return cls(
+            filter=FilterClause.with_filter(table, column, operator, value, join_condition)
         )
 
     def __and__(self, other):
         if not isinstance(other, QueryConstraints):
             raise ValueError("Logical AND is only supported between two query constraints")
 
-        if self.filter is not None and other.filter is not None:
-            combined_filter = self.filter & other.filter
-        elif other.filter is None:
-            combined_filter = self.filter
-        else:
-            combined_filter = other.filter
+        combined_filter = FilterClause(
+            children = [],
+            join_condition = UnaryRelation.AND
+        )
+
+        if self.filter is not None:
+            combined_filter.children.append(self.filter)
+        if other.filter is not None:
+            combined_filter.children.append(other.filter)
 
         if self.sort is not None and other.sort is not None:
             combined_sort = self.sort & other.sort
