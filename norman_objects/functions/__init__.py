@@ -1,3 +1,3 @@
-import norman_objects.functions.function_state
+import norman_objects.functions.function_configuration
 import norman_objects.functions.function_state_reason_codes
 import norman_objects.functions.function_states
