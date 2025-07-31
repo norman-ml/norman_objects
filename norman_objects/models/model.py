@@ -14,7 +14,6 @@ class Model(ModelPreview):
     model_type: ModelType
     hosting_location: ModelHostingLocation
     output_format: OutputFormat
-    short_description: str
     long_description: str
 
     inputs: List[ModelSignature] = []
