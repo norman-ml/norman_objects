@@ -8,7 +8,6 @@ from norman_objects.models.output_format import OutputFormat
 from norman_objects.signatures.model_signature import ModelSignature
 
 class Model(ModelPreview):
-    account_id: str
     name: str
     url: str
     request_type: HttpRequestType
