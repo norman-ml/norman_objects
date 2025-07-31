@@ -4,6 +4,6 @@ from norman_objects.norman_base_model import NormanBaseModel
 
 
 class FunctionConfiguration(NormanBaseModel):
-    state: FunctionState = FunctionState.Unknown
-    reason: str = "State reason is unknown."
-    reason_code: FunctionStateReasonCode = FunctionStateReasonCode.Unknown
+    state: FunctionState = FunctionState.NotProvided
+    reason: str = "State reason not provided."
+    reason_code: FunctionStateReasonCode = FunctionStateReasonCode.NotProvided

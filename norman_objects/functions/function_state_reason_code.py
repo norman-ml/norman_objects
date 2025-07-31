@@ -29,4 +29,4 @@ class FunctionStateReasonCode(str, Enum):
     KMSKeyNotFound = "KMSKeyNotFound"
     SubnetOutOfIPAddresses = "SubnetOutOfIPAddresses"
 
-    Unknown = "Unknown"
+    NotProvided = "NotProvided"

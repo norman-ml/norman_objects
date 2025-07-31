@@ -6,4 +6,4 @@ class FunctionState(str, Enum):
     Pending = "Pending"
     Inactive = "Inactive"
     Failed = "Failed"
-    Unknown = "Unknown"
+    NotProvided = "NotProvided"
