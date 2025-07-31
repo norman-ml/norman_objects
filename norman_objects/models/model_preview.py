@@ -11,4 +11,4 @@ class ModelPreview(NormanBaseModel):
     active: bool = True
     account_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
-    assets: list[ModelAsset]
+    assets: list[ModelAsset] = []
