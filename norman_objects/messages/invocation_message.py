@@ -1,6 +1,6 @@
 from norman_objects.invocations.invocation import Invocation
-from norman_objects.messages.norman_base_message import NormanBaseMessage
+from norman_objects.messages.model_message import ModelMessage
 
 
-class InvocationMessage(NormanBaseMessage):
+class InvocationMessage(ModelMessage):
     invocation: Invocation

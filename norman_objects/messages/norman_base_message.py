@@ -1,13 +1,12 @@
 from datetime import datetime
 from typing import Any
 
-from norman_objects.files.file_properties import FileProperties
 from norman_objects.messages.asset_upload_message import AssetUploadMessage
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.input_message import InputMessage
 from norman_objects.messages.invocation_message import InvocationMessage
+from norman_objects.messages.model_message import ModelMessage
 from norman_objects.messages.output_message import OutputMessage
-from norman_objects.models.model import Model
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.sensitive.sensitive_type import SensitiveType
 from norman_objects.status_flags.status_flag import StatusFlag
@@ -18,8 +17,6 @@ class NormanBaseMessage(NormanBaseModel):
     update_time: datetime
     entity_type: EntityType
 
-    model: Model
-    file_properties: FileProperties
     status_flag: StatusFlag
 
     @classmethod
@@ -42,7 +39,7 @@ class NormanBaseMessage(NormanBaseModel):
         # In Pydantic V2 there are more elegant solutions that do not require manually maintaining this if case
         # Once we upgrade the library we can probably omit this in favour of these solutions.
         if entity_type == EntityType.Model:
-            return NormanBaseMessage.parse_obj(raw_message)
+            return ModelMessage.parse_obj(raw_message)
         elif entity_type == EntityType.Asset:
             return AssetUploadMessage.parse_obj(raw_message)
         elif entity_type == EntityType.Invocation:
@@ -52,4 +49,4 @@ class NormanBaseMessage(NormanBaseModel):
         elif entity_type == EntityType.Output:
             return OutputMessage.parse_obj(raw_message)
         else:
-            raise ValueError("No Norman base message subclass registered to serialize the given entity type")
+            return super().parse_obj(raw_message)
