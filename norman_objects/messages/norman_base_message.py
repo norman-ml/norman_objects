@@ -1,6 +1,7 @@
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Any
 
+from norman_objects.context.context_tokens import NormanContext
 from norman_objects.messages.asset_upload_message import AssetUploadMessage
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.input_message import InputMessage
@@ -16,8 +17,23 @@ class NormanBaseMessage(NormanBaseModel):
     access_token: SensitiveType(str)
     update_time: datetime
     entity_type: EntityType
-
     status_flag: StatusFlag
+
+    @staticmethod
+    def base_message(status_flag: StatusFlag):
+        raise NotImplementedError("Norman base message subclasses must implement a serialization from flag method")
+
+    @classmethod
+    def _base_message(cls, entity_type: EntityType, status_flag: StatusFlag):
+        access_token = NormanContext.get_access_token()
+        update_time = datetime.now(UTC)
+
+        return cls(
+            access_token=access_token,
+            update_time=update_time,
+            entity_type=entity_type,
+            status_flag=status_flag
+        )
 
     @classmethod
     def parse_obj(cls, raw_message: Any):
