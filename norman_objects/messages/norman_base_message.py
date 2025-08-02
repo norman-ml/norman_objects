@@ -19,6 +19,10 @@ class NormanBaseMessage(NormanBaseModel):
     entity_type: EntityType
     status_flag: StatusFlag
 
+    @property
+    def entity_name(self):
+        return self.entity_type.name.lower()
+
     @staticmethod
     def base_message(status_flag: StatusFlag):
         raise NotImplementedError("Norman base message subclasses must implement a serialization from flag method")
