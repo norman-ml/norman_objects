@@ -21,6 +21,10 @@ class NormanBaseMessage(NormanBaseModel):
     status_flag: StatusFlag
 
     @property
+    def entity_id(self):
+        raise NotImplementedError("Norman base message subclasses must implement an entity id property")
+
+    @property
     def entity_name(self):
         return self.entity_type.name.lower()
 

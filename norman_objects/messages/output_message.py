@@ -9,6 +9,10 @@ class OutputMessage(InvocationMessage):
     output: InvocationOutput
     file_properties: FileProperties
 
+    @InvocationMessage.entity_id.getter
+    def entity_id(self):
+        return self.output.id
+
     @classmethod
     def base_message(cls, status_flag: StatusFlag):
         return cls._base_message(EntityType.Output, status_flag)

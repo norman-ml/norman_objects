@@ -9,6 +9,10 @@ class AssetUploadMessage(ModelMessage):
     asset: ModelAsset
     file_properties: FileProperties
 
+    @ModelMessage.entity_id.getter
+    def entity_id(self):
+        return self.asset.id
+
     @classmethod
     def base_message(cls, status_flag: StatusFlag):
         return cls._base_message(EntityType.Asset, status_flag)
