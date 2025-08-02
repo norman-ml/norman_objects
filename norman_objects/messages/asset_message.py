@@ -1,13 +1,12 @@
-from norman_objects.files.file_properties import FileProperties
 from norman_objects.messages.entity_type import EntityType
+from norman_objects.messages.file_message import FileMessage
 from norman_objects.messages.model_message import ModelMessage
 from norman_objects.models.model_asset import ModelAsset
 from norman_objects.status_flags.status_flag import StatusFlag
 
 
-class AssetUploadMessage(ModelMessage):
+class AssetMessage(ModelMessage, FileMessage):
     asset: ModelAsset
-    file_properties: FileProperties
 
     @ModelMessage.entity_id.getter
     def entity_id(self):

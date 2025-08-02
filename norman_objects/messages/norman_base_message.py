@@ -2,7 +2,7 @@ from datetime import datetime, UTC
 from typing import Any
 
 from norman_objects.context.context_tokens import NormanContext
-from norman_objects.messages.asset_upload_message import AssetUploadMessage
+from norman_objects.messages.asset_message import AssetMessage
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.input_message import InputMessage
 from norman_objects.messages.invocation_message import InvocationMessage
@@ -67,7 +67,7 @@ class NormanBaseMessage(NormanBaseModel):
         if entity_type == EntityType.Model:
             return ModelMessage.parse_obj(raw_message)
         elif entity_type == EntityType.Asset:
-            return AssetUploadMessage.parse_obj(raw_message)
+            return AssetMessage.parse_obj(raw_message)
         elif entity_type == EntityType.Invocation:
             return InvocationMessage.parse_obj(raw_message)
         elif entity_type == EntityType.Input:

@@ -1,13 +1,12 @@
-from norman_objects.files.file_properties import FileProperties
 from norman_objects.inputs.invocation_input import InvocationInput
 from norman_objects.messages.entity_type import EntityType
+from norman_objects.messages.file_message import FileMessage
 from norman_objects.messages.invocation_message import InvocationMessage
 from norman_objects.status_flags.status_flag import StatusFlag
 
 
-class InputMessage(InvocationMessage):
+class InputMessage(InvocationMessage, FileMessage):
     input: InvocationInput
-    file_properties: FileProperties
 
     @InvocationMessage.entity_id.getter
     def entity_id(self):

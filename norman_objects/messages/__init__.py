@@ -1,5 +1,6 @@
-import norman_objects.messages.asset_upload_message
+import norman_objects.messages.asset_message
 import norman_objects.messages.entity_type
+import norman_objects.messages.file_message
 import norman_objects.messages.input_message
 import norman_objects.messages.invocation_message
 import norman_objects.messages.model_message
