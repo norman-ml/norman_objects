@@ -57,6 +57,9 @@ class NormanBaseMessage(NormanBaseModel):
         if "entity_type" not in raw_message:
             raise ValueError("Cannot serialize Norman base message without an entity type field")
 
+        if "status_flag" not in raw_message:
+            raise ValueError("Cannot serialize Norman base message without an status flag field")
+
         try:
             entity_name = raw_message["entity_type"]
             entity_type = EntityType(entity_name)
