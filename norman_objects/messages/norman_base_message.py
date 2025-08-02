@@ -11,6 +11,7 @@ from norman_objects.messages.output_message import OutputMessage
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.sensitive.sensitive_type import SensitiveType
 from norman_objects.status_flags.status_flag import StatusFlag
+from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
 class NormanBaseMessage(NormanBaseModel):
@@ -62,9 +63,17 @@ class NormanBaseMessage(NormanBaseModel):
         except Exception as e:
             raise ValueError("entity type is not a valid enum literal for the EntityType enum")
 
+        try:
+            status_flag_json = raw_message["status_flag"]
+            status_flag = StatusFlag.parse_obj(status_flag_json)
+        except Exception as e:
+            raise ValueError("status flag is not a valid json representation of the StatusFlag class")
+
         # In Pydantic V2 there are more elegant solutions that do not require manually maintaining this if case
         # Once we upgrade the library we can probably omit this in favour of these solutions.
-        if entity_type == EntityType.Model:
+        if status_flag.flag_value == StatusFlagValue.Error:
+            return super().parse_obj(raw_message)
+        elif entity_type == EntityType.Model:
             return ModelMessage.parse_obj(raw_message)
         elif entity_type == EntityType.Asset:
             return AssetMessage.parse_obj(raw_message)
