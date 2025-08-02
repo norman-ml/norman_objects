@@ -15,6 +15,7 @@ from norman_objects.status_flags.status_flag import StatusFlag
 
 class NormanBaseMessage(NormanBaseModel):
     access_token: SensitiveType(str)
+    account_id: str
     update_time: datetime
     entity_type: EntityType
     status_flag: StatusFlag
@@ -34,6 +35,7 @@ class NormanBaseMessage(NormanBaseModel):
 
         return cls(
             access_token=access_token,
+            account_id = status_flag.account_id,
             update_time=update_time,
             entity_type=entity_type,
             status_flag=status_flag
