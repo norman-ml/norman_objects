@@ -9,5 +9,4 @@ class AccountPassword(NormanBaseModel):
     id: str = "0"
     account_id: str
     update_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
-    email: str
     password: SensitiveType(str)
