@@ -11,4 +11,4 @@ class Quota(NormanBaseModel):
     type: QuotaType
     size: int
     start_date: datetime
-    end_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None # TODO not Optional
