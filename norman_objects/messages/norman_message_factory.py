@@ -8,7 +8,6 @@ from norman_objects.messages.model_message import ModelMessage
 from norman_objects.messages.norman_base_message import NormanBaseMessage
 from norman_objects.messages.output_message import OutputMessage
 from norman_objects.status_flags.status_flag import StatusFlag
-from norman_objects.status_flags.status_flag_value import StatusFlagValue
 
 
 class NormanMessageFactory:
@@ -40,9 +39,7 @@ class NormanMessageFactory:
 
         # In Pydantic V2 there are more elegant solutions that do not require manually maintaining this if case
         # Once we upgrade the library we can probably omit this in favour of these solutions.
-        if status_flag.flag_value == StatusFlagValue.Error:
-            return NormanBaseMessage.parse_obj(raw_message)
-        elif entity_type == EntityType.Model:
+        if entity_type == EntityType.Model:
             return ModelMessage.parse_obj(raw_message)
         elif entity_type == EntityType.Asset:
             return AssetMessage.parse_obj(raw_message)
