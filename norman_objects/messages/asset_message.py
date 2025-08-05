@@ -21,6 +21,8 @@ class AssetMessage(ModelMessage, FileMessage):
         if account_id != asset.account_id:
             raise ValueError("Message account id does not match asset account id")
 
+        return values
+
     @root_validator
     def validate_model_id(cls, values):
         model: Model = values.get("model")

@@ -21,6 +21,8 @@ class OutputMessage(InvocationMessage, FileMessage):
         if account_id != output.account_id:
             raise ValueError("Message account id does not match output account id")
 
+        return values
+
     @root_validator
     def validate_model_id(cls, values):
         super().validate_model_id()
