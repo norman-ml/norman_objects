@@ -25,7 +25,7 @@ class OutputMessage(InvocationMessage, FileMessage):
 
     @root_validator
     def validate_model_id(cls, values):
-        super().validate_model_id()
+        super().validate_model_id(values)
 
         invocation: Invocation = values.get("invocation")
         output: InvocationOutput = values.get("output")
