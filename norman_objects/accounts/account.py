@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from norman_objects.authentication.signup_request import SignupRequest
+from norman_objects.authentication.user_properties import UserProperties
 from norman_objects.norman_base_model import NormanBaseModel
 from pydantic import Field
 
@@ -25,7 +26,7 @@ class Account(NormanBaseModel):
         )
 
     @staticmethod
-    def from_user_properties(user_properties):
+    def from_user_properties(user_properties: UserProperties):
         return Account(
             id=user_properties.account_id,
             name=user_properties.name,
