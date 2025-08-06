@@ -9,6 +9,6 @@ class VerificationCode(NormanBaseModel):
     id: str = "0"
     account_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
-    expiration: datetime
+    expiration_time: datetime
     code: SensitiveType(str)
     verified: int = 0
