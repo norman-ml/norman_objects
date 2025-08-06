@@ -24,13 +24,3 @@ class Account(NormanBaseModel):
             registered=registered,
             confirmed=confirmed,
         )
-
-    @staticmethod
-    def from_user_properties(user_properties: UserProperties):
-        return Account(
-            id=user_properties.account_id,
-            name=user_properties.name,
-            email=None,
-            registered=user_properties.registered,
-            confirmed=user_properties.confirmed,
-        )
