@@ -1,3 +1,3 @@
-import norman_objects.authentication.verification_code
 import norman_objects.authentication.user_properties
 import norman_objects.authentication.signup_request
+import norman_objects.authentication.verification_code

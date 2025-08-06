@@ -30,7 +30,7 @@ class Account(NormanBaseModel):
         return Account(
             id=user_properties.account_id,
             name=user_properties.name,
-            email=getattr(user_properties, "email", None),  # fallback if guest
+            email=None,
             registered=user_properties.registered,
             confirmed=user_properties.confirmed,
         )
