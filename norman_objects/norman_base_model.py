@@ -19,7 +19,8 @@ class NormanBaseModel(BaseModel):
         cls._sensitive_fields = {
             field_name: model_field.type_
             for field_name, model_field in cls.__fields__.items()
-            if issubclass(model_field.type_, Sensitive)
+            if isinstance(model_field.type_, type)
+                and issubclass(model_field.type_, Sensitive)
         }
 
     @root_validator(pre=True)
