@@ -1,4 +1,4 @@
-from collections.abc import Collection
+from typing import Collection
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.filter_clauses.filter_node import FilterNode
