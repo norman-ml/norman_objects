@@ -1,10 +1,10 @@
 from typing import Optional
 
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.parameterization_type import ParameterizationType
-from pydantic import BaseModel
 
 
-class PageClause(BaseModel):
+class PageClause(NormanBaseModel):
     limit: Optional[int]
     offset: Optional[int]
 
