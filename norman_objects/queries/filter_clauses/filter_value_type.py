@@ -1,4 +1,4 @@
-from typing import Collection, TypeAlias
+from typing import TypeAlias
 
 FilterTypeValue: TypeAlias = str | int | float
-FilterTypeVar: TypeAlias = FilterTypeValue | Collection[FilterTypeValue]
+FilterTypeVar: TypeAlias = FilterTypeValue | list[FilterTypeValue]

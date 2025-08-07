@@ -1,5 +1,3 @@
-from typing import Collection
-
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.filter_clauses.filter_node import FilterNode
 from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeValue, FilterTypeVar
@@ -24,7 +22,7 @@ class FilterClause(NormanBaseModel):
         )
 
     @classmethod
-    def includes(cls, table: str, column: str = "ID", value: Collection[FilterTypeValue] = None):
+    def includes(cls, table: str, column: str = "ID", value: list[FilterTypeValue] = None):
         if value is None:
             raise ValueError("Filter clause value cannot be None")
 
@@ -40,7 +38,7 @@ class FilterClause(NormanBaseModel):
         )
 
     @classmethod
-    def not_includes(cls, table: str, column: str = "ID", value: Collection[FilterTypeValue] = None):
+    def not_includes(cls, table: str, column: str = "ID", value: list[FilterTypeValue] = None):
         if value is None:
             raise ValueError("Filter clause value cannot be None")
 
