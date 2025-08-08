@@ -1,10 +1,10 @@
 from typing import Dict, Set
 
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.sort_clauses.sort_direction import SortDirection
-from pydantic import BaseModel
 
 
-class SortNode(BaseModel):
+class SortNode(NormanBaseModel):
     table: str
     column: str = "ID"
     direction: SortDirection = SortDirection.ASC

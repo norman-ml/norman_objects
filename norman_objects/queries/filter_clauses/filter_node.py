@@ -1,18 +1,18 @@
-from typing import Dict, List, Union, Set
 
+from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeVar
 from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.parameterization_type import ParameterizationType
 from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
-from pydantic import BaseModel
 
 
-class FilterNode(BaseModel):
+class FilterNode(NormanBaseModel):
     table: str
     column: str = "ID"
     operator: BinaryRelation = BinaryRelation.EQ
-    value: Union[str, List[Union[str, int, float]]]
+    value: FilterTypeVar
 
-    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
+    def validate_expression(self, allowed_tables_and_columns: dict[str, set[str]]):
         if self.table not in allowed_tables_and_columns:
             return False
 
@@ -29,7 +29,7 @@ class FilterNode(BaseModel):
             return isinstance(self.value, list)
         return isinstance(self.value, (str, int, float))
 
-    def build_expression(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
+    def build_expression(self, parameterization_type: ParameterizationType, transforms: list[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
@@ -39,7 +39,7 @@ class FilterNode(BaseModel):
 
         return clause, parameters
 
-    def build_expression_as_list(self, transforms: List[ConstraintTransform] = None):
+    def build_expression_as_list(self, transforms: list[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
             collection_placeholders = ["%s"] * len(self.value)
             interpolation_placeholder = f"({', '.join(collection_placeholders)})"
@@ -55,7 +55,7 @@ class FilterNode(BaseModel):
         clause = f" {self.table}.{self.column} {self.operator.value} {interpolation_placeholder} "
         return clause, parameters
 
-    def build_expression_as_dict(self, transforms: List[ConstraintTransform] = None):
+    def build_expression_as_dict(self, transforms: list[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
             raise ValueError("Collection operators not supported with dict parameterization")
 
@@ -69,7 +69,7 @@ class FilterNode(BaseModel):
 
         return clause, parameters
 
-    def transform(self, transforms: List[ConstraintTransform] = None):
+    def transform(self, transforms: list[ConstraintTransform] = None):
         if transforms is None:
             return self.value
 

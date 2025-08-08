@@ -1,10 +1,10 @@
 from typing import Dict, List, Set
 
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.sort_clauses.sort_node import SortNode
-from pydantic import BaseModel
 
 
-class SortClause(BaseModel):
+class SortClause(NormanBaseModel):
     children: List[SortNode]
 
     def __and__(self, other):

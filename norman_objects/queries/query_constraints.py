@@ -1,42 +1,63 @@
-from typing import Dict, List, Optional, Set, Union
-
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.filter_clauses.filter_clause import FilterClause
-from norman_objects.queries.filter_clauses.filter_node import FilterNode
+from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeVar, FilterTypeValue
+from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
 from norman_objects.queries.page_clauses.page_clause import PageClause
 from norman_objects.queries.parameterization_type import ParameterizationType
 from norman_objects.queries.sort_clauses.sort_clause import SortClause
 from norman_objects.queries.transforms.constraint_transform import ConstraintTransform
-from pydantic import BaseModel
 
 
-class QueryConstraints(BaseModel):
-    filter: Optional[FilterClause] = None
-    sort: Optional[SortClause] = None
-    page: Optional[PageClause] = None
+class QueryConstraints(NormanBaseModel):
+    filter: FilterClause | None = None
+    sort: SortClause | None = None
+    page: PageClause | None = None
 
     @classmethod
-    def equals(cls, table: str, column: str = "ID", value = None):
+    def equals(cls, table: str, column: str = "ID", value: FilterTypeValue = None):
         return cls(
             filter=FilterClause.equals(table, column, value)
         )
 
     @classmethod
-    def matches(cls, table: str, column: str = "ID", value: List[Union[str, int, float]] = None):
+    def includes(cls, table: str, column: str = "ID", value: list[FilterTypeValue] = None):
         return cls(
-            filter=FilterClause.matches(table, column, value)
+            filter=FilterClause.includes(table, column, value)
+        )
+
+    @classmethod
+    def not_includes(cls, table: str, column: str = "ID", value: list[FilterTypeValue] = None):
+        return cls(
+            filter=FilterClause.not_includes(table, column, value)
+        )
+
+    @classmethod
+    def with_filter(
+            cls,
+            table: str,
+            column: str = "ID",
+            operator: BinaryRelation = BinaryRelation.EQ,
+            value: FilterTypeVar | None = None,
+            join_condition: UnaryRelation = UnaryRelation.AND
+        ):
+        return cls(
+            filter=FilterClause.with_filter(table, column, operator, value, join_condition)
         )
 
     def __and__(self, other):
         if not isinstance(other, QueryConstraints):
             raise ValueError("Logical AND is only supported between two query constraints")
 
-        if self.filter is not None and other.filter is not None:
-            combined_filter = self.filter & other.filter
-        elif other.filter is None:
-            combined_filter = self.filter
-        else:
-            combined_filter = other.filter
+        combined_filter = FilterClause(
+            children = [],
+            join_condition = UnaryRelation.AND
+        )
+
+        if self.filter is not None:
+            combined_filter.children.append(self.filter)
+        if other.filter is not None:
+            combined_filter.children.append(other.filter)
 
         if self.sort is not None and other.sort is not None:
             combined_sort = self.sort & other.sort
@@ -56,7 +77,7 @@ class QueryConstraints(BaseModel):
             page=combined_page
         )
 
-    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
+    def validate_expression(self, allowed_tables_and_columns: dict[str, set[str]]):
         constraint_valid = True
 
         if self.filter is not None:
@@ -74,7 +95,7 @@ class QueryConstraints(BaseModel):
         if not constraint_valid:
             raise ValueError("Invalid column names in constraints.")
 
-    def build_expression(self, base_query: str, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
+    def build_expression(self, base_query: str, parameterization_type: ParameterizationType, transforms: list[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(parameterization_type, transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
@@ -85,7 +106,7 @@ class QueryConstraints(BaseModel):
         joint_query = f" {base_query} {clause} "
         return joint_query, parameters
 
-    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
+    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: list[ConstraintTransform] = None):
         child_clauses = []
         child_parameters = []
 
@@ -106,7 +127,7 @@ class QueryConstraints(BaseModel):
         clause = " ".join(child_clauses)
         return clause, child_parameters
 
-    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: List[ConstraintTransform] = None):
+    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: list[ConstraintTransform] = None):
         child_clauses = []
         child_parameters = {}
 

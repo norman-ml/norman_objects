@@ -12,14 +12,15 @@ class NormanBaseModel(BaseModel):
 
         cls.UpdateSchema: Type[BaseModel] = create_model(
             f"{cls.__name__}Update",
-            **{field_name: (Optional[field_type], None) for field_name, field_type in cls.__annotations__.items()},
+            **{field.name: (Optional[field.type_], None) for field in cls.__fields__.values()},
             __base__=NormanUpdateSchema
         )
 
         cls._sensitive_fields = {
             field_name: model_field.type_
             for field_name, model_field in cls.__fields__.items()
-            if issubclass(model_field.type_, Sensitive)
+            if isinstance(model_field.type_, type)
+                and issubclass(model_field.type_, Sensitive)
         }
 
     @root_validator(pre=True)
