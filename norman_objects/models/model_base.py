@@ -6,5 +6,4 @@ class ModelBase(NormanBaseModel):
     account_id: str
     name: str
     invocations_count: int
-    ranking_score: float
     model_previews: list[ModelPreview] = []
