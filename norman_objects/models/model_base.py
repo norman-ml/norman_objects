@@ -5,4 +5,5 @@ class ModelBase(NormanBaseModel):
     id: str
     account_id: str
     name: str
+    invocation_count: int
     model_previews: list[ModelPreview] = []
