@@ -11,4 +11,4 @@ class VerificationCode(NormanBaseModel):
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     expiration_time: datetime
     code: SensitiveType(str)
-    verified: int = 0
+    confirmed: bool = False
