@@ -1,5 +1,6 @@
 from pydantic import root_validator
 
+from norman_objects.files.file_properties import FileProperties
 from norman_objects.invocations.invocation import Invocation
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.file_message import FileMessage
@@ -10,6 +11,7 @@ from norman_objects.status_flags.status_flag import StatusFlag
 
 class OutputMessage(InvocationMessage, FileMessage):
     output: InvocationOutput
+    file_properties: FileProperties
 
     @root_validator
     def validate_account_id(cls, values):
