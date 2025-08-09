@@ -10,13 +10,13 @@ class SortNode(NormanBaseModel):
     direction: SortDirection = SortDirection.ASC
 
     def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
+        if self.column not in allowed_tables_and_columns[self.table]:
+            return False
+
         if self.table is None:
             return True
 
         if self.table not in allowed_tables_and_columns:
-            return False
-
-        if self.column not in allowed_tables_and_columns[self.table]:
             return False
 
         return True
