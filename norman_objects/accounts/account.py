@@ -10,5 +10,4 @@ class Account(NormanBaseModel):
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     name: str
     email: Optional[str] = None
-    registered: bool
     confirmed: bool
