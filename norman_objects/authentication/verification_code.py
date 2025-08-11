@@ -10,5 +10,6 @@ class VerificationCode(NormanBaseModel):
     account_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     expiration_time: datetime
+    email: str
     confirmed: bool = False
     code: SensitiveType(str)
