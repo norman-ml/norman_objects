@@ -1,3 +1,3 @@
 import norman_objects.authentication.account_password
-import norman_objects.authentication.confirm_email_request
 import norman_objects.authentication.verification_code
+
