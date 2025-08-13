@@ -5,16 +5,16 @@ from pydantic import Field, PrivateAttr
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.sensitive.sensitive_type import SensitiveType
 
-DecodeFn = Callable[[str], Dict[str, Any]]           # returns dict as above
 EncodeFn = Callable[[Dict[str, Any], Dict[str, Any], str], str]
+DecodeFn = Callable[[str], Dict[str, Any]]           # returns dict as above
 
 class AccessToken(NormanBaseModel):
     header: Dict[str, Any] = Field(default_factory=dict)   # optional for logs
     payload: Dict[str, Any] = Field(default_factory=dict)
     hmac: SensitiveType(str)
 
-    _jwt_decode: DecodeFn = PrivateAttr()
-    _jwt_encode: EncodeFn = PrivateAttr()
+    _encode_token: EncodeFn = PrivateAttr()
+    _decode_token: DecodeFn = PrivateAttr()
 
     class Config:
         arbitrary_types_allowed = True
@@ -26,11 +26,11 @@ class AccessToken(NormanBaseModel):
             payload=parts["payload"],
             hmac=SensitiveType(str)(parts["hmac"])
         )
-        self._jwt_decode = jwt_decode
-        self._jwt_encode = jwt_encode
+        self._encode_token = jwt_encode
+        self._decode_token = jwt_decode
 
     def get_access_token(self):
-        encoded_access_token = self._jwt_encode(
+        encoded_access_token = self._encode_token(
             self.header,
             self.payload,
             self.hmac.value()
