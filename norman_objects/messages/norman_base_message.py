@@ -11,11 +11,19 @@ from norman_objects.tokens.access_token import AccessToken
 
 
 class NormanBaseMessage(NormanBaseModel):
-    access_token: dict
+    access_token: AccessToken
     account_id: str
     update_time: datetime
     entity_type: EntityType
     status_flag: StatusFlag
+
+    @root_validator(pre=True)
+    def inject_access_token_from_context(cls, values):
+        access_token = NormanContext.get_access_token_object()
+        if access_token is None:
+            raise ValueError("Access token not set in NormanContext")
+        values["access_token"] = access_token
+        return values
 
     @root_validator
     def validate_account_id(cls, values):
