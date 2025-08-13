@@ -28,10 +28,10 @@ class AccessToken(NormanBaseModel):
         cleartext_access_token: str
     ):
 
-        header_part, payload_part, hmac_part = jwt_decode(cleartext_access_token)
-        header = header_part
-        payload = payload_part
-        hmac = hmac_part
+        decoded_token = jwt_decode(cleartext_access_token)
+        header = decoded_token["header"]
+        payload = decoded_token["payload"]
+        hmac = decoded_token["hmac"]
 
         super().__init__(header=header, payload=payload, hmac=hmac)
         self._jwt_encode = jwt_encode
