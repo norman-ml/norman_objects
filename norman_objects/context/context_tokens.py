@@ -1,7 +1,8 @@
-from typing import Optional
 from contextvars import ContextVar
+from typing import Optional
+
 from norman_objects.tokens.access_token import AccessToken
-from norman_objects.sensitive.sensitive_type import SensitiveType
+
 
 class NormanContext:
     _access_token: ContextVar[Optional[AccessToken]] = ContextVar("norman_access_token", default=None)

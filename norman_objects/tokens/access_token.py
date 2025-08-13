@@ -1,20 +1,20 @@
 from typing import Any, Dict, Callable
+
 from pydantic import Field, PrivateAttr
+
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.sensitive.sensitive_type import SensitiveType
 
-EncodeFn = Callable[[Dict[str, Any], Dict[str, Any], str], str]
 DecodeFn = Callable[[str], Dict[str, Any]]           # returns dict as above
+EncodeFn = Callable[[Dict[str, Any], Dict[str, Any], str], str]
 
 class AccessToken(NormanBaseModel):
-    header_b64: str
-    payload_b64: str
-    hmac: SensitiveType(str)
     header: Dict[str, Any] = Field(default_factory=dict)   # optional for logs
     payload: Dict[str, Any] = Field(default_factory=dict)
+    hmac: SensitiveType(str)
 
-    _jwt_encode: EncodeFn = PrivateAttr()
     _jwt_decode: DecodeFn = PrivateAttr()
+    _jwt_encode: EncodeFn = PrivateAttr()
 
     class Config:
         arbitrary_types_allowed = True
@@ -22,17 +22,12 @@ class AccessToken(NormanBaseModel):
     def __init__(self, *, jwt_encode: EncodeFn, jwt_decode: DecodeFn, cleartext_access_token: str):
         parts = jwt_decode(cleartext_access_token)
         super().__init__(
-            header_b64=parts["header_b64"],
-            payload_b64=parts["payload_b64"],
-            hmac=SensitiveType(str)(parts["hmac"]),
             header=parts["header"],
             payload=parts["payload"],
+            hmac=SensitiveType(str)(parts["hmac"])
         )
-        self._jwt_encode = jwt_encode
         self._jwt_decode = jwt_decode
-
-    def get_access_token2(self):
-        return SensitiveType(str)(f"{self.header_b64}.{self.payload_b64}.{self.hmac.value()}")
+        self._jwt_encode = jwt_encode
 
     def get_access_token(self):
         encoded_access_token = self._jwt_encode(
