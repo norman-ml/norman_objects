@@ -42,5 +42,5 @@ class AccessToken(NormanBaseModel):
         )
         return SensitiveType(str)(encoded_access_token)
 
-    def get_decoded_access_token(self) -> Dict[str, Any]:
+    def get_decoded_access_token(self):
         return {"header": self.header, "payload": self.payload, "hmac": self.hmac}
