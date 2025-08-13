@@ -5,7 +5,7 @@ from norman_objects.sensitive.sensitive_type import SensitiveType
 
 SensitiveStr = SensitiveType(str)
 
-EncodeFn = Callable[[str, str, SensitiveStr], str]   # takes b64 parts
+EncodeFn = Callable[[Dict[str, Any], Dict[str, Any], str], str]
 DecodeFn = Callable[[str], Dict[str, Any]]           # returns dict as above
 
 class AccessToken(NormanBaseModel):
@@ -36,6 +36,14 @@ class AccessToken(NormanBaseModel):
     def get_access_token(self) -> SensitiveStr:
         # exact round-trip; signature stays valid
         return SensitiveStr(f"{self.header_b64}.{self.payload_b64}.{self.hmac.value()}")
+
+    def get_access_token2(self):
+        encoded_access_token = self._jwt_encode(
+            self.header,
+            self.payload,
+            self.hmac.value()  # unwrap Sensitive -> str
+        )
+        return SensitiveType(str)(encoded_access_token)
 
     def get_decoded_access_token(self) -> Dict[str, Any]:
         return {"header": self.header, "payload": self.payload, "hmac": self.hmac}
