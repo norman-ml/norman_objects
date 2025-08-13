@@ -7,10 +7,11 @@ from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.sensitive.sensitive_type import SensitiveType
 from norman_objects.status_flags.status_flag import StatusFlag
+from norman_objects.tokens.access_token import AccessToken
 
 
 class NormanBaseMessage(NormanBaseModel):
-    access_token: SensitiveType(str)
+    access_token: AccessToken
     account_id: str
     update_time: datetime
     entity_type: EntityType
