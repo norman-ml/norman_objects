@@ -31,10 +31,10 @@ class AccessToken(NormanBaseModel):
         self._jwt_encode = jwt_encode
         self._jwt_decode = jwt_decode
 
-    def get_access_token(self):
+    def get_access_token2(self):
         return SensitiveType(str)(f"{self.header_b64}.{self.payload_b64}.{self.hmac.value()}")
 
-    def get_access_token2(self):
+    def get_access_token(self):
         encoded_access_token = self._jwt_encode(
             self.header,
             self.payload,
