@@ -40,7 +40,7 @@ class NormanBaseMessage(NormanBaseModel):
 
     @classmethod
     def _base_message(cls, entity_type: EntityType, status_flag: StatusFlag):
-        access_token = NormanContext.get_access_token()
+        access_token = NormanContext.get_access_token_object()
         update_time = datetime.now(timezone.utc)
 
         return cls(
