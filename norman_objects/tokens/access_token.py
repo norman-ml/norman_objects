@@ -24,7 +24,7 @@ class AccessToken(NormanBaseModel):
         super().__init__(
             header_b64=parts["header_b64"],
             payload_b64=parts["payload_b64"],
-            hmac=parts["hmac"],
+            hmac=SensitiveType(str)(parts["hmac"]),
             header=parts["header"],
             payload=parts["payload"],
         )
@@ -32,8 +32,6 @@ class AccessToken(NormanBaseModel):
         self._jwt_decode = jwt_decode
 
     def get_access_token(self):
-        # exact round-trip; signature stays valid
-
         return SensitiveType(str)(f"{self.header_b64}.{self.payload_b64}.{self.hmac.value()}")
 
     def get_access_token2(self):
