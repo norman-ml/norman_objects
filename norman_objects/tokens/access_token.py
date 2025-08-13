@@ -38,7 +38,7 @@ class AccessToken(NormanBaseModel):
         encoded_access_token = self._jwt_encode(
             self.header,
             self.payload,
-            self.hmac.value()  # unwrap Sensitive -> str
+            self.hmac.value()
         )
         return SensitiveType(str)(encoded_access_token)
 
