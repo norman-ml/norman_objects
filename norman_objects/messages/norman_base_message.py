@@ -11,7 +11,7 @@ from norman_objects.tokens.access_token import AccessToken
 
 
 class NormanBaseMessage(NormanBaseModel):
-    access_token: AccessToken
+    access_token: AccessToken.get_decoded_access_token()
     account_id: str
     update_time: datetime
     entity_type: EntityType
