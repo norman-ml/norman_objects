@@ -20,18 +20,38 @@ class AccessToken(NormanBaseModel):
     def __init__(
             self,
             *,
-            jwt_encode: Callable[[Dict[str, Any], Dict[str, Any], str], str],
-            jwt_decode: Callable[[str], Dict[str, Any]] = PrivateAttr(),
+            encode_token: Callable[[Dict[str, Any], Dict[str, Any], str], str],
+            decode_token: Callable[[str], Dict[str, Any]] = PrivateAttr(),
             encoded_access_token: str
     ):
-        parts = jwt_decode(encoded_access_token)
+        parts = decode_token(encoded_access_token)
         super().__init__(
             header=parts["header"],
             payload=parts["payload"],
             hmac=SensitiveType(str)(parts["hmac"]),
         )
-        self._encode_token = jwt_encode
-        self._decode_token = jwt_decode
+        self._encode_token = encode_token
+        self._decode_token = decode_token
+
+    def initialize_from_decoded_token(
+            cls,
+            decoded: Dict[str, Any],
+            *,
+            encode_token: Callable[[Dict[str, Any], Dict[str, Any], str], str],
+            decode_token: Callable[[str], Dict[str, Any]],
+    ):
+        header = decoded.get("header")
+        payload = decoded.get("payload") or {}
+        hmac = decoded.get("hmac")
+
+        access_token = cls.construct(
+            header=header,
+            payload=payload,
+            hmac=SensitiveType(str)(hmac),
+        )
+        access_token._encode_token = encode_token
+        access_token._decode_token = decode_token
+        return access_token
 
     def get_encoded_access_token(self):
         encoded_access_token = self._encode_token(
