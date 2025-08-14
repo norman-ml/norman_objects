@@ -1,3 +1,5 @@
+from typing import Optional
+
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.filter_clauses.filter_clause import FilterClause
 from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeVar, FilterTypeValue
@@ -10,9 +12,9 @@ from norman_objects.queries.transforms.constraint_transform import ConstraintTra
 
 
 class QueryConstraints(NormanBaseModel):
-    filter: FilterClause | None = None
-    sort: SortClause | None = None
-    page: PageClause | None = None
+    filter: Optional[FilterClause] = None
+    sort: Optional[SortClause] = None
+    page: Optional[PageClause] = None
 
     @classmethod
     def equals(cls, table: str, column: str = "ID", value: FilterTypeValue = None):
@@ -38,7 +40,7 @@ class QueryConstraints(NormanBaseModel):
             table: str,
             column: str = "ID",
             operator: BinaryRelation = BinaryRelation.EQ,
-            value: FilterTypeVar | None = None,
+            value: FilterTypeVar = None,
             join_condition: UnaryRelation = UnaryRelation.AND
         ):
         return cls(

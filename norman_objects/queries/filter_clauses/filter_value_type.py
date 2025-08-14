@@ -1,4 +1,4 @@
-from typing import TypeAlias
+from typing import TypeAlias, Union
 
-FilterTypeValue: TypeAlias = str | int | float
-FilterTypeVar: TypeAlias = FilterTypeValue | list[FilterTypeValue]
+FilterTypeValue: TypeAlias = Union[str, int, float]
+FilterTypeVar: TypeAlias = Union[FilterTypeValue, list[FilterTypeValue]]

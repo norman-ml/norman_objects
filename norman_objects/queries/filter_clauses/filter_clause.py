@@ -1,4 +1,4 @@
-from __future__ import annotations
+from typing import Union
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.filter_clauses.filter_node import FilterNode
@@ -10,7 +10,7 @@ from norman_objects.queries.transforms.constraint_transform import ConstraintTra
 
 
 class FilterClause(NormanBaseModel):
-    children: list[FilterClause | FilterNode]
+    children: list[Union["FilterClause", FilterNode]]
     join_condition: UnaryRelation = UnaryRelation.AND
 
     @classmethod
