@@ -8,23 +8,14 @@ class NormanContext:
     _access_token: ContextVar[Optional[AccessToken]] = ContextVar("norman_access_token", default=None)
 
     @staticmethod
-    def get_access_token_object() -> Optional[AccessToken]:
+    def get_context_token():
         return NormanContext._access_token.get()
 
     @staticmethod
-    def get_access_token():
-        tok = NormanContext._access_token.get()
-        return tok.get_access_token() if tok is not None else None  # returns SensitiveType(str) or None
-
-    @staticmethod
-    def get_decoded_access_token() -> Optional[dict]:
-        tok = NormanContext._access_token.get()
-        return tok.get_decoded_access_token() if tok is not None else None
-
-    @staticmethod
-    def set_access_token(access_token: AccessToken) -> None:
+    def set_context_token(access_token: AccessToken): #returns the decoded version of set context
         NormanContext._access_token.set(access_token)
+        return NormanContext._access_token.get().get_decoded_access_token()
 
     @staticmethod
-    def clear() -> None:
+    def clear():
         NormanContext._access_token.set(None)
