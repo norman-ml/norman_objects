@@ -22,9 +22,9 @@ class AccessToken(NormanBaseModel):
             *,
             jwt_encode: Callable[[Dict[str, Any], Dict[str, Any], str], str],
             jwt_decode: Callable[[str], Dict[str, Any]] = PrivateAttr(),
-            cleartext_access_token: str
+            encoded_access_token: str
     ):
-        parts = jwt_decode(cleartext_access_token)
+        parts = jwt_decode(encoded_access_token)
         super().__init__(
             header=parts["header"],
             payload=parts["payload"],
@@ -44,8 +44,8 @@ class AccessToken(NormanBaseModel):
     def get_decoded_access_token(self):
         return {"header": self.header, "payload": self.payload, "hmac": self.hmac}
 
-    def set_access_token(self, cleartext_access_token: str):
-        parts = self._decode_token(cleartext_access_token)
+    def set_access_token(self, encoded_access_token: str):
+        parts = self._decode_token(encoded_access_token)
 
         self.header = parts.get("header") or {}
         self.payload = parts.get("payload") or {}
