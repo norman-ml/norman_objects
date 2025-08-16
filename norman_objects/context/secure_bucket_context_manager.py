@@ -14,11 +14,11 @@ class SecureBucketContextManager:
         pass
 
     def security_checks(self):
-        decoded_access_token = NormanContext.get_access_token().dict()
-        if decoded_access_token is None or not isinstance(decoded_access_token(), AccessToken):
+        access_token = NormanContext.get_access_token()
+        if not isinstance(access_token, AccessToken):
             raise ValueError("Cannot validate account without a proper access token")
 
-        token_account_id = decoded_access_token["payload"].get("sub")
+        token_account_id = access_token["payload"].get("sub")
         if token_account_id != self.account_id:
             raise PermissionError("Account ID mismatch. Access denied.")
 
