@@ -11,7 +11,7 @@ class NormanContext:
         return NormanContext._access_token.get()
 
     @staticmethod
-    def set_context_token(access_token: AccessToken): #returns the decoded version of set context
+    def set_context_token(access_token: AccessToken):
         NormanContext._access_token.set(access_token)
 
     @staticmethod
