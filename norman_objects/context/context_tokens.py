@@ -7,11 +7,11 @@ class NormanContext:
     _access_token: ContextVar[AccessToken] = ContextVar("norman_access_token")
 
     @staticmethod
-    def get_context_token():
+    def get_access_token():
         return NormanContext._access_token.get()
 
     @staticmethod
-    def set_context_token(access_token: AccessToken):
+    def set_access_token(access_token: AccessToken):
         NormanContext._access_token.set(access_token)
 
     @staticmethod

@@ -18,7 +18,7 @@ class SecureFileContextManager:
         pass
 
     def security_checks(self):
-        decoded_access_token = NormanContext.get_context_token().dict()
+        decoded_access_token = NormanContext.get_access_token().dict()
         if decoded_access_token is None or not isinstance(decoded_access_token, AccessToken):
             raise ValueError("Cannot validate account without a proper access token")
 

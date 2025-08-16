@@ -1,4 +1,5 @@
-from typing import Any
+import base64
+import json
 
 from pydantic import Field, validator
 
@@ -12,8 +13,17 @@ class AccessToken(NormanBaseModel):
     signature: SensitiveType(str)
 
     @validator("signature", pre=True)
-    def signature_validation(cls, signature: Any):
+    def signature_validation(cls, signature):
         if isinstance(signature, SensitiveType(str)):
             return signature
         else:
             return SensitiveType(str)(signature)
+
+    def get_encoded(self):
+        header_json = json.dumps(self.header, separators=(",", ":"), ensure_ascii=False).replace("/", "\\/")
+        payload_json = json.dumps(self.payload, separators=(",", ":"), ensure_ascii=False).replace("/", "\\/")
+
+        header_b64 = base64.urlsafe_b64encode(header_json.encode("utf-8")).rstrip(b"=").decode("ascii")
+        payload_b64 = base64.urlsafe_b64encode(payload_json.encode("utf-8")).rstrip(b"=").decode("ascii")
+
+        return f"{header_b64}.{payload_b64}.{self.signature}"
