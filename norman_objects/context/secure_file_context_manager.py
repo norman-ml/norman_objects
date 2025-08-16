@@ -23,7 +23,7 @@ class SecureFileContextManager:
         if not isinstance(access_token, AccessToken):
             raise ValueError("Cannot validate account without a proper access token")
 
-        token_account_id = access_token["payload"].get("cognito:username")
+        token_account_id = access_token.payload.get("cognito:username")
         if token_account_id != self.account_id:
             raise PermissionError("Account ID mismatch. Access denied.")
 
