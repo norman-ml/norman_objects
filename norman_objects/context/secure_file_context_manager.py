@@ -1,5 +1,6 @@
 import os
 
+from norman_objects.authorization.access_token import AccessToken
 from norman_objects.context.context_tokens import NormanContext
 
 
@@ -18,7 +19,7 @@ class SecureFileContextManager:
 
     def security_checks(self):
         decoded_access_token = NormanContext.get_context_token().get_decoded_access_token()
-        if decoded_access_token is None or not isinstance(decoded_access_token, dict):
+        if decoded_access_token is None or not isinstance(decoded_access_token, AccessToken):
             raise ValueError("Cannot validate account without a proper access token")
 
         token_account_id = decoded_access_token["payload"].get("sub")

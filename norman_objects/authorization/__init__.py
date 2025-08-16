@@ -1,1 +1,2 @@
 import norman_objects.authorization.account_merge_request
+import norman_objects.authorization.access_token

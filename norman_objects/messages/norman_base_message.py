@@ -6,7 +6,7 @@ from norman_objects.context.context_tokens import NormanContext
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.status_flags.status_flag import StatusFlag
-from norman_objects.tokens.access_token import AccessToken
+from norman_objects.authorization.access_token import AccessToken
 
 
 class NormanBaseMessage(NormanBaseModel):
