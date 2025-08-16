@@ -5,6 +5,6 @@ from norman_objects.sensitive.sensitive_type import SensitiveType
 
 
 class InvocationParams(NormanBaseModel):
-    encoded_access_token: SensitiveType(str)
+    access_token: SensitiveType(str)
     model: Model
     invocation: Invocation
