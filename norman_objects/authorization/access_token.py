@@ -26,4 +26,4 @@ class AccessToken(NormanBaseModel):
         header_b64 = base64.urlsafe_b64encode(header_json.encode("utf-8")).rstrip(b"=").decode("ascii")
         payload_b64 = base64.urlsafe_b64encode(payload_json.encode("utf-8")).rstrip(b"=").decode("ascii")
 
-        return f"{header_b64}.{payload_b64}.{self.signature.value()}"
+        return SensitiveType(str)(f"{header_b64}.{payload_b64}.{self.signature.value()}")
