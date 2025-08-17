@@ -9,9 +9,9 @@ from norman_objects.sensitive.sensitive_type import SensitiveType
 
 
 class AccessToken(NormanBaseModel):
-    header: Final[dict]= Field(default_factory=dict)
-    payload: Final[dict] = Field(default_factory=dict)
-    signature: Final[SensitiveType(str)]
+    header: dict= Field(default_factory=dict)
+    payload: dict = Field(default_factory=dict)
+    signature: SensitiveType(str)
 
     @validator("signature", pre=True)
     def signature_validation(cls, signature):
