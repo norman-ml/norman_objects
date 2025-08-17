@@ -13,7 +13,7 @@ class AccessToken(NormanBaseModel):
     signature: SensitiveType(str)
 
     @validator("signature", pre=True)
-    def signature_validation(cls, signature):
+    def signature_sensitivity_validation(cls, signature):
         if isinstance(signature, SensitiveType(str)):
             return signature
         else:
