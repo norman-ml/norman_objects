@@ -4,7 +4,7 @@ from norman_objects.norman_base_model import NormanBaseModel
 from pydantic import Field
 
 
-class AccountPassword(NormanBaseModel):
+class AccountApiKey(NormanBaseModel):
     id: str = "0"
     account_id: str
     credential_hash_id: str
