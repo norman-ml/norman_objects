@@ -1,6 +1,5 @@
 import base64
 import json
-from functools import cached_property
 from typing import Final
 
 from pydantic import Field, validator
@@ -21,7 +20,7 @@ class AccessToken(NormanBaseModel):
         else:
             return SensitiveType(str)(signature)
 
-    @cached_property
+    @property
     def encoded(self):
         header_json = json.dumps(self.header, separators=(",", ":"), ensure_ascii=False).replace("/", "\\/")
         payload_json = json.dumps(self.payload, separators=(",", ":"), ensure_ascii=False).replace("/", "\\/")
