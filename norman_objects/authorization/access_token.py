@@ -1,6 +1,5 @@
 import base64
 import json
-from typing import Final
 
 from pydantic import Field, validator
 
