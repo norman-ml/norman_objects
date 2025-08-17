@@ -1,5 +1,7 @@
 import base64
 import json
+from functools import cached_property
+from typing import Final
 
 from pydantic import Field, validator
 
@@ -8,9 +10,9 @@ from norman_objects.sensitive.sensitive_type import SensitiveType
 
 
 class AccessToken(NormanBaseModel):
-    header: dict= Field(default_factory=dict)
-    payload: dict = Field(default_factory=dict)
-    signature: SensitiveType(str) or str
+    header: Final[dict]= Field(default_factory=dict)
+    payload: Final[dict] = Field(default_factory=dict)
+    signature: Final[SensitiveType(str)]
 
     @validator("signature", pre=True)
     def signature_validation(cls, signature):
@@ -19,7 +21,8 @@ class AccessToken(NormanBaseModel):
         else:
             return SensitiveType(str)(signature)
 
-    def get_encoded(self):
+    @cached_property
+    def encoded(self):
         header_json = json.dumps(self.header, separators=(",", ":"), ensure_ascii=False).replace("/", "\\/")
         payload_json = json.dumps(self.payload, separators=(",", ":"), ensure_ascii=False).replace("/", "\\/")
 
