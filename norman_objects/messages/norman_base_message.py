@@ -28,9 +28,9 @@ class NormanBaseMessage(NormanBaseModel):
 
     @validator("access_token")
     def signature_sensitivity_validation(cls, values):
-        #if isinstance(values, dict) and "signature" in values:
         signature = values["signature"]
         values["signature"] = SensitiveType(str)(signature)
+
         return values
 
     @property
