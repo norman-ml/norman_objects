@@ -24,13 +24,10 @@ class AccessToken(NormanBaseModel):
 
     @property
     def encoded2(self):
-        header_json = json.dumps(self.header)
-        payload_json = json.dumps(self.payload)
+        header_json = json.dumps(self.header, separators=(",", ":"), ensure_ascii=False)
+        payload_json = json.dumps(self.payload, separators=(",", ":"), ensure_ascii=False)
 
-        header_bytes = header_json.encode("utf-8")
-        payload_bytes = payload_json.encode("utf-8")
-
-        header_b64 = base64.b64encode(header_bytes)
-        payload_b64 = base64.b64encode(payload_bytes)
+        header_b64 = base64.urlsafe_b64encode(header_json.encode("utf-8")).rstrip(b"=").decode("ascii")
+        payload_b64 = base64.urlsafe_b64encode(payload_json.encode("utf-8")).rstrip(b"=").decode("ascii")
 
         return f"{header_b64}.{payload_b64}.{self.encoded_signature.value()}"
