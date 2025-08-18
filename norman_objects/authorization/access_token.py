@@ -24,8 +24,8 @@ class AccessToken(NormanBaseModel):
 
     @property
     def encoded2(self):
-        header_json = json.dumps(self.header, separators=(",", ":")).replace("/", "\\/")
-        payload_json = json.dumps(self.payload, separators=(",", ":")).replace("/", "\\/")
+        header_json = json.dumps(self.header).replace("/", "\\/")
+        payload_json = json.dumps(self.payload).replace("/", "\\/")
 
         header_b64 = base64.urlsafe_b64encode(header_json.encode("utf-8")).rstrip(b"=").decode("utf-8")
         payload_b64 = base64.urlsafe_b64encode(payload_json.encode("utf-8")).rstrip(b"=").decode("utf-8")
