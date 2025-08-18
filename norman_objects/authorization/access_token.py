@@ -27,7 +27,10 @@ class AccessToken(NormanBaseModel):
         header_json = json.dumps(self.header)
         payload_json = json.dumps(self.payload)
 
-        header_b64 = base64.b64decode(header_json)
-        payload_b64 = base64.b64decode(payload_json)
+        header_bytes = header_json.encode("utf-8")
+        payload_bytes = payload_json.encode("utf-8")
+
+        header_b64 = base64.b64encode(header_bytes)
+        payload_b64 = base64.b64encode(payload_bytes)
 
         return f"{header_b64}.{payload_b64}.{self.encoded_signature.value()}"
