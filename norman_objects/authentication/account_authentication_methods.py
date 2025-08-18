@@ -3,9 +3,9 @@ from norman_objects.norman_base_model import NormanBaseModel
 
 class AccountAuthenticationMethods(NormanBaseModel):
     account_id: str
-    passwords: int
-    api_keys: int
-    verified_emails: int
+    api_keys_count: int
+    passwords_count: int
+    verified_emails_count: int
 
-    def has_any_method(self):
-        return self.passwords > 0 or self.api_keys > 0 or self.verified_emails > 0
+    def has_method_configured(self):
+        return self.api_keys_count > 0 or self.passwords_count > 0 or self.verified_emails_count > 0

@@ -1,4 +1,4 @@
-from norman_objects.authentication.algorithm_enum import AlgorithmEnum
+from norman_objects.authentication.argon2_algorithm_enum import Argon2AlgorithmEnum
 from norman_objects.norman_base_model import NormanBaseModel
 
 
@@ -10,5 +10,5 @@ class CredentialHash(NormanBaseModel):
     memory_cost: int
     parallelism: int
     hash_length: int
-    algorithm: AlgorithmEnum
+    algorithm: Argon2AlgorithmEnum
     version: int

@@ -1,4 +1,3 @@
-
 from datetime import datetime, timedelta, timezone
 
 from norman_objects.norman_base_model import NormanBaseModel
