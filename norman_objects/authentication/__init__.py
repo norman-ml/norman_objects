@@ -3,6 +3,5 @@ import norman_objects.authentication.account_authentication_methods
 import norman_objects.authentication.account_email
 import norman_objects.authentication.account_otp
 import norman_objects.authentication.account_password
-import norman_objects.authentication.account_authentication_methods
 import norman_objects.authentication.algorithm_enum
 import norman_objects.authentication.credential_hash

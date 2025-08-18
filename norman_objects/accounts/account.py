@@ -10,5 +10,5 @@ class Account(NormanBaseModel):
     name: str
 
     @classmethod
-    def create(cls, name: str):
+    def create_with_name(cls, name: str):
         return cls(name=name)
