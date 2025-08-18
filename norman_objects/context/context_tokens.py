@@ -16,7 +16,7 @@ class NormanContext:
         access_token = AccessToken(
             header=access_token_dict["header"],
             payload=access_token_dict["payload"],
-            encoded_signature=access_token_dict["signature"]
+            encoded_signature=access_token_dict["encoded_signature"]
         )
         NormanContext._access_token.set(access_token)
 
