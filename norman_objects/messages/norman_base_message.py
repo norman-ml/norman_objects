@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from pydantic import root_validator, validator
 
+from norman_objects.authorization.access_token import AccessToken
 from norman_objects.context.context_tokens import NormanContext
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
@@ -23,13 +24,6 @@ class NormanBaseMessage(NormanBaseModel):
 
         if account_id != status_flag.account_id:
             raise ValueError("Message account id does not match status flag account id")
-
-        return values
-
-    @validator("access_token")
-    def signature_sensitivity_validation(cls, values):
-        signature = values["signature"]
-        values["signature"] = SensitiveType(str)(signature)
 
         return values
 

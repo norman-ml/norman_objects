@@ -12,13 +12,6 @@ class AccessToken(NormanBaseModel):
     payload: dict = Field(default_factory=dict)
     signature: SensitiveType(str)
 
-    @validator("signature", pre=True)
-    def signature_sensitivity_validation(cls, signature):
-        if isinstance(signature, SensitiveType(str)):
-            return signature
-        else:
-            return SensitiveType(str)(signature)
-
     @property
     def encoded(self):
         header_json = json.dumps(self.header, separators=(",", ":"), ensure_ascii=False).replace("/", "\\/")
