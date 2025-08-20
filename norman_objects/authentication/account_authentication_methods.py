@@ -8,4 +8,4 @@ class AccountAuthenticationMethods(NormanBaseModel):
     verified_email_count: int
 
     def has_method_configured(self):
-        return self.api_keys_count > 0 or self.passwords_count > 0 or self.verified_emails_count > 0
+        return self.api_key_count > 0 or self.password_count > 0 or self.verified_email_count > 0
