@@ -2,7 +2,7 @@ from typing import Optional
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.filter_clauses.filter_clause import FilterClause
-from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeVar, FilterTypeValue
+from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeVar, FilterTypeValue, FilterTypeCollection
 from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
 from norman_objects.queries.page_clauses.page_clause import PageClause
@@ -23,13 +23,13 @@ class QueryConstraints(NormanBaseModel):
         )
 
     @classmethod
-    def includes(cls, table: str, column: str = "ID", value: list[FilterTypeValue] = None):
+    def includes(cls, table: str, column: str = "ID", value: FilterTypeCollection = None):
         return cls(
             filter=FilterClause.includes(table, column, value)
         )
 
     @classmethod
-    def not_includes(cls, table: str, column: str = "ID", value: list[FilterTypeValue] = None):
+    def not_includes(cls, table: str, column: str = "ID", value: FilterTypeCollection = None):
         return cls(
             filter=FilterClause.not_includes(table, column, value)
         )
