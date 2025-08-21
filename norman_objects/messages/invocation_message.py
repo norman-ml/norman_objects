@@ -12,8 +12,6 @@ class InvocationMessage(ModelMessage):
 
     @root_validator
     def validate_account_id(cls, values):
-        super().validate_account_id(values)
-
         account_id: str = values.get("account_id")
         invocation: Invocation = values.get("invocation")
 
