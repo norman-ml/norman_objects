@@ -1,3 +1,4 @@
+from typing import Collection
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeVar
@@ -26,10 +27,10 @@ class FilterNode(NormanBaseModel):
 
     def validate_type(self):
         if self.operator in (BinaryRelation.IN, BinaryRelation.NIN):
-            return isinstance(self.value, list)
+            return isinstance(self.value, (list, set, tuple))
         return isinstance(self.value, (str, int, float))
 
-    def build_expression(self, parameterization_type: ParameterizationType, transforms: list[ConstraintTransform] = None):
+    def build_expression(self, parameterization_type: ParameterizationType, transforms: Collection[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
@@ -39,7 +40,7 @@ class FilterNode(NormanBaseModel):
 
         return clause, parameters
 
-    def build_expression_as_list(self, transforms: list[ConstraintTransform] = None):
+    def build_expression_as_list(self, transforms: Collection[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
             collection_placeholders = ["%s"] * len(self.value)
             interpolation_placeholder = f"({', '.join(collection_placeholders)})"
@@ -55,7 +56,7 @@ class FilterNode(NormanBaseModel):
         clause = f" {self.table}.{self.column} {self.operator.value} {interpolation_placeholder} "
         return clause, parameters
 
-    def build_expression_as_dict(self, transforms: list[ConstraintTransform] = None):
+    def build_expression_as_dict(self, transforms: Collection[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
             raise ValueError("Collection operators not supported with dict parameterization")
 
@@ -69,13 +70,13 @@ class FilterNode(NormanBaseModel):
 
         return clause, parameters
 
-    def transform(self, transforms: list[ConstraintTransform] = None):
+    def transform(self, transforms: Collection[ConstraintTransform] = None):
         if transforms is None:
             return self.value
 
         for transform in transforms:
             if transform.column_name == self.column:
-                if isinstance(self.value, list):
+                if isinstance(self.value, (list, set, tuple)):
                     return [transform.function(v) for v in self.value]
                 return transform.function(self.value)
 

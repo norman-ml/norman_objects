@@ -1,8 +1,10 @@
 from typing import Union
 
+from typing import Collection
+
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.filter_clauses.filter_node import FilterNode
-from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeValue, FilterTypeVar
+from norman_objects.queries.filter_clauses.filter_value_type import FilterTypeValue, FilterTypeVar, FilterTypeCollection
 from norman_objects.queries.logical_relations.binary_relation import BinaryRelation
 from norman_objects.queries.logical_relations.unary_relation import UnaryRelation
 from norman_objects.queries.parameterization_type import ParameterizationType
@@ -24,7 +26,7 @@ class FilterClause(NormanBaseModel):
         )
 
     @classmethod
-    def includes(cls, table: str, column: str = "ID", value: list[FilterTypeValue] = None):
+    def includes(cls, table: str, column: str = "ID", value: FilterTypeCollection = None):
         if value is None:
             raise ValueError("Filter clause value cannot be None")
 
@@ -40,7 +42,7 @@ class FilterClause(NormanBaseModel):
         )
 
     @classmethod
-    def not_includes(cls, table: str, column: str = "ID", value: list[FilterTypeValue] = None):
+    def not_includes(cls, table: str, column: str = "ID", value: FilterTypeCollection = None):
         if value is None:
             raise ValueError("Filter clause value cannot be None")
 
@@ -96,7 +98,7 @@ class FilterClause(NormanBaseModel):
 
         return True
 
-    def build_expression(self, parameterization_type: ParameterizationType, transforms: list[ConstraintTransform] = None):
+    def build_expression(self, parameterization_type: ParameterizationType, transforms: Collection[ConstraintTransform] = None):
         if parameterization_type == ParameterizationType.LIST_BASED:
             clause, parameters = self.build_expression_as_list(parameterization_type, transforms)
         elif parameterization_type == ParameterizationType.DICT_BASED:
@@ -106,7 +108,7 @@ class FilterClause(NormanBaseModel):
 
         return clause, parameters
 
-    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: list[ConstraintTransform] = None):
+    def build_expression_as_list(self, parameterization_type: ParameterizationType, transforms: Collection[ConstraintTransform] = None):
         clauses = []
         parameters = []
 
@@ -118,7 +120,7 @@ class FilterClause(NormanBaseModel):
         joint_expression = f" {self.join_condition.value} ".join(clauses)
         return joint_expression, parameters
 
-    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: list[ConstraintTransform] = None):
+    def build_expression_as_dict(self, parameterization_type: ParameterizationType, transforms: Collection[ConstraintTransform] = None):
         clauses = []
         parameters = {}
 
