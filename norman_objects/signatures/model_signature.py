@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Optional
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.parameters.data_domain import DataDomain
@@ -21,6 +21,6 @@ class ModelSignature(NormanBaseModel):
     display_title: str
     default_value: Optional[str] = None
 
-    parameters: List[ModelParam] = []
-    transforms: List[SignatureTransform] = []
-    signature_args: Dict[str, str] = {}
+    parameters: list[ModelParam] = []
+    transforms: list[SignatureTransform] = []
+    signature_args: dict[str, str] = {}

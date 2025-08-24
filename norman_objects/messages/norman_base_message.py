@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from pydantic import root_validator
+from pydantic import model_validator
 
 from norman_objects.authorization.jwt_token import JwtToken
 from norman_objects.context.norman_access_context import NormanAccessContext
@@ -16,15 +16,15 @@ class NormanBaseMessage(NormanBaseModel):
     entity_type: EntityType
     status_flag: StatusFlag
 
-    @root_validator
-    def validate_account_id(cls, values):
-        account_id: str = values.get("account_id")
-        status_flag: StatusFlag = values.get("status_flag")
-
-        if account_id != status_flag.account_id:
+    def validate_account_id(self):
+        if self.account_id != self.status_flag.account_id:
             raise ValueError("Message account id does not match status flag account id")
 
-        return values
+        return self
+
+    @model_validator(mode="after")
+    def run_validators(self):
+        self.validate_account_id()
 
     @property
     def entity_id(self):

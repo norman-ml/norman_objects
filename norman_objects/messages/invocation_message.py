@@ -1,44 +1,32 @@
-from pydantic import root_validator
+from pydantic import model_validator
 
 from norman_objects.invocations.invocation import Invocation
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.model_message import ModelMessage
-from norman_objects.models.model import Model
 from norman_objects.status_flags.status_flag import StatusFlag
 
 
 class InvocationMessage(ModelMessage):
     invocation: Invocation
 
-    @root_validator
-    def validate_account_id(cls, values):
-        account_id: str = values.get("account_id")
-        invocation: Invocation = values.get("invocation")
-
-        if account_id != invocation.account_id:
+    def validate_account_id(self):
+        if self.account_id != self.invocation.account_id:
             raise ValueError("Message account id does not match invocation account id")
 
-        return values
-
-    @root_validator
-    def validate_model_id(cls, values):
-        model: Model = values.get("model")
-        invocation: Invocation = values.get("invocation")
-
-        if model.id != invocation.model_id:
+    def validate_model_id(self):
+        if self.model.id != self.invocation.model_id:
             raise ValueError("Model id does not match invocation model id")
 
-        return values
-
-    @root_validator
-    def validate_entity_id(cls, values):
-        invocation: Invocation = values.get("invocation")
-        status_flag: StatusFlag = values.get("status_flag")
-
-        if invocation.id != status_flag.entity_id:
+    def validate_entity_id(self):
+        if self.invocation.id != self.status_flag.entity_id:
             raise ValueError("Invocation id does not match status flag entity id")
 
-        return values
+    @model_validator(mode="after")
+    def run_validation(self):
+        self.validate_account_id()
+        self.validate_model_id()
+        self.validate_entity_id()
+        return self
 
     @ModelMessage.entity_id.getter
     def entity_id(self):
