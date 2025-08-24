@@ -1,19 +1,27 @@
-class Sensitive:
+from typing import Generic, Type, TypeVar, Union
+
+
+T = TypeVar("T")
+
+class Sensitive(Generic[T]):
     __redacted_place_holder = "<redacted>"
+    __sensitive__ = True
 
-    def __init__(self, value):
-        self.__sensitive__ = True
-
+    def __init__(self, value: Union[T, "Sensitive[T]"]):
         if isinstance(value, Sensitive):
-            self._value = value.value()
+            self._value: T = value.value()
         else:
-            self._value = value
+            self._value: T = value
 
+    def value(self) -> T:
+        return self._value
+    
+    # @classmethod
+    # def __get_validators__(cls):
+    #     yield
+    
     def __iter__(self):
         return iter(str(self))
-
-    def value(self):
-        return self._value
 
     def dict(self):
         return self.__redacted_place_holder

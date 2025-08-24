@@ -1,13 +1,15 @@
+from typing import Type, TypeVar
 from norman_objects.sensitive.sensitive import Sensitive
 
 _sensitive_type_cache = {}
 
+T = TypeVar("T")
 
-def SensitiveType(inner_type):
-    if inner_type in _sensitive_type_cache:
-        return _sensitive_type_cache[inner_type]
+class SensitiveType:
+    def __new__(cls, inner_type: Type[T]) -> Type[Sensitive[T]]:
+        if inner_type in _sensitive_type_cache:
+            return _sensitive_type_cache[inner_type]
 
-    else:
         class SensitiveCls(Sensitive, inner_type):
             pass
 
