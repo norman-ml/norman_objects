@@ -11,12 +11,13 @@ class NormanBaseModel(BaseModel):
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
 
+        res_dict = {}
+        for field in cls.model_fields.values():
+            res_dict[field[0]] = (Optional[field[1].annotation], None)
+
         cls.UpdateSchema: Type[BaseModel] = create_model(
             f"{cls.__name__}Update",
-            **{
-                name: (Optional[field.annotation], None)
-                for name, field in cls.model_fields.values()
-            },
+            **res_dict,
             __base__=NormanUpdateSchema
         )
 
