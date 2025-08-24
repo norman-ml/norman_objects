@@ -1,18 +1,18 @@
 from contextvars import ContextVar
+from typing import Optional
 from norman_objects.sensitive.sensitive import Sensitive
-from norman_objects.sensitive.sensitive_type import SensitiveType
 
 
 class NormanContext:
-    _access_token: ContextVar[SensitiveType(str)] = ContextVar("norman_access_token")
-    _decoded_access_token: ContextVar[SensitiveType(str)] = ContextVar("norman_decoded_access_token")
+    _access_token: ContextVar[Optional[Sensitive[str]]] = ContextVar("norman_access_token")
+    _decoded_access_token: ContextVar[Optional[Sensitive[str]]] = ContextVar("norman_decoded_access_token")
 
     @staticmethod
     def get_access_token():
         return NormanContext._access_token.get(None)
 
     @staticmethod
-    def set_access_token(token: Sensitive):
+    def set_access_token(token: Sensitive[str]):
         NormanContext._access_token.set(token)
 
     @staticmethod
@@ -24,7 +24,7 @@ class NormanContext:
         return NormanContext._decoded_access_token.get(None)
 
     @staticmethod
-    def set_decoded_access_token(decoded: Sensitive):
+    def set_decoded_access_token(decoded: Sensitive[str]):
         NormanContext._decoded_access_token.set(decoded)
 
     @staticmethod
