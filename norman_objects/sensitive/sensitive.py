@@ -16,10 +16,6 @@ class Sensitive(Generic[T]):
     def value(self) -> T:
         return self._value
     
-    # @classmethod
-    # def __get_validators__(cls):
-    #     yield
-    
     def __iter__(self):
         return iter(str(self))
 
