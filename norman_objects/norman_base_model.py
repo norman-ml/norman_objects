@@ -1,5 +1,6 @@
 from typing import Type, Optional
 from pydantic import BaseModel, create_model, model_validator
+from pydantic.fields import FieldInfo
 
 from norman_objects.norman_update_schema import NormanUpdateSchema
 from norman_objects.sensitive.sensitive import Sensitive
@@ -13,8 +14,8 @@ class NormanBaseModel(BaseModel):
         cls.UpdateSchema: Type[BaseModel] = create_model(
             f"{cls.__name__}Update",
             **{
-                field.name: (Optional[field.annotation], None)
-                for field in cls.model_fields.values()
+                name: (Optional[field.annotation], None)
+                for name, field in cls.model_fields.values()
             },
             __base__=NormanUpdateSchema
         )
