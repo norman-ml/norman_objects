@@ -16,7 +16,6 @@ NormanMessage = Annotated[
         InvocationMessage,
         InputMessage,
         OutputMessage,
-        NormanBaseMessage,
     ],
     Field(discriminator="entity_type"),
 ]
