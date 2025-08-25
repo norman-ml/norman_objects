@@ -1,5 +1,6 @@
 from typing import Generic, TypeVar, Union
 
+from pydantic_core import core_schema
 
 T = TypeVar("T")
 
@@ -12,6 +13,14 @@ class Sensitive(Generic[T]):
             self._value: T = value.value()
         else:
             self._value: T = value
+
+    @classmethod
+    def __get_pydantic_core_schema__(cls, source_type, handler):
+        (inner_type,) = source_type.__args__
+        return core_schema.no_info_after_validator_function(
+            cls,
+            handler.generate_schema(inner_type)
+        )
 
     def value(self) -> T:
         return self._value
