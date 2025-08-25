@@ -20,11 +20,10 @@ class NormanBaseMessage(NormanBaseModel):
         if self.account_id != self.status_flag.account_id:
             raise ValueError("Message account id does not match status flag account id")
 
-        return self
-
     @model_validator(mode="after")
     def run_validators(self):
         self.validate_account_id()
+        return self
 
     @property
     def entity_id(self):
