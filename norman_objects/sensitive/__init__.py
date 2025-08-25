@@ -1,2 +1,1 @@
 import norman_objects.sensitive.sensitive
-import norman_objects.sensitive.sensitive_type
