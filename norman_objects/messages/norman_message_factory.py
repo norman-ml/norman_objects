@@ -2,7 +2,6 @@ from typing import Union, Annotated
 from pydantic import Field
 
 from norman_objects.messages.asset_message import AssetMessage
-from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.input_message import InputMessage
 from norman_objects.messages.invocation_message import InvocationMessage
 from norman_objects.messages.model_message import ModelMessage
@@ -10,7 +9,6 @@ from norman_objects.messages.norman_base_message import NormanBaseMessage
 from norman_objects.messages.output_message import OutputMessage
 
 
-# Pydantic v2 discriminated union on "entity_type"
 NormanMessage = Annotated[
     Union[
         ModelMessage,

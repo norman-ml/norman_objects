@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import model_validator
 
 from norman_objects.files.file_properties import FileProperties
@@ -12,6 +14,7 @@ from norman_objects.status_flags.status_flag import StatusFlag
 class OutputMessage(InvocationMessage, FileMessage):
     output: InvocationOutput
     file_properties: FileProperties
+    entity_type: Literal[EntityType.Output] = EntityType.Output
 
     def validate_account_id(self):
         super().validate_account_id()

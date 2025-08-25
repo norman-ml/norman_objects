@@ -1,4 +1,5 @@
 from pydantic import model_validator
+from typing_extensions import Literal
 
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.norman_base_message import NormanBaseMessage
@@ -8,6 +9,7 @@ from norman_objects.status_flags.status_flag import StatusFlag
 
 class ModelMessage(NormanBaseMessage):
     model: Model
+    entity_type: Literal[EntityType.Model] = EntityType.Model
 
     def validate_account_id(self):
         super().validate_account_id()

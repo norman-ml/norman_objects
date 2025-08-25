@@ -1,3 +1,5 @@
+from typing import Literal
+
 from pydantic import model_validator
 
 from norman_objects.invocations.invocation import Invocation
@@ -8,6 +10,7 @@ from norman_objects.status_flags.status_flag import StatusFlag
 
 class InvocationMessage(ModelMessage):
     invocation: Invocation
+    entity_type: Literal[EntityType.Invocation] = EntityType.Invocation
 
     def validate_account_id(self):
         if self.account_id != self.invocation.account_id:
