@@ -17,10 +17,13 @@ class Sensitive(Generic[T]):
     @classmethod
     def __get_pydantic_core_schema__(cls, source_type, handler):
         (inner_type,) = source_type.__args__
-        return core_schema.no_info_after_validator_function(
-            cls,
-            handler.generate_schema(inner_type)
-        )
+
+        def validate_sensitive(value: Union[T, "Sensitive[T]"], info) -> "Sensitive[T]":
+            if isinstance(value, Sensitive):
+                return value
+            return cls(value)
+
+        return core_schema.with_info_plain_validator_function(validate_sensitive)
 
     def value(self) -> T:
         return self._value
