@@ -1,5 +1,5 @@
 from typing import Union, Annotated
-from pydantic import Field
+from pydantic import Field, TypeAdapter
 
 from norman_objects.messages.asset_message import AssetMessage
 from norman_objects.messages.input_message import InputMessage
@@ -28,4 +28,4 @@ class NormanMessageFactory:
         if not isinstance(raw_message, dict):
             raise ValueError("Cannot convert non-dict to Norman message")
 
-        return NormanMessage.model_validate(raw_message)
+        return TypeAdapter(NormanMessage).validate_python(raw_message)
