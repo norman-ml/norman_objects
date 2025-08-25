@@ -1,5 +1,6 @@
 from typing import Generic, TypeVar, Union
 
+from pydantic import TypeAdapter
 from pydantic_core import core_schema
 
 T = TypeVar("T")
@@ -18,10 +19,13 @@ class Sensitive(Generic[T]):
     def __get_pydantic_core_schema__(cls, source_type, handler):
         (inner_type,) = source_type.__args__
 
-        def validate_sensitive(value: Union[T, "Sensitive[T]"], info) -> "Sensitive[T]":
+        def validate_sensitive(value: Union[T, "Sensitive[T]"], _) -> "Sensitive[T]":
             if isinstance(value, Sensitive):
-                return value
-            return cls(value)
+                raw_value = value.value()
+            else:
+                raw_value = value
+
+            return cls(TypeAdapter(inner_type).validate_python(raw_value))
 
         return core_schema.with_info_plain_validator_function(validate_sensitive)
 
