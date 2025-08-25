@@ -27,7 +27,14 @@ class Sensitive(Generic[T]):
 
             return cls(TypeAdapter(inner_type).validate_python(raw_value))
 
-        return core_schema.with_info_plain_validator_function(validate_sensitive)
+        return core_schema.with_info_plain_validator_function(
+            validate_sensitive,
+            serialization=core_schema.plain_serializer_function_ser_schema(
+                lambda v: v.value(),
+                return_schema=handler(inner_type),
+                when_used="json",
+            )
+        )
 
     def value(self) -> T:
         return self._value
