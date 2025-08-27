@@ -1,5 +1,5 @@
 from norman_objects.authorization.jwt_token import JwtToken
-from norman_objects.context.context_tokens import NormanAccessContext
+from norman_objects.context.norman_access_context import NormanAccessContext
 
 
 class SecureBucketContextManager:
