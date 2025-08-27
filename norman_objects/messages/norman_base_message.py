@@ -2,15 +2,15 @@ from datetime import datetime, timezone
 
 from pydantic import root_validator
 
-from norman_objects.authorization.access_token import AccessToken
-from norman_objects.context.context_tokens import NormanContext
+from norman_objects.authorization.access_token import JwtToken
+from norman_objects.context.context_tokens import NormanAccessContext
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.status_flags.status_flag import StatusFlag
 
 
 class NormanBaseMessage(NormanBaseModel):
-    access_token: AccessToken
+    access_token: JwtToken
     account_id: str
     update_time: datetime
     entity_type: EntityType
@@ -40,7 +40,7 @@ class NormanBaseMessage(NormanBaseModel):
 
     @classmethod
     def _base_message(cls, entity_type: EntityType, status_flag: StatusFlag):
-        access_token = NormanContext.get_access_token()
+        access_token = NormanAccessContext.get_access_token()
         update_time = datetime.now(timezone.utc)
 
         return cls(

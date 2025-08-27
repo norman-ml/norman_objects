@@ -7,7 +7,7 @@ from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.sensitive.sensitive_type import SensitiveType
 
 
-class AccessToken(NormanBaseModel):
+class JwtToken(NormanBaseModel):
     header: dict= Field(default_factory=dict)
     payload: dict = Field(default_factory=dict)
     encoded_signature: SensitiveType(str)

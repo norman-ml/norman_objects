@@ -1,8 +1,8 @@
 import os
 from typing import Callable
 
-from norman_objects.authorization.access_token import AccessToken
-from norman_objects.context.context_tokens import NormanContext
+from norman_objects.authorization.access_token import JwtToken
+from norman_objects.context.context_tokens import NormanAccessContext
 
 
 class SecureFileContextManager:
@@ -19,8 +19,8 @@ class SecureFileContextManager:
         pass
 
     def security_checks(self):
-        access_token = NormanContext.get_access_token()
-        if not isinstance(access_token, AccessToken):
+        access_token = NormanAccessContext.get_access_token()
+        if not isinstance(access_token, JwtToken):
             raise ValueError("Cannot validate account without a proper access token")
 
         token_account_id = access_token.payload.get("sub")
