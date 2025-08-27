@@ -12,12 +12,7 @@ class NormanContext:
         return NormanContext._access_token.get()
 
     @staticmethod
-    def set_access_token(access_token_dict: dict):
-        access_token = AccessToken(
-            header=access_token_dict["header"],
-            payload=access_token_dict["payload"],
-            encoded_signature=access_token_dict["encoded_signature"]
-        )
+    def set_access_token(access_token: AccessToken):
         NormanContext._access_token.set(access_token)
 
     @staticmethod
