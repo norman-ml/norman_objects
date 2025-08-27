@@ -1,7 +1,7 @@
 import base64
 import json
 
-from pydantic import Field, validator
+from pydantic import Field
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.sensitive.sensitive_type import SensitiveType

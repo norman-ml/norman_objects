@@ -1,5 +1,4 @@
 import os
-from typing import Callable
 
 from norman_objects.authorization.jwt_token import JwtToken
 from norman_objects.context.norman_access_context import NormanAccessContext
