@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 
 from pydantic import root_validator
 
-from norman_objects.authorization.access_token import JwtToken
+from norman_objects.authorization.jwt_token import JwtToken
 from norman_objects.context.context_tokens import NormanAccessContext
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel

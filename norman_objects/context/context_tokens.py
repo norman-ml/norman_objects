@@ -1,7 +1,7 @@
 from contextvars import ContextVar
 from typing import Optional
 
-from norman_objects.authorization.access_token import JwtToken
+from norman_objects.authorization.jwt_token import JwtToken
 
 
 class NormanAccessContext:
