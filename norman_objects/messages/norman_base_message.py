@@ -1,12 +1,11 @@
 from datetime import datetime, timezone
 
-from pydantic import root_validator, validator
+from pydantic import root_validator
 
 from norman_objects.authorization.access_token import AccessToken
 from norman_objects.context.context_tokens import NormanContext
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.sensitive.sensitive_type import SensitiveType
 from norman_objects.status_flags.status_flag import StatusFlag
 
 
