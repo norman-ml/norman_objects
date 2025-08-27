@@ -14,8 +14,8 @@ class JwtToken(NormanBaseModel):
 
     @property
     def encoded(self):
-        header_json = json.dumps(self.header, separators=(",", ":")).replace("/", "\\/")
-        payload_json = json.dumps(self.payload, separators=(",", ":")).replace("/", "\\/")
+        header_json = json.dumps(self.header, separators=(",", ":"))
+        payload_json = json.dumps(self.payload, separators=(",", ":"))
 
         header_b64 = base64.urlsafe_b64encode(header_json.encode("utf-8")).rstrip(b"=").decode("utf-8")
         payload_b64 = base64.urlsafe_b64encode(payload_json.encode("utf-8")).rstrip(b"=").decode("utf-8")
