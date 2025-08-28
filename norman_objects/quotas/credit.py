@@ -1,5 +1,8 @@
+from datetime import datetime, timezone, timedelta
+
 from pydantic import BaseModel
-from datetime import datetime, timedelta, UTC
+from pydantic import Field
+
 
 class Credit(BaseModel):
     id: str = "0"
@@ -10,7 +13,7 @@ class Credit(BaseModel):
 
     @classmethod
     def now(cls, quota_id: str, duration_seconds: int, billable: bool):
-        now = datetime.now(UTC)
+        now = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
         return cls(
             id="0",
             quota_id=quota_id,

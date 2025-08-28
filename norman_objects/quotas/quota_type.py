@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class QuotaType(str, Enum):
-    BASE = "BASE"
-    ACCRUED = "ACCRUED"
-    PRE_PURCHASED = "PRE_PURCHASED"
-    ON_DEMAND = "ON_DEMAND"
+    BASE = "Base"
+    ACCRUED = "Accrued"
+    PRE_PURCHASED = "Pre_purchased"
+    ON_DEMAND = "On_demand"
