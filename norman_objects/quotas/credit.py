@@ -9,13 +9,12 @@ class Credit(BaseModel):
     quota_id: str
     start_date: datetime
     end_date: datetime
-    billable: bool = False
+    billable: bool
 
     @classmethod
     def now(cls, quota_id: str, duration_seconds: int, billable: bool):
         now = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
         return cls(
-            id="0",
             quota_id=quota_id,
             start_date=now,
             end_date=now + timedelta(seconds=duration_seconds),
