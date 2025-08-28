@@ -15,40 +15,32 @@ class Quota(NormanBaseModel):
 
     @classmethod
     def base_quota(cls, account_id: str, size: int):
-        now = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
         return cls(
             account_id=account_id,
-            start_date=now,
             type=QuotaType.Base,
             size=size
         )
 
     @classmethod
     def accrued_quota(cls, account_id: str, size: int):
-        now = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
         return cls(
             account_id=account_id,
-            start_date=now,
             type=QuotaType.Accrued,
             size=size
         )
 
     @classmethod
     def pre_purchased_quota(cls, account_id: str, size: int):
-        now = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
         return cls(
             account_id=account_id,
-            start_date=now,
             type=QuotaType.Pre_purchased,
             size=size
         )
 
     @classmethod
     def on_demand_quota(cls, account_id: str):
-        now = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
         return cls(
             account_id=account_id,
-            start_date=now,
             type=QuotaType.On_demand,
             size=4294967295,  # Max possible quota size - https://dev.mysql.com/doc/refman/8.4/en/integer-types.html
         )
