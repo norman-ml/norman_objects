@@ -9,7 +9,7 @@ class Quota(NormanBaseModel):
     id: str = "0"
     account_id: str
     start_date: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
-    end_date: datetime = Field(    default_factory=lambda: datetime(5000, 1, 1, 0, 0, 0, tzinfo=timezone(timedelta(0))))
+    end_date: datetime = Field(default_factory=lambda: datetime(5000, 1, 1, 0, 0, 0, tzinfo=timezone(timedelta(0))))
     type: QuotaType
     size: int
 
@@ -18,9 +18,9 @@ class Quota(NormanBaseModel):
         now = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
         return cls(
             account_id=account_id,
-            type=QuotaType.BASE,
-            size=size,
-            start_date=now
+            start_date=now,
+            type=QuotaType.Base,
+            size=size
         )
 
     @classmethod
@@ -29,7 +29,7 @@ class Quota(NormanBaseModel):
         return cls(
             account_id=account_id,
             start_date=now,
-            type=QuotaType.ACCRUED,
+            type=QuotaType.Accrued,
             size=size
         )
 
@@ -39,7 +39,7 @@ class Quota(NormanBaseModel):
         return cls(
             account_id=account_id,
             start_date=now,
-            type=QuotaType.PRE_PURCHASED,
+            type=QuotaType.Pre_purchased,
             size=size
         )
 
@@ -49,6 +49,6 @@ class Quota(NormanBaseModel):
         return cls(
             account_id=account_id,
             start_date=now,
-            type=QuotaType.ON_DEMAND,
-            size=4294967295,  # Max possible quota size - "https://dev.mysql.com/doc/refman/8.4/en/integer-types.html"
+            type=QuotaType.On_demand,
+            size=4294967295,  # Max possible quota size - https://dev.mysql.com/doc/refman/8.4/en/integer-types.html
         )
