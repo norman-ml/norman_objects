@@ -15,6 +15,14 @@ class InputMessage(InvocationMessage, FileMessage):
     file_properties: FileProperties
     entity_type: Literal[EntityType.Input] = EntityType.Input
 
+    @model_validator(mode="after")
+    def run_validation(self):
+        self.validate_account_id()
+        self.validate_model_id()
+        self.validate_invocation_id()
+        self.validate_entity_id()
+        return self
+
     def validate_account_id(self):
         super().validate_account_id()
 
@@ -34,14 +42,6 @@ class InputMessage(InvocationMessage, FileMessage):
     def validate_entity_id(self):
         if self.input.id != self.status_flag.entity_id:
             raise ValueError("Input id does not match status flag entity id")
-
-    @model_validator(mode="after")
-    def run_validation(self):
-        self.validate_account_id()
-        self.validate_model_id()
-        self.validate_invocation_id()
-        self.validate_entity_id()
-        return self
 
     @InvocationMessage.entity_id.getter
     def entity_id(self):

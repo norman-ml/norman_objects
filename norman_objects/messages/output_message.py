@@ -3,7 +3,6 @@ from typing import Literal
 from pydantic import model_validator
 
 from norman_objects.files.file_properties import FileProperties
-from norman_objects.invocations.invocation import Invocation
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.file_message import FileMessage
 from norman_objects.messages.invocation_message import InvocationMessage
@@ -15,6 +14,14 @@ class OutputMessage(InvocationMessage, FileMessage):
     output: InvocationOutput
     file_properties: FileProperties
     entity_type: Literal[EntityType.Output] = EntityType.Output
+
+    @model_validator(mode="after")
+    def run_validation(self):
+        self.validate_account_id()
+        self.validate_model_id()
+        self.validate_invocation_id()
+        self.validate_entity_id()
+        return self
 
     def validate_account_id(self):
         super().validate_account_id()
@@ -35,14 +42,6 @@ class OutputMessage(InvocationMessage, FileMessage):
     def validate_entity_id(self):
         if self.output.id != self.status_flag.entity_id:
             raise ValueError("Output id does not match status flag entity id")
-
-    @model_validator(mode="after")
-    def run_validation(self):
-        self.validate_account_id()
-        self.validate_model_id()
-        self.validate_invocation_id()
-        self.validate_entity_id()
-        return self
 
     @InvocationMessage.entity_id.getter
     def entity_id(self):
