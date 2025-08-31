@@ -1,6 +1,6 @@
-from typing import Generic, TypeVar, Union
+from typing import Generic, TypeVar, Union, Any
 
-from pydantic import TypeAdapter
+from pydantic import TypeAdapter, GetCoreSchemaHandler
 from pydantic_core import core_schema
 
 T = TypeVar("T")
@@ -10,35 +10,39 @@ class Sensitive(Generic[T]):
     __sensitive__ = True
 
     def __init__(self, value: Union[T, "Sensitive[T]"]):
-        if isinstance(value, Sensitive):
-            self._value: T = value.value()
-        else:
-            self._value: T = value
+        self._value: T = Sensitive._get_plain_value(value)
 
     @classmethod
-    def __get_pydantic_core_schema__(cls, source_type, handler):
+    def __get_pydantic_core_schema__(cls, source_type: Any, handler: GetCoreSchemaHandler):
         (inner_type,) = source_type.__args__
 
-        def validate_sensitive(value: Union[T, "Sensitive[T]"], _) -> "Sensitive[T]":
-            if isinstance(value, Sensitive):
-                raw_value = value.value()
-            else:
-                raw_value = value
+        # TODO: investigate pydantic plain_validator_function to avoid redeclaring validate_sensitive()
+        def validate_sensitive(value: Union[T, "Sensitive[T]"], info: core_schema.ValidationInfo) -> "Sensitive[T]":
+            raw_value = Sensitive._get_plain_value(value)
 
-            return cls(TypeAdapter(inner_type).validate_python(raw_value))
+            return cls(
+                TypeAdapter(inner_type).validate_python(raw_value)
+            )
 
         return core_schema.with_info_plain_validator_function(
             validate_sensitive,
             serialization=core_schema.plain_serializer_function_ser_schema(
-                lambda v: v.value(),
+                lambda sensitive: sensitive.value(),
                 return_schema=handler(inner_type),
-                when_used="json",
+                when_used="json"
             )
         )
 
+    @staticmethod
+    def _get_plain_value(value):
+        if isinstance(value, Sensitive):
+            return value.value()
+
+        return value
+
     def value(self) -> T:
         return self._value
-    
+
     def __iter__(self):
         return iter(str(self))
 

@@ -14,7 +14,7 @@ NormanMessageUnion = Annotated[
         AssetMessage,
         InvocationMessage,
         InputMessage,
-        OutputMessage,
+        OutputMessage
     ],
-    Field(discriminator="entity_type"),
+    Field(discriminator="entity_type")
 ]
