@@ -1,16 +1,17 @@
 import base64
 import json
+from typing import Any
 
 from pydantic import Field
 
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.sensitive.sensitive_type import SensitiveType
+from norman_objects.sensitive.sensitive import Sensitive
 
 
 class JwtToken(NormanBaseModel):
-    header: dict= Field(default_factory=dict)
-    payload: dict = Field(default_factory=dict)
-    encoded_signature: SensitiveType(str)
+    header: dict[str, str] = Field(default_factory=dict)
+    payload: dict[str, Any] = Field(default_factory=dict)
+    encoded_signature: Sensitive[str]
 
     @property
     def encoded(self):

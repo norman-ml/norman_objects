@@ -1,5 +1,3 @@
-from typing import Dict, List
-
 from norman_objects.models.http_request_type import HttpRequestType
 from norman_objects.models.model_hosting_location import ModelHostingLocation
 from norman_objects.models.model_preview import ModelPreview
@@ -16,6 +14,6 @@ class Model(ModelPreview):
     output_format: OutputFormat
     long_description: str
 
-    inputs: List[ModelSignature] = []
-    outputs: List[ModelSignature] = []
-    http_headers: Dict[str, str] = {}
+    inputs: list[ModelSignature] = []
+    outputs: list[ModelSignature] = []
+    http_headers: dict[str, str] = {}

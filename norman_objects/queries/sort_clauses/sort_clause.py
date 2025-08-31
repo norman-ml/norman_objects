@@ -1,11 +1,9 @@
-from typing import Dict, List, Set
-
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.queries.sort_clauses.sort_node import SortNode
 
 
 class SortClause(NormanBaseModel):
-    children: List[SortNode]
+    children: list[SortNode]
 
     def __and__(self, other):
         if not isinstance(other, SortClause):
@@ -15,7 +13,7 @@ class SortClause(NormanBaseModel):
             children=[*self.children, *other.children]
         )
 
-    def validate_expression(self, allowed_tables_and_columns: Dict[str, Set[str]]):
+    def validate_expression(self, allowed_tables_and_columns: dict[str, set[str]]):
         for child_node in self.children:
             if not child_node.validate_expression(allowed_tables_and_columns):
                 return False

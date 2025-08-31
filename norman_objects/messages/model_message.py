@@ -1,4 +1,5 @@
-from pydantic import root_validator
+from pydantic import model_validator
+from typing_extensions import Literal
 
 from norman_objects.messages.entity_type import EntityType
 from norman_objects.messages.norman_base_message import NormanBaseMessage
@@ -8,28 +9,23 @@ from norman_objects.status_flags.status_flag import StatusFlag
 
 class ModelMessage(NormanBaseMessage):
     model: Model
+    entity_type: Literal[EntityType.Model] = EntityType.Model
 
-    @root_validator
-    def validate_account_id(cls, values):
-        super().validate_account_id(values)
+    @model_validator(mode="after")
+    def run_validation(self):
+        self.validate_account_id()
+        self.validate_entity_id()
+        return self
 
-        account_id: str = values.get("account_id")
-        model: Model = values.get("model")
+    def validate_account_id(self):
+        super().validate_account_id()
 
-        if account_id != model.account_id:
+        if self.account_id != self.model.account_id:
             raise ValueError("Message account id does not match model account id")
 
-        return values
-
-    @root_validator
-    def validate_entity_id(cls, values):
-        model: Model = values.get("model")
-        status_flag: StatusFlag = values.get("status_flag")
-
-        if model.id != status_flag.entity_id:
+    def validate_entity_id(self):
+        if self.model.id != self.status_flag.entity_id:
             raise ValueError("Model id does not match status flag entity id")
-
-        return values
 
     @NormanBaseMessage.entity_id.getter
     def entity_id(self):
