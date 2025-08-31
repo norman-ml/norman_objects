@@ -1,5 +1,6 @@
 import base64
 import json
+from typing import Any
 
 from pydantic import Field
 
@@ -9,7 +10,7 @@ from norman_objects.sensitive.sensitive import Sensitive
 
 class JwtToken(NormanBaseModel):
     header: dict[str, str] = Field(default_factory=dict)
-    payload: dict[str, str] = Field(default_factory=dict)
+    payload: dict[str, Any] = Field(default_factory=dict)
     encoded_signature: Sensitive[str]
 
     @property
