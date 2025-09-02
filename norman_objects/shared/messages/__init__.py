@@ -1,1 +1,0 @@
-import norman_objects.shared.messages.asset_message

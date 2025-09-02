@@ -1,1 +1,0 @@
-import norman_objects.shared.outputs.invocation_output

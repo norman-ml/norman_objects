@@ -1,2 +1,0 @@
-import norman_objects.shared.queries.logical_relations.binary_relation
-import norman_objects.shared.queries.logical_relations.unary_relation
