@@ -2,11 +2,11 @@ from datetime import datetime, timezone
 
 from pydantic import model_validator
 
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.authorization.jwt_token import JwtToken
 from norman_objects.shared.context.norman_access_context import NormanAccessContext
 from norman_objects.shared.messages.entity_type import EntityType
-from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.status_flags.status_flag import StatusFlag
+from norman_objects.shared.status_flags.status_flag import StatusFlag
 
 
 class NormanBaseMessage(NormanBaseModel):

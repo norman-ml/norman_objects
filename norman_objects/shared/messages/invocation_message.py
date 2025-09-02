@@ -5,7 +5,7 @@ from pydantic import model_validator
 from norman_objects.shared.invocations.invocation import Invocation
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.model_message import ModelMessage
-from norman_objects.status_flags.status_flag import StatusFlag
+from norman_objects.shared.status_flags.status_flag import StatusFlag
 
 
 class InvocationMessage(ModelMessage):

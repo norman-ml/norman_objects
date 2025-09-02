@@ -4,7 +4,7 @@ from typing_extensions import Literal
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.norman_base_message import NormanBaseMessage
 from norman_objects.shared.models.model import Model
-from norman_objects.status_flags.status_flag import StatusFlag
+from norman_objects.shared.status_flags.status_flag import StatusFlag
 
 
 class ModelMessage(NormanBaseMessage):

@@ -1,2 +1,2 @@
-import norman_objects.status_flags.status_flag
-import norman_objects.status_flags.status_flag_value
+import norman_objects.shared.status_flags.status_flag
+import norman_objects.shared.status_flags.status_flag_value

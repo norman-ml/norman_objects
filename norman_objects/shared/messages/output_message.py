@@ -7,7 +7,7 @@ from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.file_message import FileMessage
 from norman_objects.shared.messages.invocation_message import InvocationMessage
 from norman_objects.shared.outputs.invocation_output import InvocationOutput
-from norman_objects.status_flags.status_flag import StatusFlag
+from norman_objects.shared.status_flags.status_flag import StatusFlag
 
 
 class OutputMessage(InvocationMessage, FileMessage):
