@@ -13,6 +13,6 @@ import norman_objects.shared.parameters
 import norman_objects.shared.queries
 import norman_objects.shared.quotas
 import norman_objects.shared.requests
-import norman_objects.shared.sensitive
+import norman_objects.shared.security
 import norman_objects.shared.signatures
 import norman_objects.shared.status_flags
