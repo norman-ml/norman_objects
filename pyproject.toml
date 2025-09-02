@@ -7,11 +7,11 @@ name = "norman-objects"
 description = "norman objects common classes"
 version = "0.0.1"
 authors = [
-    {name = "Yonatan Alon", email = "yonatankarimish@gmail.com"},
+    {name = "Norman Artificial Intelligence LTD", email = "yonatan.alon@norman-ai.com"},
 ]
 
 requires-python = ">=3.9"
-license = {text = "proprietary"}
+license = {text = "Apache-2.0"}
 dependencies = [
     "pydantic==2.11.7"
 ]
