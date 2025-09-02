@@ -1,4 +1,4 @@
-from norman_objects.shared.sensitive import Sensitive
+from norman_objects.shared.security.sensitive import Sensitive
 from norman_objects.services.authenticate.register.register_auth_factor_request import RegisterAuthFactorRequest
 
 
