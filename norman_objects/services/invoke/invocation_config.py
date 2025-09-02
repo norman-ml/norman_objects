@@ -1,6 +1,6 @@
 from typing import Any
 
-from norman_objects.inputs.input_source import InputSource
+from norman_objects.shared.inputs.input_source import InputSource
 from pydantic import BaseModel
 
 
