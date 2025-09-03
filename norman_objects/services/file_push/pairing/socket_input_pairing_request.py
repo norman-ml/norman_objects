@@ -1,5 +1,5 @@
-from norman_objects.shared.messages import EntityType
 from norman_objects.services.file_push.pairing.socket_pairing_request import SocketPairingRequest
+from norman_objects.shared.messages.entity_type import EntityType
 
 
 class SocketInputPairingRequest(SocketPairingRequest):
