@@ -1,9 +1,9 @@
+from typing_extensions import override
+
+from norman_objects.services.file_pull.file_download_request import NormanFileDownloadRequest
 from norman_objects.shared.messages.asset_message import AssetMessage
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
-from typing_extensions import override
-
-from src.objects.requests.file_download_request import NormanFileDownloadRequest
 
 
 class AssetDownloadRequest(NormanFileDownloadRequest):

@@ -1,10 +1,9 @@
 from typing_extensions import override
 
+from norman_objects.services.file_pull.file_download_request import NormanFileDownloadRequest
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.input_message import InputMessage
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
-
-from src.objects.requests.file_download_request import NormanFileDownloadRequest
 
 
 class InputDownloadRequest(NormanFileDownloadRequest):

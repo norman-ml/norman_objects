@@ -1,7 +1,7 @@
 from datetime import datetime, UTC
 from typing import List
 
-from norman_objects.shared.norman_base_model import NormanBaseModel
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.status_flags.status_flag import StatusFlag
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
