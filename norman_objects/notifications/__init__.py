@@ -1,2 +1,0 @@
-import norman_objects.notifications.notification
-import norman_objects.notifications.severity

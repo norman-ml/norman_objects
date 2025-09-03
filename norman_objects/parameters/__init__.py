@@ -1,3 +1,0 @@
-import norman_objects.parameters.model_param
-import norman_objects.parameters.data_domain
-import norman_objects.parameters.param_mime_type
