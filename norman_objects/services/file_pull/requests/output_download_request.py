@@ -1,6 +1,6 @@
 from typing_extensions import override
 
-from norman_objects.services.file_pull.file_download_request import NormanFileDownloadRequest
+from norman_objects.services.file_pull.requests.file_download_request import NormanFileDownloadRequest
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.output_message import OutputMessage
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
