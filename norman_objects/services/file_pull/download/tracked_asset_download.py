@@ -1,4 +1,5 @@
 from datetime import datetime, UTC
+from typing import Literal
 from typing_extensions import override
 
 from norman_objects.services.file_pull.download.tracked_download import TrackedDownload
@@ -14,17 +15,12 @@ from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
 class TrackedAssetDownload(TrackedDownload):
-    def __init__(self, download_request: NormanFileDownloadRequest, file_link: str, model: Model, asset: ModelAsset):
-        super().__init__(download_request, file_link, model)
-        self.asset = asset
+    asset: ModelAsset
+    entity_type: Literal[EntityType.Asset] = EntityType.Asset
 
     @TrackedDownload.entity_id.getter
     def entity_id(self):
         return self.asset.id
-
-    @TrackedDownload.entity_type.getter
-    def entity_type(self):
-        return EntityType.Asset
 
     @override
     def to_message(self, flag_value: StatusFlagValue):
