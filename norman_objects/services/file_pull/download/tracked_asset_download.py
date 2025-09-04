@@ -1,5 +1,7 @@
 from datetime import datetime, UTC
+from typing_extensions import override
 
+from norman_objects.services.file_pull.download.tracked_download import TrackedDownload
 from norman_objects.services.file_pull.requests.file_download_request import NormanFileDownloadRequest
 from norman_objects.shared.context.norman_access_context import NormanAccessContext
 from norman_objects.shared.files.file_properties import FileProperties
@@ -9,9 +11,6 @@ from norman_objects.shared.models.model import Model
 from norman_objects.shared.models.model_asset import ModelAsset
 from norman_objects.shared.status_flags.status_flag import StatusFlag
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
-from typing_extensions import override
-
-from src.objects.tracked_download import TrackedDownload
 
 
 class TrackedAssetDownload(TrackedDownload):
