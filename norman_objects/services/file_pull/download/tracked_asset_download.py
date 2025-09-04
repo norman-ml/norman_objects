@@ -1,4 +1,5 @@
 from datetime import datetime, UTC
+from typing import Literal
 from typing_extensions import override
 
 from norman_objects.services.file_pull.download.tracked_download import TrackedDownload
