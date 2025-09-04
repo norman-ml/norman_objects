@@ -1,18 +1,20 @@
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.services.file_pull.requests.file_download_request import NormanFileDownloadRequest
+from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.model_message import ModelMessage
 from norman_objects.shared.models.model import Model
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
-class TrackedDownload:
-    def __init__(self, download_request: NormanFileDownloadRequest, file_link: str, model: Model):
-        self.download_request = download_request
-        self.file_link = file_link
-        self.model = model
+class TrackedDownload(NormanBaseModel):
+    download_request: NormanFileDownloadRequest
+    file_link: str
+    model: Model
+    entity_type: EntityType
 
-        self.downloaded_bytes = 0
-        self.total_bytes = 0
-        self.file_checksum = ""
+    downloaded_bytes: int = 0
+    total_bytes: int = 0
+    file_checksum: str = ""
 
     @property
     def entity_id(self):

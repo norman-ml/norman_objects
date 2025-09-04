@@ -15,18 +15,13 @@ from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
 class TrackedOutputDownload(TrackedDownload):
-    def __init__(self, download_request: NormanFileDownloadRequest, file_link: str, model: Model, invocation: Invocation, invocation_output: InvocationOutput):
-        super().__init__(download_request, file_link, model)
-        self.invocation = invocation
-        self.invocation_output = invocation_output
+    invocation: Invocation
+    invocation_output: InvocationOutput
+    entity_type: Literal[EntityType.Output] = EntityType.Output
 
     @TrackedDownload.entity_id.getter
     def entity_id(self):
         return self.invocation_output.id
-
-    @TrackedDownload.entity_type.getter
-    def entity_type(self):
-        return EntityType.Output
 
     @override
     def to_message(self, flag_value: StatusFlagValue):
