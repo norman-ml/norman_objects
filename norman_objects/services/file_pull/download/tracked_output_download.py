@@ -1,15 +1,14 @@
 from datetime import datetime, UTC
 from typing import Literal
+
 from typing_extensions import override
 
 from norman_objects.services.file_pull.download.tracked_download import TrackedDownload
-from norman_objects.services.file_pull.requests.file_download_request import NormanFileDownloadRequest
 from norman_objects.shared.context.norman_access_context import NormanAccessContext
 from norman_objects.shared.files.file_properties import FileProperties
 from norman_objects.shared.invocations.invocation import Invocation
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.output_message import OutputMessage
-from norman_objects.shared.models.model import Model
 from norman_objects.shared.outputs.invocation_output import InvocationOutput
 from norman_objects.shared.status_flags.status_flag import StatusFlag
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
