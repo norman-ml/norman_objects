@@ -14,6 +14,9 @@ class SecureBucketContextManager:
         pass
 
     def security_checks(self):
+        if ".." in self.bucket_key:
+            raise ValueError("Jailbreak attempt detected - backtracking in bucket key")
+
         access_token = NormanAccessContext.get()
         if not isinstance(access_token, JwtToken):
             raise ValueError("Cannot validate account without a proper access token")
