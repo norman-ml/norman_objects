@@ -18,6 +18,9 @@ class SecureFileContextManager:
         pass
 
     def security_checks(self):
+        if ".." in self.path:
+            raise ValueError("Jailbreak attempt detected - backtracking in file path")
+
         access_token = NormanAccessContext.get()
         if not isinstance(access_token, JwtToken):
             raise ValueError("Cannot validate account without a proper access token")
@@ -29,13 +32,14 @@ class SecureFileContextManager:
         segments = os.path.normpath(self.path).split(os.sep)
         try:
             (
+                mountpoint,
                 entity_type_segment,
                 phase_segment,
-                account_id_segment,
-                entity_id_segment
-            ) = segments[-4:]
+                state_segment,
+                account_id_segment
+            ) = segments[:5]
         except ValueError:
-            raise ValueError(f"File path {self.path} does not conform to expected 4-segment structure")
+            raise ValueError(f"File path {self.path} does not start with the expected 5-segment structure")
 
         if account_id_segment != self.account_id:
             raise PermissionError(f"Path account segment {account_id_segment} does not match expected account ID {self.account_id}")
