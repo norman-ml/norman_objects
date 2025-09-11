@@ -1,6 +1,6 @@
-from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.services.authenticate.signup.signup_request import SignupRequest
 
 
-class SignupEmailRequest(NormanBaseModel):
+class SignupEmailRequest(SignupRequest):
     name: str
     email: str
