@@ -10,8 +10,9 @@ class InvocationHistory(NormanBaseModel):
     id: str
     account_id: str
     model_id: str
-    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
-    flag_value: StatusFlagValue
-    model_name: str
     asset_id: str
-    asset_name: str
+    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
+    model_name: str
+    entity_id: str
+    flag_name: str
+    flag_value: StatusFlagValue
