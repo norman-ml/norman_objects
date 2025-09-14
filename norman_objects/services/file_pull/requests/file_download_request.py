@@ -1,4 +1,4 @@
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import List
 
 from norman_objects.norman_base_model import NormanBaseModel
@@ -27,7 +27,7 @@ class NormanFileDownloadRequest(NormanBaseModel):
         raise NotImplementedError("Tracked download config subclasses must be able to serialize to a fallback sns message")
 
     def to_status_flag(self, flag_value: StatusFlagValue):
-        update_time = datetime.now(UTC)
+        update_time = datetime.now(timezone.utc)
 
         return StatusFlag(
             account_id=self.account_id,

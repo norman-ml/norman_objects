@@ -1,4 +1,4 @@
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import Literal
 
 from typing_extensions import override
@@ -26,7 +26,7 @@ class TrackedOutputDownload(TrackedDownload):
     @override
     def to_message(self, flag_value: StatusFlagValue):
         access_token = NormanAccessContext.get()
-        update_time = datetime.now(UTC)
+        update_time = datetime.now(timezone.utc)
 
         sns_message = OutputMessage(
             access_token=access_token,
