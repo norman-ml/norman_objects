@@ -8,4 +8,4 @@ class InvocationInput(NormanBaseModel):
     model_id: str
     signature_id: str
     invocation_id: str = "0"
-    display_name: str = ""
+    display_title: str = ""
