@@ -1,7 +1,7 @@
 from norman_objects.norman_base_model import NormanBaseModel
 
 
-class InvocationOutput(NormanBaseModel):
+class InvocationSignature(NormanBaseModel):
     id: str = "0"
     account_id: str
     model_id: str
