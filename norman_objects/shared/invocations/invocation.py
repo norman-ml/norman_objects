@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from pydantic import Field
 
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.shared.invocations.invocation_signature import InvocationSignature
+from norman_objects.shared.invocation_signatures.invocation_signature import InvocationSignature
 
 
 class Invocation(NormanBaseModel):
