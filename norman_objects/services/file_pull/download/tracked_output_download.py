@@ -7,16 +7,16 @@ from norman_objects.services.file_pull.download.tracked_download import TrackedD
 from norman_objects.shared.context.norman_access_context import NormanAccessContext
 from norman_objects.shared.files.file_properties import FileProperties
 from norman_objects.shared.invocations.invocation import Invocation
+from norman_objects.shared.invocation_signatures.invocation_signature import InvocationSignature
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.output_message import OutputMessage
-from norman_objects.shared.outputs.invocation_output import InvocationOutput
 from norman_objects.shared.status_flags.status_flag import StatusFlag
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
 class TrackedOutputDownload(TrackedDownload):
     invocation: Invocation
-    invocation_output: InvocationOutput
+    invocation_output: InvocationSignature
     entity_type: Literal[EntityType.Output] = EntityType.Output
 
     @TrackedDownload.entity_id.getter

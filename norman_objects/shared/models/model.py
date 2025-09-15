@@ -3,7 +3,7 @@ from norman_objects.shared.models.model_hosting_location import ModelHostingLoca
 from norman_objects.shared.models.model_preview import ModelPreview
 from norman_objects.shared.models.model_type import ModelType
 from norman_objects.shared.models.output_format import OutputFormat
-from norman_objects.shared.signatures.model_signature import ModelSignature
+from norman_objects.shared.model_signatures.model_signature import ModelSignature
 
 class Model(ModelPreview):
     name: str

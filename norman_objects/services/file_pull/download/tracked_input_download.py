@@ -6,8 +6,8 @@ from typing_extensions import override
 from norman_objects.services.file_pull.download.tracked_download import TrackedDownload
 from norman_objects.shared.context.norman_access_context import NormanAccessContext
 from norman_objects.shared.files.file_properties import FileProperties
-from norman_objects.shared.inputs.invocation_input import InvocationInput
 from norman_objects.shared.invocations.invocation import Invocation
+from norman_objects.shared.invocation_signatures.invocation_signature import InvocationSignature
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.input_message import InputMessage
 from norman_objects.shared.status_flags.status_flag import StatusFlag
@@ -16,7 +16,7 @@ from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 class TrackedInputDownload(TrackedDownload):
     invocation: Invocation
-    invocation_input: InvocationInput
+    invocation_input: InvocationSignature
     entity_type: Literal[EntityType.Input] = EntityType.Input
 
     @TrackedDownload.entity_id.getter
