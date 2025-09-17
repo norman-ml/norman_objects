@@ -6,6 +6,6 @@ from pydantic import Field
 
 class AccountDevice(NormanBaseModel):
     id: str = "0"
-    device_id: str
     account_id: str
+    device_id: str
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
