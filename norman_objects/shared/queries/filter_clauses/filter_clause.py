@@ -83,12 +83,21 @@ class FilterClause(NormanBaseModel):
 
 
     def __and__(self, other):
-        if not isinstance(other, FilterClause):
-            raise ValueError("Logical AND is only supported between two filter clauses")
+        if not isinstance(other, (FilterClause, FilterNode)):
+            raise ValueError("Logical AND is only supported between two filter clauses/nodes")
 
         return FilterClause(
-            children = [*self.children, *other.children],
+            children = [self, other],
             join_condition = UnaryRelation.AND
+        )
+
+    def __or__(self, other):
+        if not isinstance(other, (FilterClause, FilterNode)):
+            raise ValueError("Logical OR is only supported between two filter clauses/nodes")
+
+        return FilterClause(
+            children = [self, other],
+            join_condition = UnaryRelation.OR
         )
 
     def validate_expression(self, allowed_tables_and_columns: dict[str, set[str]]):
