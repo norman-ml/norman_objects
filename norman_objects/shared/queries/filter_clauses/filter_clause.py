@@ -88,7 +88,7 @@ class FilterClause(NormanBaseModel):
 
         return FilterClause(
             children = [*self.children, *other.children],
-            join_condition = self.join_condition
+            join_condition = UnaryRelation.AND
         )
 
     def validate_expression(self, allowed_tables_and_columns: dict[str, set[str]]):
