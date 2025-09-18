@@ -84,7 +84,7 @@ class FilterClause(NormanBaseModel):
 
     def __and__(self, other):
         if not isinstance(other, (FilterClause, FilterNode)):
-            raise ValueError("Logical AND is only supported between two filter clauses/nodes")
+            raise ValueError("Logical AND is only supported with another filter clause or node")
 
         return FilterClause(
             children = [self, other],
@@ -93,7 +93,7 @@ class FilterClause(NormanBaseModel):
 
     def __or__(self, other):
         if not isinstance(other, (FilterClause, FilterNode)):
-            raise ValueError("Logical OR is only supported between two filter clauses/nodes")
+            raise ValueError("Logical OR is only supported with another filter clause or node")
 
         return FilterClause(
             children = [self, other],
