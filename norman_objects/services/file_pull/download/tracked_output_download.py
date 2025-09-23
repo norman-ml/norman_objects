@@ -11,6 +11,7 @@ from norman_objects.shared.invocation_signatures.invocation_signature import Inv
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.output_message import OutputMessage
 from norman_objects.shared.status_flags.status_flag import StatusFlag
+from norman_objects.shared.status_flags.status_flag_name import StatusFlagName
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
@@ -48,7 +49,7 @@ class TrackedOutputDownload(TrackedDownload):
                 account_id=self.download_request.account_id,
                 entity_id=self.invocation_output.id,
                 update_time=update_time,
-                flag_name="EFS_Transfer",
+                flag_name=StatusFlagName.Output_EFS_Staging,
                 flag_value=flag_value
             )
         )

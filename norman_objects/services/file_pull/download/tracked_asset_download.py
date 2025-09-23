@@ -10,6 +10,7 @@ from norman_objects.shared.messages.asset_message import AssetMessage
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.models.model_asset import ModelAsset
 from norman_objects.shared.status_flags.status_flag import StatusFlag
+from norman_objects.shared.status_flags.status_flag_name import StatusFlagName
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
@@ -25,6 +26,13 @@ class TrackedAssetDownload(TrackedDownload):
     def to_message(self, flag_value: StatusFlagValue):
         access_token = NormanAccessContext.get()
         update_time = datetime.now(timezone.utc)
+
+        if self.asset.asset_name == "Logo":
+            flag_name = StatusFlagName.Logo_EFS_Staging
+        elif self.asset.asset_name == "File":
+            flag_name = StatusFlagName.File_EFS_Staging
+        else:
+            raise ValueError("Tracked asset download serialization could not recognize the model asset name")
 
         sns_message = AssetMessage(
             access_token=access_token,
@@ -45,7 +53,7 @@ class TrackedAssetDownload(TrackedDownload):
                 account_id=self.download_request.account_id,
                 entity_id=self.asset.id,
                 update_time=update_time,
-                flag_name="EFS_Transfer",
+                flag_name=flag_name,
                 flag_value=flag_value
             )
         )
