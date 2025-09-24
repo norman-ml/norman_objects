@@ -29,13 +29,7 @@ class AssetDownloadRequest(NormanFileDownloadRequest):
     @override
     def to_status_flag(self, flag_value: StatusFlagValue):
         update_time = datetime.now(timezone.utc)
-
-        if self.asset_name == "Logo":
-            flag_name = StatusFlagName.Logo_EFS_Staging
-        elif self.asset_name == "File":
-            flag_name = StatusFlagName.File_EFS_Staging
-        else:
-            raise ValueError("Asset download request serialization could not recognize the model asset name")
+        flag_name = StatusFlagName[f"{self.asset_name}_EFS_Staging"]
 
         return StatusFlag(
             account_id=self.account_id,

@@ -27,12 +27,7 @@ class TrackedAssetDownload(TrackedDownload):
         access_token = NormanAccessContext.get()
         update_time = datetime.now(timezone.utc)
 
-        if self.asset.asset_name == "Logo":
-            flag_name = StatusFlagName.Logo_EFS_Staging
-        elif self.asset.asset_name == "File":
-            flag_name = StatusFlagName.File_EFS_Staging
-        else:
-            raise ValueError("Tracked asset download serialization could not recognize the model asset name")
+        flag_name = StatusFlagName[f"{self.asset.asset_name}_EFS_Staging"]
 
         sns_message = AssetMessage(
             access_token=access_token,
