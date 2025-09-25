@@ -15,9 +15,9 @@ class ModelSignature(NormanBaseModel):
     signature_type: SignatureType
     data_domain: DataDomain
     data_encoding: str
-    receive_format: ReceiveFormat
-    http_location: HttpLocation
-    hidden: bool
+    receive_format: ReceiveFormat = ReceiveFormat.File
+    http_location: HttpLocation = HttpLocation.Body
+    hidden: bool = False
     display_title: str
     default_value: Optional[str] = None
 
