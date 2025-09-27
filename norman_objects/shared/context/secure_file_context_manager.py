@@ -32,12 +32,12 @@ class SecureFileContextManager:
         segments = os.path.normpath(self.path).split(os.sep)
         try:
             (
-                mountpoint,
                 entity_type_segment,
                 phase_segment,
                 state_segment,
-                account_id_segment
-            ) = segments[:5]
+                account_id_segment,
+                entity_id_segment
+            ) = segments[-5:]
         except ValueError:
             raise ValueError(f"File path {self.path} does not start with the expected 5-segment structure")
 
