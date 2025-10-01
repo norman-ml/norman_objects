@@ -2,7 +2,6 @@ from typing import Literal
 
 from pydantic import model_validator
 
-from norman_objects.shared.files.file_properties import FileProperties
 from norman_objects.shared.invocation_signatures.invocation_signature import InvocationSignature
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.file_message import FileMessage
@@ -12,7 +11,6 @@ from norman_objects.shared.status_flags.status_flag import StatusFlag
 
 class InputMessage(InvocationMessage, FileMessage):
     input: InvocationSignature
-    file_properties: FileProperties
     entity_type: Literal[EntityType.Input] = EntityType.Input
 
     @model_validator(mode="after")
