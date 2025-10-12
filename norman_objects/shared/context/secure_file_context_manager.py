@@ -34,12 +34,11 @@ class SecureFileContextManager:
             (
                 entity_type_segment,
                 phase_segment,
-                state_segment,
                 account_id_segment,
                 entity_id_segment
-            ) = segments[-5:]
+            ) = segments[-4:]
         except ValueError:
-            raise ValueError(f"File path {self.path} does not start with the expected 5-segment structure")
+            raise ValueError(f"File path {self.path} does not start with the expected 4-segment structure")
 
         if account_id_segment != self.account_id:
             raise PermissionError(f"Path account segment {account_id_segment} does not match expected account ID {self.account_id}")
