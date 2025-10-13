@@ -2,7 +2,7 @@ from enum import Enum
 from functools import cache
 
 
-class Modality(str, Enum):
+class DataModality(str, Enum):
     Audio = "Audio"
     File = "File"
     Float = "Float"
@@ -14,7 +14,7 @@ class Modality(str, Enum):
     @staticmethod
     @cache
     def primitive_types():
-        return {Modality.Float, Modality.Integer, Modality.Text}
+        return {DataModality.Float, DataModality.Integer, DataModality.Text}
 
     def is_primitive(self):
-        return self in Modality.primitive_types()
+        return self in DataModality.primitive_types()
