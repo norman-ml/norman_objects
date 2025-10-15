@@ -7,6 +7,7 @@ from norman_objects.shared.model_signatures.model_signature import ModelSignatur
 
 class Model(ModelPreview):
     name: str
+    model_class: str
     url: str
     request_type: HttpRequestType
     model_type: ModelType

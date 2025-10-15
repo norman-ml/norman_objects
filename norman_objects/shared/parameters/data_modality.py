@@ -1,7 +1,8 @@
 from enum import Enum
+from functools import cache
 
 
-class DataDomain(str, Enum):
+class DataModality(str, Enum):
     Audio = "Audio"
     File = "File"
     Float = "Float"
@@ -11,8 +12,9 @@ class DataDomain(str, Enum):
     Video = "Video"
 
     @staticmethod
+    @cache
     def primitive_types():
-        return {DataDomain.Float, DataDomain.Integer, DataDomain.Text}
+        return {DataModality.Float, DataModality.Integer, DataModality.Text}
 
     def is_primitive(self):
-        return self in DataDomain.primitive_types()
+        return self in DataModality.primitive_types()
