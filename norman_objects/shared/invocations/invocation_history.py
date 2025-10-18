@@ -14,6 +14,4 @@ class InvocationHistory(NormanBaseModel):
     asset_id: str
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     model_name: str
-    entity_id: str
-    flag_name: StatusFlagName
     flag_value: StatusFlagValue
