@@ -27,12 +27,4 @@ class NormanFileDownloadRequest(NormanBaseModel):
         raise NotImplementedError("Tracked download config subclasses must be able to serialize to a fallback sns message")
 
     def to_status_flag(self, flag_value: StatusFlagValue):
-        update_time = datetime.now(timezone.utc)
-
-        return StatusFlag(
-            account_id=self.account_id,
-            entity_id=self.entity_id,
-            update_time=update_time,
-            flag_name="EFS_Transfer",
-            flag_value=flag_value
-        )
+        raise NotImplementedError("Tracked download config subclasses must be able to serialize to a status flag")

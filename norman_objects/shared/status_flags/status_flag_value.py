@@ -4,11 +4,11 @@ from functools import total_ordering
 
 @total_ordering
 class StatusFlagValue(int, Enum):
-    Error = 0
-    Not_Started = 1
-    Enqueued = 2
-    In_Progress = 3
-    Finished = 4
+    Not_Started = 0
+    Enqueued = 1
+    In_Progress = 2
+    Finished = 3
+    Error = 4
 
     def __lt__(self, other):
         if self.__class__ is other.__class__:
