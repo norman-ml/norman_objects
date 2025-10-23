@@ -3,6 +3,8 @@ from datetime import datetime, timezone, timedelta
 
 from norman_objects.shared.models.model_asset import ModelAsset
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.shared.models.model_tag import ModelTag
+
 
 class ModelPreview(NormanBaseModel):
     id: str = "0"
@@ -13,3 +15,6 @@ class ModelPreview(NormanBaseModel):
     creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
     short_description: str
     assets: list[ModelAsset] = []
+
+    tags: list[ModelTag] = []
+    user_added_tags: list[ModelTag] = []
