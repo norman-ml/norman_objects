@@ -16,5 +16,5 @@ class ModelPreview(NormanBaseModel):
     short_description: str
     assets: list[ModelAsset] = []
 
-    model_tags: list[ModelTag] = []
+    tags: list[ModelTag] = []
     user_added_tags: list[ModelTag] = []
