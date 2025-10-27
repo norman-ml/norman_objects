@@ -17,4 +17,3 @@ class ModelPreview(NormanBaseModel):
     assets: list[ModelAsset] = []
 
     tags: list[ModelTag] = []
-    user_added_tags: list[ModelTag] = []
