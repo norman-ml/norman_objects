@@ -1,9 +1,11 @@
+from norman_objects.shared.model_signatures.model_signature import ModelSignature
 from norman_objects.shared.models.http_request_type import HttpRequestType
 from norman_objects.shared.models.model_hosting_location import ModelHostingLocation
 from norman_objects.shared.models.model_preview import ModelPreview
+from norman_objects.shared.models.model_tag import ModelTag
 from norman_objects.shared.models.model_type import ModelType
 from norman_objects.shared.models.output_format import OutputFormat
-from norman_objects.shared.model_signatures.model_signature import ModelSignature
+
 
 class Model(ModelPreview):
     name: str
@@ -18,3 +20,4 @@ class Model(ModelPreview):
     inputs: list[ModelSignature] = []
     outputs: list[ModelSignature] = []
     http_headers: dict[str, str] = {}
+    user_added_tags: list[ModelTag] = []
