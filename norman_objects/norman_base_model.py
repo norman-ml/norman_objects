@@ -1,5 +1,7 @@
-from typing import Type, Optional
-from pydantic import BaseModel, create_model
+from datetime import datetime, timezone
+from typing import Type, Optional, Any
+
+from pydantic import BaseModel, create_model, field_validator
 
 from norman_objects.norman_update_schema import NormanUpdateSchema
 
@@ -15,3 +17,12 @@ class NormanBaseModel(BaseModel):
             },
             __base__=NormanUpdateSchema,
         )
+
+    @field_validator("*", mode='after')
+    @classmethod
+    def _normalize_datetime(cls, value: Any):
+        if isinstance(value, datetime):
+            if value.tzinfo is None:
+                value = value.replace(tzinfo=timezone.utc)
+
+        return value
