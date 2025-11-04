@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Type, Optional, Any
 
-from pydantic import BaseModel, create_model, field_validator
+from pydantic import BaseModel, create_model, field_validator, field_serializer
 
 from norman_objects.norman_update_schema import NormanUpdateSchema
 
@@ -22,7 +22,11 @@ class NormanBaseModel(BaseModel):
     @classmethod
     def _normalize_datetime(cls, value: Any):
         if isinstance(value, datetime):
-            if value.tzinfo is None:
-                value = value.replace(tzinfo=timezone.utc)
+            value = value.astimezone(timezone.utc)
+        return value
 
+    @field_serializer("*", when_used="json")
+    def _serialize_datetime(self, value: Any, _info):
+        if isinstance(value, datetime):
+            value = value.astimezone(timezone.utc)
         return value
