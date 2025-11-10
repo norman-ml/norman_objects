@@ -21,12 +21,12 @@ class NormanBaseModel(BaseModel):
     @field_validator("*", mode='after')
     @classmethod
     def _normalize_datetime(cls, value: Any):
-        if isinstance(value, datetime):
+        if isinstance(value, datetime) and value.tzinfo is None:
             value = value.astimezone(timezone.utc)
         return value
 
     @field_serializer("*", when_used="json")
     def _serialize_datetime(self, value: Any, _info):
-        if isinstance(value, datetime):
+        if isinstance(value, datetime) and value.tzinfo is None:
             value = value.astimezone(timezone.utc)
         return value
