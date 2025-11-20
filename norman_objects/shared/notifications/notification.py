@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pydantic import Field
 from typing import Optional
 
@@ -10,7 +10,7 @@ class Notification(NormanBaseModel):
     id: str
     account_id: str
     entity_id: str
-    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
+    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     model_name: Optional[str] = None
     title: str
     message: str

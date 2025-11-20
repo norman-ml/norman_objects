@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from pydantic import Field
 
@@ -10,7 +10,7 @@ class Invocation(NormanBaseModel):
     id: str = "0"
     account_id: str
     model_id: str
-    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
+    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     inputs: list[InvocationSignature] = []
     outputs: list[InvocationSignature] = []

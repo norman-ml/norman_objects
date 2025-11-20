@@ -1,4 +1,4 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 
 from pydantic import Field
 
@@ -12,6 +12,6 @@ class InvocationHistory(NormanBaseModel):
     account_id: str
     model_id: str
     asset_id: str
-    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
+    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     model_name: str
     flag_value: StatusFlagValue

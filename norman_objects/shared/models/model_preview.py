@@ -1,4 +1,4 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 
 from pydantic import Field
 
@@ -13,7 +13,7 @@ class ModelPreview(NormanBaseModel):
     model_base_id: str = "0"
     version_label: str
     active: bool = True
-    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
+    creation_time: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     short_description: str
 
     assets: list[ModelAsset] = []
