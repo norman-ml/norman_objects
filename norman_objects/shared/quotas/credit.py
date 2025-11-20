@@ -12,7 +12,7 @@ class Credit(BaseModel):
 
     @classmethod
     def now(cls, quota_id: str, duration_seconds: int, billable: bool):
-        now = datetime.now(timezone(timedelta(0)))
+        now = datetime.now(timezone.utc)
         return cls(
             quota_id=quota_id,
             start_date=now,

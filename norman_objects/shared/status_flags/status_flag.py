@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from pydantic import Field
 
@@ -11,6 +11,6 @@ class StatusFlag(NormanBaseModel):
     id: str = "0"
     account_id: str
     entity_id: str
-    update_time: datetime = Field(default_factory=lambda: datetime.now(timezone(timedelta(0))))
+    update_time: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     flag_name: StatusFlagName
     flag_value: StatusFlagValue
