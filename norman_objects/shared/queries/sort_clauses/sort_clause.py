@@ -3,7 +3,17 @@ from norman_objects.shared.queries.sort_clauses.sort_node import SortNode
 
 
 class SortClause(NormanBaseModel):
+    """
+    Represents a structured sort definition consisting of one or more
+    sort directives ordered by priority.
+
+    **Fields**
+
+    - **children** (`list[SortNode]`)
+      Ordered list of sort instructions (primary → secondary → ...).
+    """
     children: list[SortNode]
+
 
     def __and__(self, other):
         if not isinstance(other, SortClause):
