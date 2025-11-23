@@ -12,22 +12,6 @@ class Sensitive(Generic[T]):
     def __init__(self, value: Union[T, "Sensitive[T]"]):
         self._value: T = Sensitive._get_plain_value(value)
 
-    @classmethod
-    def __get_pydantic_core_schema__(cls, source_type: Any, handler: GetCoreSchemaHandler):
-        (inner_type,) = source_type.__args__
-
-        def validate_sensitive(value: Union[T, "Sensitive[T]"], info: core_schema.ValidationInfo):
-            raw_value = Sensitive._get_plain_value(value)
-            return cls(TypeAdapter(inner_type).validate_python(raw_value))
-
-        return core_schema.with_info_plain_validator_function(
-            validate_sensitive,
-            serialization=core_schema.plain_serializer_function_ser_schema(
-                lambda sensitive: sensitive.value(),
-                return_schema=handler(inner_type)
-            )
-        )
-
     @staticmethod
     def _get_plain_value(value):
         if isinstance(value, Sensitive):
