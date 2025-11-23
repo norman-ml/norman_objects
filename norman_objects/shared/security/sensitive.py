@@ -29,7 +29,7 @@ class Sensitive(Generic[T]):
             serialization=core_schema.plain_serializer_function_ser_schema(
                 lambda sensitive: sensitive.value(),
                 return_schema=handler(inner_type),
-                when_used="json"
+                when_used="always"
             )
         )
 
