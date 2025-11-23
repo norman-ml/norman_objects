@@ -3,6 +3,19 @@ from functools import cache
 
 
 class DataModality(str, Enum):
+    """
+    Enumeration of all supported data modalities for model inputs
+    and outputs.
+
+    **Values**
+    - Audio
+    - File
+    - Float
+    - Image
+    - Integer
+    - Text
+    - Video
+    """
     Audio = "Audio"
     File = "File"
     Float = "Float"
