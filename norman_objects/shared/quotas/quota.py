@@ -1,15 +1,17 @@
 from datetime import datetime, timezone
 
-from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.shared.quotas.quota_type import QuotaType
 from pydantic import Field
+
+from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
+from norman_objects.shared.quotas.quota_type import QuotaType
 
 
 class Quota(NormanBaseModel):
     id: str = "0"
     account_id: str
-    start_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    end_date: datetime = Field(default_factory=lambda: datetime(5000, 1, 1, 0, 0, 0, tzinfo=timezone.utc))
+    start_date: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    end_date: NormalizedDateTime = Field(default_factory=lambda: datetime(5000, 1, 1, 0, 0, 0, tzinfo=timezone.utc))
     type: QuotaType
     size: int
 

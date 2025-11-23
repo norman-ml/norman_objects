@@ -2,12 +2,14 @@ from datetime import datetime, timezone, timedelta
 
 from pydantic import BaseModel
 
+from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
+
 
 class Credit(BaseModel):
     id: str = "0"
     quota_id: str
-    start_date: datetime
-    end_date: datetime
+    start_date: NormalizedDateTime
+    end_date: NormalizedDateTime
     billable: bool
 
     @classmethod
