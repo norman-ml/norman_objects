@@ -7,6 +7,24 @@ from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
 class NormanFileDownloadRequest(NormanBaseModel):
+    """
+    Base request object describing a file download operation within the
+    Norman platform. This includes all metadata required to authorize
+    and locate files across storage layers.
+
+    **Fields**
+
+    - **account_id** (`str`)
+      Identifier of the account requesting the download.
+
+    - **model_id** (`str`)
+      Identifier of the model associated with the requested file(s).
+
+    - **links** (`List[str]`)
+      List of storage links or paths pointing to the files that should
+      be downloaded. These may reference S3 paths, EFS paths, or internal
+      storage URLs.
+    """
     account_id: str
     model_id: str
     links: List[str]
