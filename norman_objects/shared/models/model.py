@@ -10,8 +10,8 @@ from norman_objects.shared.models.output_format import OutputFormat
 class Model(ModelPreview):
     name: str
     model_class: str
-    url: str
-    request_type: HttpRequestType
+    url: str | None = None
+    request_type: HttpRequestType | None = None
     model_type: ModelType
     hosting_location: ModelHostingLocation
     output_format: OutputFormat
