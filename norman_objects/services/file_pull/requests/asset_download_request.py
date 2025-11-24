@@ -10,6 +10,31 @@ from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
 class AssetDownloadRequest(NormanFileDownloadRequest):
+    """
+    Request object used to download an asset associated with a model,
+    such as a tokenizer file, preview image, metadata artifact, or other
+    model-related resource.
+
+    Extends the base `NormanFileDownloadRequest` with asset-specific
+    identifiers.
+
+    **Fields**
+
+    - **account_id** (`str`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **model_id** (`str`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **links** (`List[str]`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **asset_id** (`str`)
+      Identifier of the asset being downloaded.
+
+    - **asset_name** (`str`)
+      Human-readable or system-defined name of the asset.
+    """
     asset_id: str
     asset_name: str
 
