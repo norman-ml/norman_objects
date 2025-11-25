@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from typing import Optional
 
 from pydantic import Field
 
@@ -6,7 +7,7 @@ from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
 from norman_objects.shared.models.aggregate_tag import AggregateTag
 from norman_objects.shared.models.model_asset import ModelAsset
-
+from norman_objects.shared.models.model_build_status import ModelBuildStatus
 
 class ModelPreview(NormanBaseModel):
     id: str = "0"
@@ -19,3 +20,5 @@ class ModelPreview(NormanBaseModel):
 
     assets: list[ModelAsset] = []
     tags: list[AggregateTag] = []
+    #TODO - this is step 2: add a field in model preview
+    build_status: Optional[ModelBuildStatus] = None
