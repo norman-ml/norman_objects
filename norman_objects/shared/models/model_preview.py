@@ -3,7 +3,6 @@ from datetime import datetime, timezone
 from pydantic import Field
 
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.shared.tags.aggregate_tag import AggregateTag
 from norman_objects.shared.models.model_asset import ModelAsset
 
 
@@ -17,4 +16,3 @@ class ModelPreview(NormanBaseModel):
     short_description: str
 
     assets: list[ModelAsset] = []
-    tags: list[AggregateTag] = []
