@@ -15,10 +15,9 @@ class ModelPreview(NormanBaseModel):
     model_base_id: str = "0"
     version_label: str
     active: bool = True
+    build_status: Optional[ModelBuildStatus] = None
     creation_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
     short_description: str
 
     assets: list[ModelAsset] = []
     tags: list[AggregateTag] = []
-    #TODO - this is step 2: add a field in model preview
-    build_status: Optional[ModelBuildStatus] = None
