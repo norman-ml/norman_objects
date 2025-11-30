@@ -1,12 +1,20 @@
+from datetime import datetime, UTC
 from typing import Optional
 
+from pydantic import Field
+
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.errors.norman_error import NormanError
 
 
-class NormanApiError(NormanError):
+class NormanApiError(NormanBaseModel, NormanError):
+    message: str
+    details: dict = Field(default_factory=dict)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
     status_code: int
     error_type: str
-    suggestions: list[str] = []
+    suggestions: list[str] = Field(default_factory=list)
     request_id: Optional[str] = None
 
     @classmethod
