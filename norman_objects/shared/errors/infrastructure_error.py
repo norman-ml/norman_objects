@@ -2,4 +2,4 @@ from norman_objects.shared.errors.norman_internal_error import NormanInternalErr
 
 
 class InfrastructureError(NormanInternalError):
-    pass
+    """Base class for infrastructure-related errors (AWS services, network, etc.)"""

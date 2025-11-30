@@ -2,4 +2,4 @@ from norman_objects.shared.errors.infrastructure_error import InfrastructureErro
 
 
 class DatabaseError(InfrastructureError):
-    pass
+    """Error for database operation failures (RDS, connection issues, query errors)"""

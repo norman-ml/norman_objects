@@ -2,4 +2,4 @@ from norman_objects.shared.errors.infrastructure_error import InfrastructureErro
 
 
 class ConfigurationError(InfrastructureError):
-    pass
+    """Error for configuration and parameter retrieval failures (AppConfig, Secrets Manager)"""
