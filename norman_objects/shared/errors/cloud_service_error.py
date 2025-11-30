@@ -3,6 +3,4 @@ from pydantic import ConfigDict
 
 
 class CloudServiceError(InfrastructureError):
-    model_config = ConfigDict(arbitrary_types_allowed=True)
-
     pass
