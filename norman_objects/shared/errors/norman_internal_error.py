@@ -1,12 +1,16 @@
+from datetime import datetime, UTC
 from typing import Optional
 
-from pydantic import ConfigDict
-
 from norman_objects.shared.errors.norman_error import NormanError
-from norman_objects.shared.errors.ttttttt import NormanIntError
 
 
-class NormanInternalError(NormanIntError):
-    # model_config = ConfigDict(arbitrary_types_allowed=True)
-
-    original_exception: Optional[Exception] = None
+class NormanInternalError(NormanError):
+    def __init__(
+        self,
+        message: str,
+        details: Optional[dict] = None,
+        timestamp: Optional[datetime] = None,
+        original_exception: Optional[Exception] = None
+    ):
+        super().__init__(message=message, details=details, timestamp=timestamp)
+        self.original_exception = original_exception

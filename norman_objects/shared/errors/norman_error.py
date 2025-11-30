@@ -1,13 +1,14 @@
 from datetime import datetime, UTC
+from typing import Optional
 
-from norman_objects.norman_base_model import NormanBaseModel
 
-
-class NormanError(NormanBaseModel):
-    message: str
-    details: dict = {}
-    timestamp: datetime = datetime.now(UTC)
-
-    def model_post_init(self, __context):
-        if self.timestamp is None:
-            self.timestamp = datetime.now(UTC)
+class NormanError:
+    def __init__(
+        self,
+        message: str,
+        details: Optional[dict] = None,
+        timestamp: Optional[datetime] = None
+    ):
+        self.message = message
+        self.details = details if details is not None else {}
+        self.timestamp = timestamp if timestamp is not None else datetime.now(UTC)
