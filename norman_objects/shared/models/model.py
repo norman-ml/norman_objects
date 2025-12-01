@@ -5,13 +5,14 @@ from norman_objects.shared.models.model_preview import ModelPreview
 from norman_objects.shared.models.model_tag import ModelTag
 from norman_objects.shared.models.model_type import ModelType
 from norman_objects.shared.models.output_format import OutputFormat
+from typing import Optional
 
 
 class Model(ModelPreview):
     name: str
     model_class: str
-    url: str
-    request_type: HttpRequestType
+    url: Optional[str] = None
+    request_type: Optional[HttpRequestType] = None
     model_type: ModelType
     hosting_location: ModelHostingLocation
     output_format: OutputFormat
