@@ -1,7 +1,8 @@
-from norman_objects.shared.models.model_preview import ModelPreview
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.shared.models.model_preview import ModelPreview
 from norman_objects.shared.tags.aggregate_tag import AggregateTag
 from norman_objects.shared.tags.model_tag import ModelTag
+
 
 class ModelBase(NormanBaseModel):
     id: str

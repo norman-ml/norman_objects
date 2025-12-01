@@ -5,6 +5,7 @@ from norman_objects.shared.models.model_preview import ModelPreview
 from norman_objects.shared.models.model_type import ModelType
 from norman_objects.shared.models.output_format import OutputFormat
 
+
 class Model(ModelPreview):
     name: str
     model_class: str
