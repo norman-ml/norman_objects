@@ -1,4 +1,4 @@
-from norman_objects.shared.errors.norman_api_error import NormanApiError
+from norman_objects.shared.errors.api_errors.norman_api_error import NormanApiError
 
 
 class ServerError(NormanApiError):
