@@ -4,7 +4,8 @@ from typing import Optional
 from norman_objects.shared.errors.norman_error import NormanError
 
 
-class NormanInternalError(NormanError, Exception):
+class NormanInternalException(NormanError):
+
     def __init__(
         self,
         message: str,
@@ -13,5 +14,4 @@ class NormanInternalError(NormanError, Exception):
         original_exception: Optional[Exception] = None
     ):
         NormanError.__init__(self, message=message, details=details, timestamp=timestamp)
-        Exception.__init__(self, message)
         self.original_exception = original_exception
