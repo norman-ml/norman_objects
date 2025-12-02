@@ -9,9 +9,9 @@ class NormanInternalException(NormanError):
     def __init__(
         self,
         message: str,
-        details: Optional[dict] = None,
+        context: Optional[dict] = None,
         timestamp: Optional[datetime] = None,
         original_exception: Optional[Exception] = None
     ):
-        NormanError.__init__(self, message=message, details=details, timestamp=timestamp)
+        NormanError.__init__(self, message=message, context=context, timestamp=timestamp)
         self.original_exception = original_exception

@@ -18,81 +18,59 @@ class ErrorFactory:
         "InfrastructureException": InfrastructureException
     }
 
-    _API_ERROR_MAP: Dict[Type[NormanInternalException], Type[NormanApiError]] = {
-        CloudServiceException: ServerError,
-        ConfigurationException: ServerError,
-        DatabaseException: ServerError,
-        InfrastructureException: ServerError
-    }
-
-    @classmethod
+    @staticmethod
     def to_internal_error(
-        cls,
-        exc: Exception,
+        exception: Exception,
         fallback_message: Optional[str] = None,
-        fallback_details: Optional[dict] = None
+        fallback_context: Optional[dict] = None
     ) -> NormanInternalException:
 
-        error_data = cls._extract_error_data(exc)
-
-        if error_data:
+        if ErrorFactory._is_structured_exception(exception):
+            error_data = exception.args[0]
             error_class_name = error_data.get("error_class", "InfrastructureException")
-            internal_error_class = cls._INTERNAL_ERROR_MAP.get(
+            internal_error_class = ErrorFactory._INTERNAL_ERROR_MAP.get(
                 error_class_name,
                 InfrastructureException
             )
 
             return internal_error_class(
-                message=error_data.get("message", str(exc)),
-                details=error_data.get("details", {}),
-                original_exception=error_data.get("original_exception") or exc.__cause__
+                message=error_data.get("message", str(exception)),
+                context=error_data.get("context", {}),
+                original_exception=error_data.get("original_exception") or exception.__cause__
             )
         else:
             return InfrastructureException(
-                message=fallback_message or str(exc),
-                details=fallback_details or {},
-                original_exception=exc
+                message=fallback_message or str(exception),
+                context=fallback_context or {},
+                original_exception=exception
             )
 
-    @classmethod
+    @staticmethod
     def to_api_error(
-        cls,
-        exc: Exception,
+        exception: Exception,
         default_message: str,
         api_error_class: Type[NormanApiError] = None,
-        fallback_details: Optional[dict] = None
+        fallback_context: Optional[dict] = None
     ) -> NormanApiError:
 
-        if isinstance(exc, NormanInternalException):
-            details = exc.details
-            api_error_type = api_error_class or cls._API_ERROR_MAP.get(
-                type(exc),
-                ServerError
-            )
+        if isinstance(exception, NormanInternalException):
+            context = exception.context
         else:
-            internal_error = cls.to_internal_error(
-                exc,
+            internal_error = ErrorFactory.to_internal_error(
+                exception,
                 fallback_message=default_message,
-                fallback_details=fallback_details
+                fallback_context=fallback_context
             )
-            details = internal_error.details
+            context = internal_error.context
 
-            api_error_type = api_error_class or cls._API_ERROR_MAP.get(
-                type(internal_error),
-                ServerError
-            )
+        api_error_type = api_error_class or ServerError
 
         return api_error_type(
             message=default_message,
-            details=details
+            context=context
         )
 
-    @classmethod
-    def _extract_error_data(cls, exc: Exception) -> Optional[dict]:
-
-        if exc.args and len(exc.args) > 0:
-            first_arg = exc.args[0]
-            if isinstance(first_arg, dict) and "error_class" in first_arg:
-                return first_arg
-
-        return None
+    @staticmethod
+    def _is_structured_exception(exception: Exception) -> bool:
+        exception_dict = exception.args[0] if exception.args else None
+        return isinstance(exception_dict, dict) and "error_class" in exception_dict
