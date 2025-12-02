@@ -7,6 +7,7 @@ class NormanApiError(NormanError):
 
     status_code: int = 500
     error_type: str = "api_error"
+    suggestions: list[str] = ["Contact support for assistance"]
 
     def __init__(
         self,
@@ -23,7 +24,8 @@ class NormanApiError(NormanError):
             timestamp=timestamp if timestamp is not None else datetime.now(UTC)
         )
 
-        self.suggestions = suggestions if suggestions is not None else []
+        if suggestions is not None:
+            self.suggestions = suggestions
 
     def to_dict(self) -> dict:
 
