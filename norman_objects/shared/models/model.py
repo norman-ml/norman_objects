@@ -12,7 +12,7 @@ class Model(ModelPreview):
     name: str
     model_class: str
     url: Optional[str] = None
-    request_type: Optional[HttpRequestType] = None
+    request_type: HttpRequestType
     model_type: ModelType
     hosting_location: ModelHostingLocation
     output_format: OutputFormat
