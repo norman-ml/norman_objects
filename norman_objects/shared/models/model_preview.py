@@ -9,6 +9,7 @@ from norman_objects.shared.models.aggregate_tag import AggregateTag
 from norman_objects.shared.models.model_asset import ModelAsset
 from norman_objects.shared.models.model_build_status import ModelBuildStatus
 
+
 class ModelPreview(NormanBaseModel):
     id: str = "0"
     account_id: str
