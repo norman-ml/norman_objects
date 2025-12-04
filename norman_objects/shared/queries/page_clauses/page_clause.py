@@ -5,8 +5,20 @@ from norman_objects.shared.queries.parameterization_type import Parameterization
 
 
 class PageClause(NormanBaseModel):
+    """
+    Pagination configuration specifying record range selection.
+
+    **Fields**
+
+    - **limit** (`Optional[int]`)
+      Maximum number of records to return. `None` means no explicit limit.
+
+    - **offset** (`Optional[int]`)
+      Starting position in the record set. Useful for page-based navigation.
+    """
     limit: Optional[int]
     offset: Optional[int]
+
 
     def validate_expression(self):
         return (

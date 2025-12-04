@@ -10,6 +10,32 @@ from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
 class InputDownloadRequest(NormanFileDownloadRequest):
+    """
+    Request object for downloading input files associated with a specific
+    model invocation. Extends `NormanFileDownloadRequest` with additional
+    identifiers required for retrieving input artifacts.
+
+    **Fields**
+
+    - **account_id** (`str`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **model_id** (`str`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **links** (`List[str]`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **signature_id** (`str`)
+      Identifier of the input signature definition associated with
+      the file being downloaded.
+
+    - **invocation_id** (`str`)
+      Identifier of the invocation to which this input belongs.
+
+    - **input_id** (`str`)
+      Identifier of the input object being downloaded.
+    """
     signature_id: str
     invocation_id: str
     input_id: str

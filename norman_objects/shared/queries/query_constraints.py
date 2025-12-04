@@ -12,6 +12,29 @@ from norman_objects.shared.queries.transforms.constraint_transform import Constr
 
 
 class QueryConstraints(NormanBaseModel):
+    """
+    Container object defining query constraints for filtering, sorting,
+    and paginating backend lookup operations.
+
+    A `QueryConstraints` instance can include one or more of:
+    - A filter tree (logical expression)
+    - A sort tree
+    - Pagination instructions
+
+    **Fields**
+
+    - **filter** (`Optional[FilterClause]`)
+      Root filter clause describing complex logical filtering using nested
+      clauses and nodes. If omitted, no filtering is applied.
+
+    - **sort** (`Optional[SortClause]`)
+      Sorting instructions, represented as a tree of sort nodes. `None`
+      means no ordering is enforced.
+
+    - **page** (`Optional[PageClause]`)
+      Pagination configuration specifying `limit` and `offset`. If `None`,
+      pagination defaults are determined by the API endpoint.
+    """
     filter: Optional[FilterClause] = None
     sort: Optional[SortClause] = None
     page: Optional[PageClause] = None
