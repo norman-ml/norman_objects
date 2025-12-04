@@ -1,4 +1,4 @@
-from typing import Type, Optional, Dict
+from typing import Type, Optional, Dict, Any
 
 from norman_objects.shared.exceptions.internal_exceptions.cloud_service_exception import CloudServiceException
 from norman_objects.shared.exceptions.internal_exceptions.configuration_exception import ConfigurationException
@@ -8,8 +8,7 @@ from norman_objects.shared.exceptions.internal_exceptions.norman_internal_except
 
 
 class ExceptionFactory:
-
-    _INTERNAL_ERROR_MAP: Dict[str, Type[NormanInternalException]] = {
+    _ExceptionClassesByName: dict[str, Type[NormanInternalException]] = {
         "CloudServiceException": CloudServiceException,
         "ConfigurationException": ConfigurationException,
         "DatabaseException": DatabaseException,
@@ -21,30 +20,50 @@ class ExceptionFactory:
         exception: Exception,
         fallback_message: Optional[str] = None,
         fallback_context: Optional[dict] = None
-    ) -> NormanInternalException:
+    ):
+        if exception.args is None:
+            exception_data = None
+        else:
+            exception_data = exception.args[0]  # (link_to_docs) explain that args[0] is always present
 
-        if ExceptionFactory._is_structured_exception(exception):
-            exception_data = exception.args[0]
-            error_class_name = exception_data.get("exception_class", "InfrastructureException")
-            internal_error_class = ExceptionFactory._INTERNAL_ERROR_MAP.get(
-                error_class_name,
+        is_structured_exception = ExceptionFactory._is_structured_exception(exception_data)
+        if is_structured_exception:
+            exception_class_name = exception_data.get("exception_class_name", "InfrastructureException")
+            internal_exception_class = ExceptionFactory._ExceptionClassesByName.get(
+                exception_class_name,
                 InfrastructureException
             )
 
-            return internal_error_class(
-                message=exception_data.get("message", str(exception)),
-                context=exception_data.get("context", {}),
-                original_exception=exception_data.get("original_exception") or exception.__cause__
-            )
+            message = exception_data.get("message", str(exception))
+            context = exception_data.get("context", {})
+            original_exception = exception_data.get("original_exception")
+
+            if original_exception is None:
+                original_exception = exception.__cause__
+
         else:
-            return InfrastructureException(
-                message=fallback_message or str(exception),
-                context=fallback_context or {},
-                original_exception=exception
-            )
+            internal_exception_class = InfrastructureException
+            message = fallback_message
+            if message is None:
+                message = str(exception)
 
+            context = fallback_context
+            if context is None:
+                context = {}
 
+            original_exception = exception
+
+        return internal_exception_class(
+            message=message,
+            context=context,
+            original_exception=original_exception
+        )
+
+    # TODO: add link and more accurate explanations
     @staticmethod
-    def _is_structured_exception(exception: Exception) -> bool:
-        exception_dict = exception.args[0] if exception.args else None
-        return isinstance(exception_dict, dict) and "error_class" in exception_dict
+    def _is_structured_exception(exception_data: Any):
+
+        if not isinstance(exception_data, dict):
+            return False
+
+        return "error_class" in exception_data
