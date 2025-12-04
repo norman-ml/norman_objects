@@ -1,3 +1,5 @@
+from typing import Optional
+
 from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
 
 
@@ -9,3 +11,20 @@ class ServerException(NormanApiException):
         "Contact support if the problem persists",
         "Check the service status page",
     ]
+
+    def __init__(
+            self,
+            suggestions: Optional[list[str]] = None,
+            *args,
+            **kwargs
+    ):
+        if suggestions is None:
+            suggestions = ServerException.suggestions
+
+        super().__init__(
+            error_type=ServerException.error_type,
+            status_code=ServerException.status_code,
+            suggestions=suggestions,
+            *args,
+            **kwargs
+        )
