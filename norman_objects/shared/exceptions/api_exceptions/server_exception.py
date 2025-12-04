@@ -1,9 +1,9 @@
-from norman_objects.shared.errors.api_errors.norman_api_error import NormanApiError
+from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
 
 
-class ServerError(NormanApiError):
+class ServerException(NormanApiException):
     status_code: int = 500
-    error_type: str = "server_error"
+    error_type: str = "server"
     suggestions: list[str] = [
         "Try again in a few moments",
         "Contact support if the problem persists",

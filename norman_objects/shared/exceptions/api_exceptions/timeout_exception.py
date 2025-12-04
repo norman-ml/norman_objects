@@ -1,7 +1,7 @@
-from norman_objects.shared.errors.api_errors.norman_api_error import NormanApiError
+from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
 
 
-class TimeoutError(NormanApiError):
+class TimeoutException(NormanApiException):
     status_code: int = 504
     error_type: str = "timeout"
     suggestions: list[str] = [

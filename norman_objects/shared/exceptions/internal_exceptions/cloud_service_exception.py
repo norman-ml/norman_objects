@@ -1,4 +1,4 @@
-from norman_objects.shared.errors.internal_exceptions.infrastructure_exception import InfrastructureException
+from norman_objects.shared.exceptions.internal_exceptions.infrastructure_exception import InfrastructureException
 
 
 class CloudServiceException(InfrastructureException):

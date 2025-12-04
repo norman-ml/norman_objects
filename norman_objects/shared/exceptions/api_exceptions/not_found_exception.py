@@ -1,7 +1,7 @@
-from norman_objects.shared.errors.api_errors.norman_api_error import NormanApiError
+from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
 
 
-class NotFoundError(NormanApiError):
+class NotFoundException(NormanApiException):
     status_code: int = 404
     error_type: str = "not_found"
     suggestions: list[str] = [

@@ -1,7 +1,7 @@
-from norman_objects.shared.errors.api_errors.norman_api_error import NormanApiError
+from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
 
 
-class ValidationError(NormanApiError):
+class ValidationException(NormanApiException):
     status_code: int = 400
     error_type: str = "validation"
     suggestions: list[str] = [

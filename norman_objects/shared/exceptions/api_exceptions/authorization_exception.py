@@ -1,7 +1,7 @@
-from norman_objects.shared.errors.api_errors.norman_api_error import NormanApiError
+from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
 
 
-class AuthorizationError(NormanApiError):
+class AuthorizationException(NormanApiException):
     status_code: int = 403
     error_type: str = "authorization"
     suggestions: list[str] = [

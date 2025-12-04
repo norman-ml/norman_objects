@@ -1,7 +1,7 @@
-from norman_objects.shared.errors.api_errors.norman_api_error import NormanApiError
+from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
 
 
-class AuthenticationError(NormanApiError):
+class AuthenticationException(NormanApiException):
     status_code: int = 401
     error_type: str = "authentication"
     suggestions: list[str] = [
