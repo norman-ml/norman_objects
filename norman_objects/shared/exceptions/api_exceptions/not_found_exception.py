@@ -9,7 +9,7 @@ class NotFoundException(NormanApiException):
     suggestions: list[str] = [
         "Verify the resource ID is correct",
         "Check if the resource has been deleted",
-        "Ensure you have access to this resource",
+        "Ensure you have access to this resource"
     ]
 
     def __init__(

@@ -9,7 +9,7 @@ class ServerException(NormanApiException):
     suggestions: list[str] = [
         "Try again in a few moments",
         "Contact support if the problem persists",
-        "Check the service status page",
+        "Check the service status page"
     ]
 
     def __init__(

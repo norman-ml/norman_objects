@@ -9,7 +9,7 @@ class ValidationException(NormanApiException):
     suggestions: list[str] = [
         "Check that all required fields are provided",
         "Verify the format of your input data",
-        "Review the API documentation for parameter requirements",
+        "Review the API documentation for parameter requirements"
     ]
 
     def __init__(
