@@ -2,7 +2,7 @@ from datetime import datetime, UTC
 from typing import Optional
 
 
-class NormanError(Exception):
+class NormanException(Exception):
 
     def __init__(
         self,
