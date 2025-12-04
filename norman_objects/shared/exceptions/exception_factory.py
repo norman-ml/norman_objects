@@ -1,4 +1,4 @@
-from typing import Type, Optional, Dict, Any
+from typing import Type, Optional, Any
 
 from norman_objects.shared.exceptions.internal_exceptions.cloud_service_exception import CloudServiceException
 from norman_objects.shared.exceptions.internal_exceptions.configuration_exception import ConfigurationException
@@ -18,8 +18,7 @@ class ExceptionFactory:
     @staticmethod
     def create_internal_exception(
         exception: Exception,
-        fallback_message: Optional[str] = None,
-        fallback_context: Optional[dict] = None
+        fallback_message: Optional[str] = None
     ):
         if exception.args is None:
             exception_data = None
@@ -35,7 +34,6 @@ class ExceptionFactory:
             )
 
             message = exception_data.get("message", str(exception))
-            context = exception_data.get("context", {})
             original_exception = exception_data.get("original_exception")
 
             if original_exception is None:
@@ -47,22 +45,16 @@ class ExceptionFactory:
             if message is None:
                 message = str(exception)
 
-            context = fallback_context
-            if context is None:
-                context = {}
-
             original_exception = exception
 
         return internal_exception_class(
             message=message,
-            context=context,
             original_exception=original_exception
         )
 
     # TODO: add link and more accurate explanations
     @staticmethod
     def _is_structured_exception(exception_data: Any):
-
         if not isinstance(exception_data, dict):
             return False
 
