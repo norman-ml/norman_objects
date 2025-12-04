@@ -1,15 +1,13 @@
 from typing import Type, Optional, Dict
 
-from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
-from norman_objects.shared.exceptions.internal_exceptions.norman_internal_exception import NormanInternalException
 from norman_objects.shared.exceptions.internal_exceptions.cloud_service_exception import CloudServiceException
 from norman_objects.shared.exceptions.internal_exceptions.configuration_exception import ConfigurationException
 from norman_objects.shared.exceptions.internal_exceptions.database_exception import DatabaseException
 from norman_objects.shared.exceptions.internal_exceptions.infrastructure_exception import InfrastructureException
-from norman_objects.shared.exceptions.api_exceptions.server_exception import ServerException
+from norman_objects.shared.exceptions.internal_exceptions.norman_internal_exception import NormanInternalException
 
 
-class ErrorFactory:
+class ExceptionFactory:
 
     _INTERNAL_ERROR_MAP: Dict[str, Type[NormanInternalException]] = {
         "CloudServiceException": CloudServiceException,
@@ -25,10 +23,10 @@ class ErrorFactory:
         fallback_context: Optional[dict] = None
     ) -> NormanInternalException:
 
-        if ErrorFactory._is_structured_exception(exception):
+        if ExceptionFactory._is_structured_exception(exception):
             exception_data = exception.args[0]
             error_class_name = exception_data.get("exception_class", "InfrastructureException")
-            internal_error_class = ErrorFactory._INTERNAL_ERROR_MAP.get(
+            internal_error_class = ExceptionFactory._INTERNAL_ERROR_MAP.get(
                 error_class_name,
                 InfrastructureException
             )
