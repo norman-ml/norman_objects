@@ -9,7 +9,7 @@ class RateLimitException(NormanApiException):
     suggestions: list[str] = [
         "Wait a moment before trying again",
         "Check your quota limits",
-        "Contact support to increase your limits",
+        "Contact support to increase your limits"
     ]
 
     def __init__(

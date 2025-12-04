@@ -23,6 +23,7 @@ class ExceptionFactory:
         if exception.args is None:
             exception_data = None
         else:
+            # TODO: add link and more accurate explanations
             exception_data = exception.args[0]  # (link_to_docs) explain that args[0] is always present
 
         is_structured_exception = ExceptionFactory._is_structured_exception(exception_data)
@@ -52,7 +53,6 @@ class ExceptionFactory:
             original_exception=original_exception
         )
 
-    # TODO: add link and more accurate explanations
     @staticmethod
     def _is_structured_exception(exception_data: Any):
         if not isinstance(exception_data, dict):

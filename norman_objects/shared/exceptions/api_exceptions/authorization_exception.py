@@ -9,7 +9,7 @@ class AuthorizationException(NormanApiException):
     suggestions: list[str] = [
         "Verify you have the required permissions",
         "Contact an administrator if you believe this is an error",
-        "Check if your account has been restricted",
+        "Check if your account has been restricted"
     ]
 
     def __init__(

@@ -15,17 +15,15 @@ class NormanApiException(NormanException):
             message=message,
         )
 
-        self.error_type = error_type
         self.status_code = status_code
-
-        if suggestions is not None:
-            self.suggestions = suggestions
+        self.error_type = error_type
+        self.suggestions = suggestions
 
     def to_dict(self):
         return {
-            "message": self.message,
+            "message": super().message,
+            "timestamp": super().timestamp.isoformat(),
             "status_code": self.status_code,
             "error_type": self.error_type,
-            "timestamp": self.timestamp.isoformat(),
             "suggestions": self.suggestions
         }

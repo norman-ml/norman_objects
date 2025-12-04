@@ -9,7 +9,7 @@ class TimeoutException(NormanApiException):
     suggestions: list[str] = [
         "Try again in a few moments",
         "Break the request into smaller operations",
-        "Contact support if timeouts persist",
+        "Contact support if timeouts persist"
     ]
 
     def __init__(

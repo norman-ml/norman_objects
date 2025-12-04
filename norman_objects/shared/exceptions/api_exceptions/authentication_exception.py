@@ -4,8 +4,8 @@ from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import
 
 
 class AuthenticationException(NormanApiException):
-    error_type: str = "authentication"
     status_code: int = 401
+    error_type: str = "authentication"
     suggestions: list[str] = [
         "Verify your credentials are correct",
         "Check if your session has expired",
