@@ -18,7 +18,7 @@ class ExceptionFactory:
     @staticmethod
     def create_internal_exception(
         exception: Exception,
-        fallback_message: Optional[str] = None
+        message: str
     ):
         if exception.args is None:
             exception_data = None
@@ -34,23 +34,22 @@ class ExceptionFactory:
                 InfrastructureException
             )
 
-            message = exception_data.get("message", str(exception))
             original_exception = exception_data.get("original_exception")
+            cause = exception_data.get("message", str(exception))
 
             if original_exception is None:
                 original_exception = exception.__cause__
 
         else:
             internal_exception_class = InfrastructureException
-            message = fallback_message
-            if message is None:
-                message = str(exception)
 
             original_exception = exception
+            cause = str(original_exception)
 
         return internal_exception_class(
             message=message,
-            original_exception=original_exception
+            original_exception=original_exception,
+            cause=cause
         )
 
     @staticmethod
@@ -58,4 +57,4 @@ class ExceptionFactory:
         if not isinstance(exception_data, dict):
             return False
 
-        return "error_class" in exception_data
+        return "exception_class_name" in exception_data
