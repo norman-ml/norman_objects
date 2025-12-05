@@ -14,7 +14,9 @@ class RateLimitException(NormanApiException):
 
     def __init__(
             self,
+            message: str,
             suggestions: Optional[list[str]] = None,
+            cause: Optional[str] = None,
             *args,
             **kwargs
     ):
@@ -22,9 +24,11 @@ class RateLimitException(NormanApiException):
             suggestions = RateLimitException.suggestions
 
         super().__init__(
+            message=message,
             error_type=RateLimitException.error_type,
             status_code=RateLimitException.status_code,
             suggestions=suggestions,
+            cause=cause,
             *args,
             **kwargs
         )
