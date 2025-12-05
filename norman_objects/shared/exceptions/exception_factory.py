@@ -20,11 +20,13 @@ class ExceptionFactory:
         exception: Exception,
         message: str
     ):
-        if exception.args is None:
-            exception_data = None
+        # Exception.args is always a tuple, but may be empty if raised with no arguments.
+        # We safely read args[0] and default to None instead of risking an IndexError.
+        # see Python docs:https://docs.python.org/3/library/exceptions.html#Exception
+        if exception.args:
+            exception_data = exception.args[0]
         else:
-            # TODO: add link and more accurate explanations
-            exception_data = exception.args[0]  # (link_to_docs) explain that args[0] is always present
+            exception_data = None
 
         is_structured_exception = ExceptionFactory._is_structured_exception(exception_data)
         if is_structured_exception:
