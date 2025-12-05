@@ -14,7 +14,9 @@ class AuthorizationException(NormanApiException):
 
     def __init__(
             self,
+            message: str,
             suggestions: Optional[list[str]] = None,
+            cause: Optional[str] = None,
             *args,
             **kwargs
     ):
@@ -22,10 +24,11 @@ class AuthorizationException(NormanApiException):
             suggestions = AuthorizationException.suggestions
 
         super().__init__(
+            message=message,
             error_type=AuthorizationException.error_type,
             status_code=AuthorizationException.status_code,
             suggestions=suggestions,
+            cause=cause,
             *args,
             **kwargs
         )
-
