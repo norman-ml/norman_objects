@@ -26,8 +26,8 @@ class NormanApiException(NormanException):
 
     def to_dict(self):
         return {
-            "message": super().message,
-            "timestamp": super().timestamp.isoformat(),
+            "message": self.message,
+            "timestamp": self.timestamp.isoformat(),
             "status_code": self.status_code,
             "error_type": self.error_type,
             "suggestions": self.suggestions,
