@@ -25,10 +25,11 @@ class RateLimitException(NormanException):
 
         super().__init__(
             message=message,
-            error_type=RateLimitException.error_type,
-            status_code=RateLimitException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = RateLimitException.status_code
+        self.error_type = RateLimitException.error_type

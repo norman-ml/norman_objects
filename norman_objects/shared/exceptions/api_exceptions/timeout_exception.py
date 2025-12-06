@@ -25,10 +25,11 @@ class TimeoutException(NormanException):
 
         super().__init__(
             message=message,
-            error_type=TimeoutException.error_type,
-            status_code=TimeoutException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = TimeoutException.status_code
+        self.error_type = TimeoutException.error_type

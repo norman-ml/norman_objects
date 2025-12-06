@@ -25,10 +25,11 @@ class ConfigurationException(InfrastructureException):
 
         super().__init__(
             message=message,
-            error_type=ConfigurationException.error_type,
-            status_code=ConfigurationException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = ConfigurationException.status_code
+        self.error_type = ConfigurationException.error_type

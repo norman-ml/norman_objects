@@ -25,10 +25,11 @@ class AuthorizationException(NormanException):
 
         super().__init__(
             message=message,
-            error_type=AuthorizationException.error_type,
-            status_code=AuthorizationException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = AuthorizationException.status_code
+        self.error_type = AuthorizationException.error_type

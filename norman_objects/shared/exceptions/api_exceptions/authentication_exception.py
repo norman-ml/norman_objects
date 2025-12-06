@@ -25,10 +25,11 @@ class AuthenticationException(NormanException):
 
         super().__init__(
             message=message,
-            error_type=AuthenticationException.error_type,
-            status_code=AuthenticationException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = AuthenticationException.status_code
+        self.error_type = AuthenticationException.error_type

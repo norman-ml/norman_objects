@@ -8,26 +8,36 @@ class NormanException(Exception):
     def __init__(
         self,
         message: str,
-        status_code: int,
-        error_type: str,
-        suggestions: list[str],
         cause: Optional[str] = None,
+        suggestions: Optional[list[str]] = None,
     ):
         super().__init__(message)
         self.message = message
         self.timestamp = datetime.now(timezone.utc)
-        self.status_code = status_code
-        self.error_type = error_type
-        self.suggestions = suggestions
         self.cause = cause
+        self.suggestions = suggestions
 
     def to_dict(self):
+        from norman_objects.shared.exceptions.api_exceptions.server_exception import ServerException
+
+        status_code = getattr(self, 'status_code', None)
+        if status_code is None:
+            status_code = ServerException.status_code
+
+        error_type = getattr(self, 'error_type', None)
+        if error_type is None:
+            error_type = ServerException.error_type
+
+        suggestions = getattr(self, 'suggestions', None)
+        if suggestions is None:
+            suggestions = ServerException.suggestions
+
         return {
             "message": self.message,
             "timestamp": self.timestamp.isoformat(),
-            "status_code": self.status_code,
-            "error_type": self.error_type,
-            "suggestions": self.suggestions,
+            "status_code": status_code,
+            "error_type": error_type,
+            "suggestions": suggestions,
             "cause": self.cause
         }
 

@@ -25,10 +25,11 @@ class CloudServiceException(InfrastructureException):
 
         super().__init__(
             message=message,
-            error_type=CloudServiceException.error_type,
-            status_code=CloudServiceException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = CloudServiceException.status_code
+        self.error_type = CloudServiceException.error_type

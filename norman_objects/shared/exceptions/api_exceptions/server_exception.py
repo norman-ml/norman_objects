@@ -25,10 +25,11 @@ class ServerException(NormanException):
 
         super().__init__(
             message=message,
-            error_type=ServerException.error_type,
-            status_code=ServerException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = ServerException.status_code
+        self.error_type = ServerException.error_type

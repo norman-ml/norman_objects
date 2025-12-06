@@ -25,10 +25,11 @@ class DatabaseException(InfrastructureException):
 
         super().__init__(
             message=message,
-            error_type=DatabaseException.error_type,
-            status_code=DatabaseException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = DatabaseException.status_code
+        self.error_type = DatabaseException.error_type

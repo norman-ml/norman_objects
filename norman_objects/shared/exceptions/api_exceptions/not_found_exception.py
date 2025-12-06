@@ -25,10 +25,11 @@ class NotFoundException(NormanException):
 
         super().__init__(
             message=message,
-            error_type=NotFoundException.error_type,
-            status_code=NotFoundException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = NotFoundException.status_code
+        self.error_type = NotFoundException.error_type

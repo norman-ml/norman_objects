@@ -25,10 +25,11 @@ class InfrastructureException(NormanException):
 
         super().__init__(
             message=message,
-            error_type=InfrastructureException.error_type,
-            status_code=InfrastructureException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = InfrastructureException.status_code
+        self.error_type = InfrastructureException.error_type

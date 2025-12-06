@@ -25,10 +25,11 @@ class ValidationException(NormanException):
 
         super().__init__(
             message=message,
-            error_type=ValidationException.error_type,
-            status_code=ValidationException.status_code,
             suggestions=suggestions,
             cause=cause,
             *args,
             **kwargs
         )
+
+        self.status_code = ValidationException.status_code
+        self.error_type = ValidationException.error_type
