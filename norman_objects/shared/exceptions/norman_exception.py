@@ -53,15 +53,24 @@ class NormanException(Exception):
             return data
 
         if isinstance(data, Exception):
-            if hasattr(data, "_norman_exception") and data._norman_exception:
-                return data
+            if hasattr(data, "_norman_exception"):
+                if data._norman_exception:
+                    return data
 
-            if data.args and isinstance(data.args[0], dict):
-                exception_dict = data.args[0]
-            else:
+            has_dict_args = False
+            if data.args:
+                if isinstance(data.args[0], dict):
+                    has_dict_args = True
+                    exception_dict = data.args[0]
+
+            if not has_dict_args:
+                cause = None
+                if data.__cause__:
+                    cause = str(data.__cause__)
+
                 return ServerException(
                     message=str(data),
-                    cause=str(data.__cause__) if data.__cause__ else None
+                    cause=cause
                 )
 
         elif isinstance(data, dict):
