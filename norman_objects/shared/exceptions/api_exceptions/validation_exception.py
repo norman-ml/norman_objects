@@ -1,9 +1,9 @@
 from typing import Optional
 
-from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
+from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
-class ValidationException(NormanApiException):
+class ValidationException(NormanException):
     status_code: int = 400
     error_type: str = "validation"
     suggestions: list[str] = [

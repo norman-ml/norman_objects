@@ -1,9 +1,9 @@
 from typing import Optional
 
-from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
+from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
-class AuthenticationException(NormanApiException):
+class AuthenticationException(NormanException):
     status_code: int = 401
     error_type: str = "authentication"
     suggestions: list[str] = [

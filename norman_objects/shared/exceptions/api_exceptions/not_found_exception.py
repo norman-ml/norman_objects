@@ -1,9 +1,9 @@
 from typing import Optional
 
-from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
+from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
-class NotFoundException(NormanApiException):
+class NotFoundException(NormanException):
     status_code: int = 404
     error_type: str = "not_found"
     suggestions: list[str] = [

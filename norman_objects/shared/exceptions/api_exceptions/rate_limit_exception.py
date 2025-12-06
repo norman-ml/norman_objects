@@ -1,9 +1,9 @@
 from typing import Optional
 
-from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
+from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
-class RateLimitException(NormanApiException):
+class RateLimitException(NormanException):
     status_code: int = 429
     error_type: str = "rate_limit"
     suggestions: list[str] = [

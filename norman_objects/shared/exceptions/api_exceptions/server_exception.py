@@ -1,9 +1,9 @@
 from typing import Optional
 
-from norman_objects.shared.exceptions.api_exceptions.norman_api_exception import NormanApiException
+from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
-class ServerException(NormanApiException):
+class ServerException(NormanException):
     status_code: int = 500
     error_type: str = "server"
     suggestions: list[str] = [
