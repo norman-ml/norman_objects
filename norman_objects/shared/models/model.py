@@ -33,10 +33,10 @@ class Model(ModelPreview):
       HTTP method or request style used to communicate with the model.
 
     - **model_type** (`ModelType`)
-      High-level categorization of the model (e.g., LLM, Embedding, Vision).
+      High-level categorization of the model.
 
     - **hosting_location** (`ModelHostingLocation`)
-      Where the model is hosted (e.g., cloud region, local cluster).
+      Where the model is hosted.
 
     - **output_format** (`OutputFormat`)
       Expected response format or media type.

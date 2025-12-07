@@ -10,10 +10,10 @@ class Severity(str, Enum):
 
     **Values**
 
-    - **Error** — A failure or critical issue requiring user attention.
-    - **Info** — Neutral informational update.
-    - **Success** — Positive event, confirmation, or completion notice.
-    - **Warning** — Non-critical issue or cautionary event.
+    - **Error** - A failure or critical issue requiring user attention.
+    - **Info** - Neutral informational update.
+    - **Success** - Positive event, confirmation, or completion notice.
+    - **Warning** - Non-critical issue or cautionary event.
     """
     Error = "Error"
     Info = "Info"

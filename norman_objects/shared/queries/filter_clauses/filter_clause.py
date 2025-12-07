@@ -23,8 +23,8 @@ class FilterClause(NormanBaseModel):
 
     - **children** (`list[Union[FilterClause, FilterNode]]`)
       A list of either:
-      - `FilterClause` — sub-clause for grouping
-      - `FilterNode` — leaf comparison expression
+      - `FilterClause` - sub-clause for grouping
+      - `FilterNode` - leaf comparison expression
 
     - **join_condition** (`UnaryRelation`)
       Logical operator used to join child nodes:

@@ -17,6 +17,7 @@ class QueryConstraints(NormanBaseModel):
     and paginating backend lookup operations.
 
     A `QueryConstraints` instance can include one or more of:
+
     - A filter tree (logical expression)
     - A sort tree
     - Pagination instructions

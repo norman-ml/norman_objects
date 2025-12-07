@@ -7,8 +7,8 @@ class SortDirection(str, Enum):
 
     **Values**
 
-    - **ASC** — Sort in ascending order
-    - **DESC** — Sort in descending order
+    - **ASC** - Sort in ascending order
+    - **DESC** - Sort in descending order
     """
     ASC = "ASC"
     DESC = "DESC"

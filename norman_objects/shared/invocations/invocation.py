@@ -20,7 +20,7 @@ class Invocation(NormanBaseModel):
     **Fields**
 
     - **id** (`str`)
-      Unique identifier for the invocation. Defaults to `"0"`.
+      Unique identifier for the invocation. Defaults to "0".
 
     - **account_id** (`str`)
       Identifier of the account that triggered the invocation.

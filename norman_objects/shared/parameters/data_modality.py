@@ -8,6 +8,7 @@ class DataModality(str, Enum):
     and outputs.
 
     **Values**
+
     - Audio
     - File
     - Float

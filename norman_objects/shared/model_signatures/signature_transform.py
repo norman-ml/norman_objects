@@ -15,7 +15,7 @@ class SignatureTransform(NormanBaseModel):
       Identifier of the signature this transform belongs to. Defaults to `"0"`.
 
     - **transform_name** (`str`)
-      Name of the transform operation (e.g., `"resize"`, `"normalize"`).
+      Name of the transform operation.
 
     - **transform_args** (`dict[str, str]`)
       Key-value arguments used by the transform.

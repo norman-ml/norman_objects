@@ -28,23 +28,23 @@ class ModelSignature(NormanBaseModel):
 
     - **signature_type** (`SignatureType`)
       Type of signature:
-      - `SignatureType.Input`
-      - `SignatureType.Output`
+          - `SignatureType.Input`
+          - `SignatureType.Output`
 
     - **data_modality** (`DataModality`)
-      Modality of the data (e.g., `"Text"`, `"Image"`, `"Audio"`).
+      Modality of the data.
 
     - **data_domain** (`str`)
-      Domain-specific description of the data (e.g., `"English"`, `"RGB"`).
+      Domain-specific description of the data.
 
     - **data_encoding** (`str`)
-      Encoding scheme used (e.g., `"utf-8"`, `"base64"`, `"float32"`).
+      Encoding scheme used.
 
     - **receive_format** (`ReceiveFormat`)
       How data is delivered to or from the model:
-      - `ReceiveFormat.File`
-      - `ReceiveFormat.Link`
-      - `ReceiveFormat.Primitive`
+          - `ReceiveFormat.File`
+          - `ReceiveFormat.Link`
+          - `ReceiveFormat.Primitive`
 
     - **http_location** (`HttpLocation`)
       Location in the HTTP request where this field should appear.

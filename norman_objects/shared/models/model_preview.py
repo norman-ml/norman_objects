@@ -30,7 +30,7 @@ class ModelPreview(NormanBaseModel):
       Identifier of the parent `ModelBase`. Defaults to `"0"`.
 
     - **version_label** (`str`)
-      Version name or tag (e.g., `"v1"`, `"1.0.2"`).
+      Version name or tag.
 
     - **active** (`bool`)
       Whether this version is currently active. Defaults to `True`.
@@ -43,7 +43,7 @@ class ModelPreview(NormanBaseModel):
       Human-readable summary describing this model version.
 
     - **assets** (`list[ModelAsset]`)
-      List of assets (e.g., files, artifacts) associated with this model preview.
+      List of assets associated with this model preview.
 
     - **tags** (`list[AggregateTag]`)
       List of tags aggregated at this version level.

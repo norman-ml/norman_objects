@@ -24,31 +24,32 @@ class FilterNode(NormanBaseModel):
 
     - **operator** (`BinaryRelation`)
       Comparison operator such as:
-      - `BinaryRelation.EQ`
-      - `BinaryRelation.NE`
-      - `BinaryRelation.GT`
-      - `BinaryRelation.GTE`
-      - `BinaryRelation.LT`
-      - `BinaryRelation.LTE`
-      - `BinaryRelation.IN`
-      - `BinaryRelation.NOT_IN`
-      and others depending on system support.
+
+          - `BinaryRelation.EQ`
+          - `BinaryRelation.NE`
+          - `BinaryRelation.GT`
+          - `BinaryRelation.GTE`
+          - `BinaryRelation.LT`
+          - `BinaryRelation.LTE`
+          - `BinaryRelation.IN`
+          - `BinaryRelation.NOT_IN`
 
     - **value** (`FilterTypeVar`)
       Value to compare against. Fully parameterized as:
 
-      - **`FilterTypeValue`** — single scalar value
+      - **`FilterTypeValue`** - single scalar value
         - `str`
         - `int`
         - `float`
 
-      - **`FilterTypeCollection`** — multi-value collection
+      - **`FilterTypeCollection`** - multi-value collection
         Used primarily with operators like `IN` or `NOT_IN`.
         - `list[FilterTypeValue]`
         - `set[FilterTypeValue]`
         - `tuple[FilterTypeValue]`
 
       Thus `value` may be either:
+
       - A single scalar (e.g., `"A"`, `42`, `3.14`), or
       - A collection of scalars (e.g., `["A", "B"]`, `{1, 2}`, `(3, 4, 5)`).
 

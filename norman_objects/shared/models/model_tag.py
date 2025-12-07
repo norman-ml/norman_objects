@@ -20,7 +20,7 @@ class ModelTag(NormanBaseModel):
       Defaults to `"0"`.
 
     - **name** (`str`)
-      The textual tag value (e.g., `"nlp"`, `"embedding"`, `"beta"`).
+      The textual tag value.
     """
     id: str = "0"
     account_id: str = "0"

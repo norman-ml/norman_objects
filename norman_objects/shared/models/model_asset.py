@@ -19,7 +19,7 @@ class ModelAsset(NormanBaseModel):
       Defaults to `"0"`.
 
     - **asset_name** (`str`)
-      Name of the asset (e.g., `"tokenizer.json"`, `"weights.safetensors"`).
+      Name of the asset.
     """
     id: str = "0"
     account_id: str

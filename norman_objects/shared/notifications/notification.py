@@ -28,7 +28,7 @@ class Notification(NormanBaseModel):
 
     - **entity_id** (`str`)
       Identifier associated with the event or resource that triggered
-      the notification (e.g., a model ID, invocation ID, or job ID).
+      the notification.
 
     - **creation_time** (`datetime`)
       Timestamp (UTC) when the notification was created.
@@ -46,16 +46,15 @@ class Notification(NormanBaseModel):
     - **read_status** (`int`)
       Numeric flag indicating whether the notification has been read.
       Typical values:
-      - `0` → Unread
-      - `1` → Read
-      (Can support additional statuses if needed.)
+          - `0` - Unread
+          - `1` - Read
 
     - **severity** (`Severity`)
       Classification of the notification level:
-      - Error
-      - Info
-      - Success
-      - Warning
+          - Error
+          - Info
+          - Success
+          - Warning
     """
     id: str
     account_id: str

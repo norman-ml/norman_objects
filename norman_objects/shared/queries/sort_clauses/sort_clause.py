@@ -10,7 +10,7 @@ class SortClause(NormanBaseModel):
     **Fields**
 
     - **children** (`list[SortNode]`)
-      Ordered list of sort instructions (primary → secondary → ...).
+      Ordered list of sort instructions.
     """
     children: list[SortNode]
 

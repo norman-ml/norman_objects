@@ -10,6 +10,7 @@ class GetModelsRequest(BaseModel):
     sorting, and pagination rules.
 
     This request wrapper allows clients to control:
+
     - Query constraints (filters, sorting, pagination)
     - Whether to return only models considered "finished"
 
@@ -25,8 +26,8 @@ class GetModelsRequest(BaseModel):
     - **finished_models** (`Optional[bool]`)
       Whether to limit results to models marked as fully processed or
       finalized.
-      - `True` → Return only completed models
-      - `False` or `None` → Return all models
+      - `True` Return only completed models
+      - `False` or `None` Return all models
       Defaults to `False`.
     """
     constraints: Optional[QueryConstraints] = None

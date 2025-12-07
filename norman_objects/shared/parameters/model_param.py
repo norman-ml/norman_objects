@@ -20,7 +20,7 @@ class ModelParam(NormanBaseModel):
       Identifier of the signature this parameter belongs to. Defaults to `"0"`.
 
     - **data_modality** (`DataModality`)
-      Modality of the parameter (Text, Image, Integer, etc.).
+      Modality of the parameter.
 
     - **data_encoding** (`str`)
       Encoding format for this parameter.
