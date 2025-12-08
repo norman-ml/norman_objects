@@ -4,6 +4,13 @@ from typing import Optional, Any
 
 class NormanException(Exception):
     _norman_exception = True
+    status_code = 500
+    error_type = "server"
+    suggestions = [
+        "Try again in a few moments",
+        "Contact support if the problem persists",
+        "Check the service status page"
+    ]
 
     def __init__(
         self,
@@ -18,7 +25,7 @@ class NormanException(Exception):
         self.suggestions = suggestions
 
     def to_dict(self):
-        from norman_objects.shared.exceptions.api_exceptions.server_exception import ServerException
+        from norman_objects.shared.exceptions.server_exception import ServerException
 
         status_code = getattr(self, 'status_code', None)
         if status_code is None:
@@ -41,14 +48,8 @@ class NormanException(Exception):
             "cause": self.cause
         }
 
-    @classmethod
-    def from_dict(cls, data: Any):
-        from norman_objects.shared.exceptions.api_exceptions.server_exception import ServerException
-        from norman_objects.shared.exceptions.internal_exceptions.cloud_service_exception import CloudServiceException
-        from norman_objects.shared.exceptions.internal_exceptions.database_exception import DatabaseException
-        from norman_objects.shared.exceptions.internal_exceptions.configuration_exception import ConfigurationException
-        from norman_objects.shared.exceptions.internal_exceptions.infrastructure_exception import InfrastructureException
-
+    @staticmethod
+    def to_norman_exception(data: Any):
         if isinstance(data, NormanException):
             return data
 
@@ -57,45 +58,25 @@ class NormanException(Exception):
                 if data._norman_exception:
                     return data
 
-            has_dict_args = False
-            if data.args:
-                if isinstance(data.args[0], dict):
-                    has_dict_args = True
-                    exception_dict = data.args[0]
+            has_args = bool(data.args)
+            if has_args:
+                first_arg = data.args[0]
+                is_dict = isinstance(first_arg, dict)
+                if is_dict:
+                    exception_dict = first_arg
+                    exception = NormanException(
+                        message=exception_dict.get("message", "An error occurred"),
+                        cause=exception_dict.get("cause"),
+                        suggestions=exception_dict.get("suggestions", NormanException.suggestions)
+                    )
+                    exception.status_code = exception_dict.get("status_code", NormanException.status_code)
+                    exception.error_type = exception_dict.get("error_type", NormanException.error_type)
+                    return exception
 
-            if not has_dict_args:
-                cause = None
-                if data.__cause__:
-                    cause = str(data.__cause__)
-
-                return ServerException(
-                    message=str(data),
-                    cause=cause
-                )
-
-        elif isinstance(data, dict):
-            exception_dict = data
-
-        else:
-            return ServerException(message=str(data))
-
-        exception_class_name = exception_dict.get("exception_class_name")
-
-        _exception_map = {
-            "CloudServiceException": CloudServiceException,
-            "DatabaseException": DatabaseException,
-            "ConfigurationException": ConfigurationException,
-            "InfrastructureException": InfrastructureException,
-        }
-
-        exception_class = _exception_map.get(exception_class_name, ServerException)
-
-        original_exception = exception_dict.get("original_exception")
-        cause = exception_dict.get("message", "An error occurred")
-        if original_exception:
-            cause = str(original_exception)
-
-        return exception_class(
-            message=exception_dict.get("message", "An error occurred"),
-            cause=cause
+        message = str(data)
+        exception = NormanException(
+            message=message,
+            cause=message,
+            suggestions=NormanException.suggestions
         )
+        return exception

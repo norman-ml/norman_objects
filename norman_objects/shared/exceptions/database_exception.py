@@ -1,15 +1,15 @@
 from typing import Optional
 
-from norman_objects.shared.exceptions.internal_exceptions.infrastructure_exception import InfrastructureException
+from norman_objects.shared.exceptions.infrastructure_exception import InfrastructureException
 
 
-class ConfigurationException(InfrastructureException):
+class DatabaseException(InfrastructureException):
     status_code: int = 500
-    error_type: str = "configuration"
+    error_type: str = "database"
     suggestions: list[str] = [
         "Try again in a few moments",
         "Contact support if the problem persists",
-        "Check configuration service status"
+        "Check database connectivity"
     ]
 
     def __init__(
@@ -21,7 +21,7 @@ class ConfigurationException(InfrastructureException):
             **kwargs
     ):
         if suggestions is None:
-            suggestions = ConfigurationException.suggestions
+            suggestions = DatabaseException.suggestions
 
         super().__init__(
             message=message,
@@ -31,5 +31,5 @@ class ConfigurationException(InfrastructureException):
             **kwargs
         )
 
-        self.status_code = ConfigurationException.status_code
-        self.error_type = ConfigurationException.error_type
+        self.status_code = DatabaseException.status_code
+        self.error_type = DatabaseException.error_type
