@@ -50,12 +50,12 @@ class NormanException(Exception):
                 )
                 return exception
 
-            message = str(e)
+            cause = str(e)
             exception = NormanException(
                 status_code=500,
                 error_type="Server",
                 message="Norman encountered an error",
-                cause=message,
+                cause=cause,
                 suggestions=[
                     "Try again in a few moments",
                     "Contact support if the problem persists",
@@ -64,12 +64,12 @@ class NormanException(Exception):
             )
             return exception
         except Exception as e:
-            message = str(e)
+            cause = str(e)
             exception = NormanException(
                 status_code=500,
                 error_type="Configuration",
                 message="Failed to create an exception due to malformed configuration",
-                cause=message,
+                cause=cause,
                 suggestions=[
                     "Check that your configuration is correct.",
                     "Verify that your configuration has no missing fields."

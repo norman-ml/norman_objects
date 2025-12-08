@@ -2,7 +2,7 @@ from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
 class ConfigurationException(NormanException):
-    status_code: int = 500
+    status_code: int = 400
     error_type: str = "configuration"
 
     def __init__(
