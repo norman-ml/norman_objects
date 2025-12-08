@@ -1,9 +1,9 @@
 from typing import Optional
 
-from norman_objects.shared.exceptions.infrastructure_exception import InfrastructureException
+from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
-class ConfigurationException(InfrastructureException):
+class ConfigurationException(NormanException):
     status_code: int = 500
     error_type: str = "configuration"
     suggestions: list[str] = [
@@ -15,8 +15,8 @@ class ConfigurationException(InfrastructureException):
     def __init__(
             self,
             message: str,
-            suggestions: Optional[list[str]] = None,
             cause: Optional[str] = None,
+            suggestions: Optional[list[str]] = None,
             *args,
             **kwargs
     ):
@@ -25,8 +25,8 @@ class ConfigurationException(InfrastructureException):
 
         super().__init__(
             message=message,
-            suggestions=suggestions,
             cause=cause,
+            suggestions=suggestions,
             *args,
             **kwargs
         )

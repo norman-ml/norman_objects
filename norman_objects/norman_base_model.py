@@ -6,7 +6,6 @@ from norman_objects.norman_update_schema import NormanUpdateSchema
 
 
 class NormanBaseModel(BaseModel):
-
     @classmethod
     def __pydantic_init_subclass__(cls, **kwargs):
         cls.UpdateSchema: Type[BaseModel] = create_model(

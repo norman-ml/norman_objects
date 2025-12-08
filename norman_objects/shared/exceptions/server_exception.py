@@ -15,8 +15,8 @@ class ServerException(NormanException):
     def __init__(
             self,
             message: str,
-            suggestions: Optional[list[str]] = None,
             cause: Optional[str] = None,
+            suggestions: Optional[list[str]] = None,
             *args,
             **kwargs
     ):
@@ -25,8 +25,8 @@ class ServerException(NormanException):
 
         super().__init__(
             message=message,
-            suggestions=suggestions,
             cause=cause,
+            suggestions=suggestions,
             *args,
             **kwargs
         )

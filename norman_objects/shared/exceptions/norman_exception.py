@@ -4,79 +4,83 @@ from typing import Optional, Any
 
 class NormanException(Exception):
     _norman_exception = True
-    status_code = 500
-    error_type = "server"
-    suggestions = [
-        "Try again in a few moments",
-        "Contact support if the problem persists",
-        "Check the service status page"
-    ]
 
     def __init__(
         self,
+        status_code: int,
+        error_type: str,
         message: str,
-        cause: Optional[str] = None,
-        suggestions: Optional[list[str]] = None,
+        cause: str,
+        suggestions: list[str],
     ):
         super().__init__(message)
-        self.message = message
         self.timestamp = datetime.now(timezone.utc)
+        self.status_code = status_code
+        self.error_type = error_type
+        self.message = message
         self.cause = cause
         self.suggestions = suggestions
 
     def to_dict(self):
-        from norman_objects.shared.exceptions.server_exception import ServerException
-
-        status_code = getattr(self, 'status_code', None)
-        if status_code is None:
-            status_code = ServerException.status_code
-
-        error_type = getattr(self, 'error_type', None)
-        if error_type is None:
-            error_type = ServerException.error_type
-
-        suggestions = getattr(self, 'suggestions', None)
-        if suggestions is None:
-            suggestions = ServerException.suggestions
 
         return {
-            "message": self.message,
             "timestamp": self.timestamp.isoformat(),
-            "status_code": status_code,
-            "error_type": error_type,
-            "suggestions": suggestions,
-            "cause": self.cause
+            "status_code": self.status_code,
+            "error_type": self.error_type,
+            "message": self.message,
+            "cause": self.cause,
+            "suggestions": self.suggestions
         }
 
     @staticmethod
-    def to_norman_exception(data: Any):
-        if isinstance(data, NormanException):
-            return data
+    def to_norman_exception(e: Exception):
+        try:
+            if isinstance(e, NormanException):
+                return e
 
-        if isinstance(data, Exception):
-            if hasattr(data, "_norman_exception"):
-                if data._norman_exception:
-                    return data
-
-            has_args = bool(data.args)
+            exception_dict = False
+            has_args = bool(e.args)
             if has_args:
-                first_arg = data.args[0]
-                is_dict = isinstance(first_arg, dict)
-                if is_dict:
-                    exception_dict = first_arg
-                    exception = NormanException(
-                        message=exception_dict.get("message", "An error occurred"),
-                        cause=exception_dict.get("cause"),
-                        suggestions=exception_dict.get("suggestions", NormanException.suggestions)
-                    )
-                    exception.status_code = exception_dict.get("status_code", NormanException.status_code)
-                    exception.error_type = exception_dict.get("error_type", NormanException.error_type)
-                    return exception
+                exception_dict = e.args[0]
 
-        message = str(data)
-        exception = NormanException(
-            message=message,
-            cause=message,
-            suggestions=NormanException.suggestions
-        )
-        return exception
+            if isinstance(exception_dict, dict):
+                message = exception_dict["message"]
+                cause = exception_dict["cause"]
+                suggestions = exception_dict["suggestions"]
+                status_code = exception_dict["status_code"]
+                error_type = exception_dict["error_type"]
+
+                exception = NormanException(
+                    status_code=status_code,
+                    error_type=error_type,
+                    message=message,
+                    cause=cause,
+                    suggestions=suggestions
+                )
+                return exception
+
+            message = str(e)
+            exception = NormanException(
+                status_code=500,
+                error_type="Server",
+                message=message,
+                cause=message,
+                suggestions=[
+                    "Try again in a few moments",
+                    "Contact support if the problem persists",
+                    "Check the service status page"
+                ]
+            )
+            return exception
+        except Exception as e:
+            exception = NormanException(
+                status_code=500,
+                error_type="Configuration",
+                message="Failed to create an exception due to malformed configuration",
+                cause=str(e),
+                suggestions=[
+                    "Check that your configuration is correct.",
+                    "Verify that your configuration has no missing fields."
+                ]
+            )
+            return exception
