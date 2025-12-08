@@ -1,29 +1,22 @@
-from typing import Optional
-
 from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
 class NotFoundException(NormanException):
     status_code: int = 404
     error_type: str = "not_found"
-    suggestions: list[str] = [
-        "Verify the resource ID is correct",
-        "Check if the resource has been deleted",
-        "Ensure you have access to this resource"
-    ]
 
     def __init__(
             self,
             message: str,
-            cause: Optional[str] = None,
-            suggestions: Optional[list[str]] = None,
+            cause: str,
+            suggestions: list[str],
             *args,
             **kwargs
     ):
-        if suggestions is None:
-            suggestions = NotFoundException.suggestions
 
         super().__init__(
+            status_code=self.status_code,
+            error_type=self.error_type,
             message=message,
             cause=cause,
             suggestions=suggestions,

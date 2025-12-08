@@ -1,5 +1,4 @@
 from datetime import datetime, timezone
-from typing import Optional, Any
 
 
 class NormanException(Exception):
@@ -22,7 +21,6 @@ class NormanException(Exception):
         self.suggestions = suggestions
 
     def to_dict(self):
-
         return {
             "timestamp": self.timestamp.isoformat(),
             "status_code": self.status_code,
@@ -39,23 +37,16 @@ class NormanException(Exception):
                 return e
 
             exception_dict = False
-            has_args = bool(e.args)
-            if has_args:
+            if e.args is not None and len(e.args) > 0:
                 exception_dict = e.args[0]
 
             if isinstance(exception_dict, dict):
-                message = exception_dict["message"]
-                cause = exception_dict["cause"]
-                suggestions = exception_dict["suggestions"]
-                status_code = exception_dict["status_code"]
-                error_type = exception_dict["error_type"]
-
                 exception = NormanException(
-                    status_code=status_code,
-                    error_type=error_type,
-                    message=message,
-                    cause=cause,
-                    suggestions=suggestions
+                    status_code=exception_dict["status_code"],
+                    error_type=exception_dict["error_type"],
+                    message=exception_dict["message"],
+                    cause=exception_dict["cause"],
+                    suggestions=exception_dict["suggestions"]
                 )
                 return exception
 
@@ -63,7 +54,7 @@ class NormanException(Exception):
             exception = NormanException(
                 status_code=500,
                 error_type="Server",
-                message=message,
+                message="Norman encountered an error",
                 cause=message,
                 suggestions=[
                     "Try again in a few moments",
@@ -73,11 +64,12 @@ class NormanException(Exception):
             )
             return exception
         except Exception as e:
+            message = str(e)
             exception = NormanException(
                 status_code=500,
                 error_type="Configuration",
                 message="Failed to create an exception due to malformed configuration",
-                cause=str(e),
+                cause=message,
                 suggestions=[
                     "Check that your configuration is correct.",
                     "Verify that your configuration has no missing fields."

@@ -1,29 +1,22 @@
-from typing import Optional
-
 from norman_objects.shared.exceptions.norman_exception import NormanException
 
 
 class RateLimitException(NormanException):
     status_code: int = 429
     error_type: str = "rate_limit"
-    suggestions: list[str] = [
-        "Wait a moment before trying again",
-        "Check your quota limits",
-        "Contact support to increase your limits"
-    ]
 
     def __init__(
             self,
             message: str,
-            cause: Optional[str] = None,
-            suggestions: Optional[list[str]] = None,
+            cause: str,
+            suggestions: list[str],
             *args,
             **kwargs
     ):
-        if suggestions is None:
-            suggestions = RateLimitException.suggestions
 
         super().__init__(
+            status_code=self.status_code,
+            error_type=self.error_type,
             message=message,
             cause=cause,
             suggestions=suggestions,
