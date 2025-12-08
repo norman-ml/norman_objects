@@ -9,9 +9,7 @@ class CloudServiceException(NormanException):
             self,
             message: str,
             cause: str,
-            suggestions: list[str],
-            *args,
-            **kwargs
+            suggestions: list[str]
     ):
 
         super().__init__(
@@ -19,10 +17,5 @@ class CloudServiceException(NormanException):
             error_type=self.error_type,
             message=message,
             cause=cause,
-            suggestions=suggestions,
-            *args,
-            **kwargs
+            suggestions=suggestions
         )
-
-        self.status_code = CloudServiceException.status_code
-        self.error_type = CloudServiceException.error_type

@@ -9,9 +9,7 @@ class ServerException(NormanException):
             self,
             message: str,
             cause: str,
-            suggestions: list[str],
-            *args,
-            **kwargs
+            suggestions: list[str]
     ):
 
         super().__init__(
@@ -20,9 +18,4 @@ class ServerException(NormanException):
             message=message,
             cause=cause,
             suggestions=suggestions,
-            *args,
-            **kwargs
         )
-
-        self.status_code = ServerException.status_code
-        self.error_type = ServerException.error_type

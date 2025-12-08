@@ -9,9 +9,7 @@ class DatabaseException(NormanException):
             self,
             message: str,
             cause: str,
-            suggestions: list[str],
-            *args,
-            **kwargs
+            suggestions: list[str]
     ):
 
         super().__init__(
@@ -19,10 +17,5 @@ class DatabaseException(NormanException):
             error_type=self.error_type,
             message=message,
             cause=cause,
-            suggestions=suggestions,
-            *args,
-            **kwargs
+            suggestions=suggestions
         )
-
-        self.status_code = DatabaseException.status_code
-        self.error_type = DatabaseException.error_type

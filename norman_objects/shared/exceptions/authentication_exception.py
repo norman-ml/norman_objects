@@ -9,9 +9,7 @@ class AuthenticationException(NormanException):
             self,
             message: str,
             cause: str,
-            suggestions: list[str],
-            *args,
-            **kwargs
+            suggestions: list[str]
     ):
 
         super().__init__(
@@ -19,10 +17,5 @@ class AuthenticationException(NormanException):
             error_type=self.error_type,
             message=message,
             cause=cause,
-            suggestions=suggestions,
-            *args,
-            **kwargs
+            suggestions=suggestions
         )
-
-        self.status_code = AuthenticationException.status_code
-        self.error_type = AuthenticationException.error_type

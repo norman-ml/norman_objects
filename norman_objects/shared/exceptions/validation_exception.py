@@ -9,9 +9,7 @@ class ValidationException(NormanException):
             self,
             message: str,
             cause: str,
-            suggestions: list[str],
-            *args,
-            **kwargs
+            suggestions: list[str]
     ):
 
         super().__init__(
@@ -19,10 +17,5 @@ class ValidationException(NormanException):
             error_type=self.error_type,
             message=message,
             cause=cause,
-            suggestions=suggestions,
-            *args,
-            **kwargs
+            suggestions=suggestions
         )
-
-        self.status_code = ValidationException.status_code
-        self.error_type = ValidationException.error_type
