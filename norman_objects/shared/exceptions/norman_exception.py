@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from typing import Optional
 
 
 class NormanException(Exception):
@@ -31,7 +32,7 @@ class NormanException(Exception):
         }
 
     @staticmethod
-    def to_norman_exception(e: Exception):
+    def cast(e: Exception, message: Optional[str] = None):
         try:
             if isinstance(e, NormanException):
                 return e
@@ -51,10 +52,13 @@ class NormanException(Exception):
                 return exception
 
             cause = str(e)
+            if message is None:
+                message = "Norman encountered an error"
+
             exception = NormanException(
                 status_code=500,
                 error_type="Server",
-                message="Norman encountered an error",
+                message=message,
                 cause=cause,
                 suggestions=[
                     "Try again in a few moments",
