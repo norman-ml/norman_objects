@@ -1,6 +1,6 @@
 from enum import StrEnum
 
 class AuthorizationAudiences(StrEnum):
-    client = "norman:client"
-    quotas = "norman:quotas"
-    server = "norman:server"
+    Client = "norman:client"
+    Quotas = "norman:quotas"
+    Server = "norman:server"
