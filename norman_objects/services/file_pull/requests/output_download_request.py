@@ -10,6 +10,31 @@ from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
 class OutputDownloadRequest(NormanFileDownloadRequest):
+    """
+    Request object for downloading output files produced by a model
+    invocation. Extends `NormanFileDownloadRequest` with output-specific
+    identifiers.
+
+    **Fields**
+
+    - **account_id** (`str`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **model_id** (`str`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **links** (`List[str]`)
+      Inherited from `NormanFileDownloadRequest`.
+
+    - **signature_id** (`str`)
+      Identifier of the output signature associated with this file.
+
+    - **invocation_id** (`str`)
+      Identifier of the invocation that produced this output.
+
+    - **output_id** (`str`)
+      Identifier of the output object being downloaded.
+    """
     signature_id: str
     invocation_id: str
     output_id: str

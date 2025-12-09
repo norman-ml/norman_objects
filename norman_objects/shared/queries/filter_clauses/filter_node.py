@@ -8,10 +8,58 @@ from norman_objects.shared.queries.transforms.constraint_transform import Constr
 
 
 class FilterNode(NormanBaseModel):
+    """
+    Leaf node representing a single comparison expression used in filtering.
+
+    A `FilterNode` specifies a column, operator, and value to compare
+    against, optionally scoped to a particular table.
+
+    **Fields**
+
+    - **table** (`str`)
+      Table or entity name that the filter applies to.
+
+    - **column** (`str`)
+      Column name within the table. Defaults to `"ID"`.
+
+    - **operator** (`BinaryRelation`)
+      Comparison operator such as:
+
+          - `BinaryRelation.EQ`
+          - `BinaryRelation.NE`
+          - `BinaryRelation.GT`
+          - `BinaryRelation.GTE`
+          - `BinaryRelation.LT`
+          - `BinaryRelation.LTE`
+          - `BinaryRelation.IN`
+          - `BinaryRelation.NOT_IN`
+
+    - **value** (`FilterTypeVar`)
+      Value to compare against. Fully parameterized as:
+
+      - **`FilterTypeValue`** - single scalar value
+        - `str`
+        - `int`
+        - `float`
+
+      - **`FilterTypeCollection`** - multi-value collection
+        Used primarily with operators like `IN` or `NOT_IN`.
+        - `list[FilterTypeValue]`
+        - `set[FilterTypeValue]`
+        - `tuple[FilterTypeValue]`
+
+      Thus `value` may be either:
+
+      - A single scalar (e.g., `"A"`, `42`, `3.14`), or
+      - A collection of scalars (e.g., `["A", "B"]`, `{1, 2}`, `(3, 4, 5)`).
+
+    """
     table: str
     column: str = "ID"
     operator: BinaryRelation = BinaryRelation.EQ
     value: FilterTypeVar
+
+
 
     def validate_expression(self, allowed_tables_and_columns: dict[str, set[str]]):
         if self.table not in allowed_tables_and_columns:

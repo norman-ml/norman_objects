@@ -9,6 +9,53 @@ from typing import Optional
 
 
 class Model(ModelPreview):
+    """
+    Represents a fully resolved model version, including all execution
+    metadata, signature definitions, HTTP configuration, and extended
+    descriptive fields.
+
+    A `Model` extends `ModelPreview` with runtime-specific configuration
+    such as request types, hosting details, HTTP headers, signature
+    structures, and additional user-defined tags.
+
+    **Fields**
+
+    - **name** (`str`)
+      Display name for this specific model version.
+
+    - **model_class** (`str`)
+      Internal or system-level classification for this model.
+
+    - **url** (`str`)
+      Endpoint URL used to invoke the model.
+
+    - **request_type** (`HttpRequestType`)
+      HTTP method or request style used to communicate with the model.
+
+    - **model_type** (`ModelType`)
+      High-level categorization of the model.
+
+    - **hosting_location** (`ModelHostingLocation`)
+      Where the model is hosted.
+
+    - **output_format** (`OutputFormat`)
+      Expected response format or media type.
+
+    - **long_description** (`str`)
+      Detailed explanation of model behavior, usage, and capabilities.
+
+    - **inputs** (`list[ModelSignature]`)
+      Signature definitions describing all expected input structures.
+
+    - **outputs** (`list[ModelSignature]`)
+      Signature definitions describing model output structures.
+
+    - **http_headers** (`dict[str, str]`)
+      Additional HTTP headers to attach to requests.
+
+    - **user_added_tags** (`list[ModelTag]`)
+      Tags manually added by users for organization or categorization.
+    """
     name: str
     model_class: str
     url: Optional[str] = None
@@ -22,3 +69,4 @@ class Model(ModelPreview):
     outputs: list[ModelSignature] = []
     http_headers: dict[str, str] = {}
     user_added_tags: list[ModelTag] = []
+

@@ -12,6 +12,25 @@ from norman_objects.shared.queries.transforms.constraint_transform import Constr
 
 
 class FilterClause(NormanBaseModel):
+    """
+    Represents a composite filter expression, allowing nested logical
+    conditions (AND/OR) across multiple filter nodes or sub-clauses.
+
+    A `FilterClause` forms part of a tree structure enabling complex,
+    arbitrarily nested filtering logic.
+
+    **Fields**
+
+    - **children** (`list[Union[FilterClause, FilterNode]]`)
+      A list of either:
+      - `FilterClause` - sub-clause for grouping
+      - `FilterNode` - leaf comparison expression
+
+    - **join_condition** (`UnaryRelation`)
+      Logical operator used to join child nodes:
+      - `UnaryRelation.AND`
+      - `UnaryRelation.OR`
+    """
     children: list[Union["FilterClause", FilterNode]]
     join_condition: UnaryRelation = UnaryRelation.AND
 

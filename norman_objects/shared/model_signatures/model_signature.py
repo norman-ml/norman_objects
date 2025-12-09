@@ -10,6 +10,63 @@ from norman_objects.shared.parameters.model_param import ModelParam
 
 
 class ModelSignature(NormanBaseModel):
+    """
+    Defines a structured input or output signature for a model, describing
+    the expected modality, encoding, transport format, and associated
+    transformation logic.
+
+    Model signatures represent the schema and metadata for either input or
+    output elements of a model invocation.
+
+    **Fields**
+
+    - **id** (`str`)
+      Unique identifier for this signature. Defaults to `"0"`.
+
+    - **model_id** (`str`)
+      Identifier of the model this signature belongs to. Defaults to `"0"`.
+
+    - **signature_type** (`SignatureType`)
+      Type of signature:
+          - `SignatureType.Input`
+          - `SignatureType.Output`
+
+    - **data_modality** (`DataModality`)
+      Modality of the data.
+
+    - **data_domain** (`str`)
+      Domain-specific description of the data.
+
+    - **data_encoding** (`str`)
+      Encoding scheme used.
+
+    - **receive_format** (`ReceiveFormat`)
+      How data is delivered to or from the model:
+          - `ReceiveFormat.File`
+          - `ReceiveFormat.Link`
+          - `ReceiveFormat.Primitive`
+
+    - **http_location** (`HttpLocation`)
+      Location in the HTTP request where this field should appear.
+
+    - **hidden** (`bool`)
+      Whether this signature should be hidden from user-facing UIs.
+
+    - **display_title** (`str`)
+      Human-friendly label for the signature.
+
+    - **default_value** (`Optional[str]`)
+      Default value applied if not provided by the user.
+
+    - **parameters** (`list[ModelParam]`)
+      List of additional parameter definitions linked to this signature.
+
+    - **transforms** (`list[SignatureTransform]`)
+      Ordered transformations applied before model execution.
+
+    - **signature_args** (`dict[str, str]`)
+      Additional arguments or metadata associated with this signature.
+    """
     id: str = "0"
     model_id: str = "0"
     signature_type: SignatureType
