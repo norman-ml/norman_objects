@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing_extensions import override
 
-from norman_objects.services.file_pull.requests.file_download_request import NormanFileDownloadRequest
+from norman_objects.services.file_pull.requests.norman_file_download_request import NormanFileDownloadRequest
 from norman_objects.shared.messages.asset_message import AssetMessage
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.status_flags.status_flag import StatusFlag

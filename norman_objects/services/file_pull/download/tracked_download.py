@@ -1,5 +1,5 @@
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.services.file_pull.requests.file_download_request import NormanFileDownloadRequest
+from norman_objects.services.file_pull.requests.norman_file_download_request import NormanFileDownloadRequest
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.model_message import ModelMessage
 from norman_objects.shared.models.model_projection import ModelProjection
