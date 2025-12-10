@@ -1,7 +1,7 @@
 from norman_objects.norman_base_model import NormanBaseModel
 
 
-class AccountAuthenticationMethods(NormanBaseModel):
+class AccountAuthenticationFactors(NormanBaseModel):
     account_id: str
     api_key_count: int
     password_count: int
