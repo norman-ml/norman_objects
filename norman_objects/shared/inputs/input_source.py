@@ -6,3 +6,5 @@ class InputSource(str, Enum):
     Link = "Link"
     Primitive = "Primitive"
     Stream = "Stream"
+    HuggingFace = "HuggingFace"
+    Git = "Git"

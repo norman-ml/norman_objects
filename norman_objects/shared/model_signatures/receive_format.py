@@ -5,3 +5,5 @@ class ReceiveFormat(str, Enum):
     File = "File"
     Link = "Link"
     Primitive = "Primitive"
+    HuggingFace = "HuggingFace"
+    Git = "Git"
