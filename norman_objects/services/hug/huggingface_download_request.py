@@ -1,8 +1,7 @@
 from datetime import datetime, timezone
 from typing_extensions import override
 
-from norman_objects.services.connector.norman_connector_request_request import NormanConnectorRequest
-from norman_objects.services.file_pull.requests.norman_file_download_request import NormanFileDownloadRequest
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.messages.asset_message import AssetMessage
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.status_flags.status_flag import StatusFlag
@@ -10,28 +9,26 @@ from norman_objects.shared.status_flags.status_flag_name import StatusFlagName
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
-class GithubCloneRequest(NormanConnectorRequest):
+class HuggingFaceDownloadRequest(NormanBaseModel):
+    account_id: str
+    model_id : str
+    huggingface_model_id: str
     asset_id: str
-    repository_url: str
-    repository_name: str
 
-    @NormanFileDownloadRequest.entity_id.getter
+
     def entity_id(self):
         return self.asset_id
 
-    @NormanFileDownloadRequest.entity_type.getter
     def entity_type(self):
         return EntityType.Asset
 
-    @override
     def to_base_message(self, flag_value: StatusFlagValue):
         status_flag = super().to_status_flag(flag_value)
         return AssetMessage.base_message(status_flag)
 
-    @override
     def to_status_flag(self, flag_value: StatusFlagValue):
         update_time = datetime.now(timezone.utc)
-        flag_name = StatusFlagName[f"{self.repository_name}_EFS_Staging"]
+        flag_name = StatusFlagName[f"{self.huggingface_model_id}_EFS_Staging"]
 
         return StatusFlag(
             account_id=self.account_id,
