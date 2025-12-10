@@ -7,3 +7,4 @@ class ModelVersionPreview(NormanBaseModel):
     model_id: str
     active: bool = True
     label: str
+    short_description: str
