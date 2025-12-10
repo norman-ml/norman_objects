@@ -18,7 +18,7 @@ class Model(ModelPreview):
     output_format: OutputFormat
     long_description: str
 
-    coda_version: Optional[str] = None
+    cuda_version: Optional[str] = None
     python_version: Optional[str] = None
 
     inputs: list[ModelSignature] = []
