@@ -14,7 +14,7 @@ class HuggingFaceDownloadRequest(NormanBaseModel):
     model_id: str
     asset_id: str
     asset_name: str
-    huggingface_model_id = str
+    huggingface_model_id: str
 
 
     def entity_id(self):
