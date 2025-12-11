@@ -5,3 +5,4 @@ class ReceiveFormat(str, Enum):
     File = "File"
     Link = "Link"
     Primitive = "Primitive"
+    Channels = "Channels"
