@@ -16,10 +16,11 @@ class HuggingFaceDownloadRequest(NormanBaseModel):
     asset_name: str
     huggingface_model_id: str
 
-
+    @property
     def entity_id(self):
         return self.asset_id
 
+    @property
     def entity_type(self):
         return EntityType.Asset
 
