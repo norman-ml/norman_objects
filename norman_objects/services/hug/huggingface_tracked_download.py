@@ -20,6 +20,7 @@ class HuggingFaceTrackedDownload(NormanBaseModel):
     download_request: HuggingFaceDownloadRequest
     model: Model
 
+    @property
     def entity_id(self):
         return self.asset.id
 
