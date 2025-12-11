@@ -32,7 +32,7 @@ class HuggingFaceTrackedDownload(NormanBaseModel):
         access_token = NormanAccessContext.get()
         update_time = datetime.now(timezone.utc)
 
-        flag_name = StatusFlagName[f"{self.asset.asset_name}_EFS_Staging"]
+        flag_name = StatusFlagName[f"{self.asset.asset_name.value}_EFS_Staging"]
 
         sns_message = AssetMessage(
             access_token=access_token,
