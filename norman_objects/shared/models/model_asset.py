@@ -1,5 +1,4 @@
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.shared.models.asset_type import AssetType
 
 
 class ModelAsset(NormanBaseModel):
@@ -8,4 +7,3 @@ class ModelAsset(NormanBaseModel):
     model_id: str = "0"
     version_id: str = "0"
     asset_name: str
-    asset_type: AssetType
