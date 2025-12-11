@@ -1,10 +1,9 @@
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.shared.models.asset_type import AssetType
+from norman_objects.shared.models.asset_type import AssetName
 
 
 class ModelAsset(NormanBaseModel):
     id: str = "0"
     account_id: str
     model_id: str = "0"
-    asset_name: str
-    asset_type: AssetType
+    asset_name: AssetName

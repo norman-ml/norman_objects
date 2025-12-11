@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class AssetType(str, Enum):
+class AssetName(str, Enum):
     File = "File"
     Logo = "Logo"
     Inference = "Inference"
