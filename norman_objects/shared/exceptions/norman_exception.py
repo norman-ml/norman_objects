@@ -35,6 +35,8 @@ class NormanException(Exception):
     def cast(e: Exception, message: Optional[str] = None):
         try:
             if isinstance(e, NormanException):
+                if message is not None:
+                    e.message = message
                 return e
 
             exception_dict = False
