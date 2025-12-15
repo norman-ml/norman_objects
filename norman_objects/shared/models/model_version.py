@@ -8,6 +8,7 @@ from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
 from norman_objects.shared.model_signatures.model_signature import ModelSignature
 from norman_objects.shared.models.http_request_type import HttpRequestType
 from norman_objects.shared.models.model_asset import ModelAsset
+from norman_objects.shared.models.model_build_status import ModelBuildStatus
 from norman_objects.shared.models.model_hosting_location import ModelHostingLocation
 from norman_objects.shared.models.model_type import ModelType
 from norman_objects.shared.models.output_format import OutputFormat
@@ -27,6 +28,7 @@ class ModelVersion(NormanBaseModel):
     request_type: HttpRequestType
     url: Optional[str] = None
     output_format: OutputFormat
+    build_status: ModelBuildStatus
 
     assets: list[ModelAsset] = []
     inputs: list[ModelSignature] = []

@@ -1,4 +1,5 @@
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.shared.models.model_build_status import ModelBuildStatus
 
 
 class ModelVersionPreview(NormanBaseModel):
@@ -8,3 +9,4 @@ class ModelVersionPreview(NormanBaseModel):
     active: bool = True
     label: str
     short_description: str
+    build_status: ModelBuildStatus
