@@ -4,7 +4,6 @@ from norman_objects.shared.models.model_build_status import ModelBuildStatus
 
 class ModelVersionPreview(NormanBaseModel):
     id: str
-    account_id: str
     model_id: str
     active: bool = True
     label: str

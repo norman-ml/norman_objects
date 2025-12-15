@@ -11,6 +11,7 @@ class Invocation(NormanBaseModel):
     id: str = "0"
     account_id: str
     model_id: str
+    version_id: str
     creation_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     inputs: list[InvocationSignature] = []

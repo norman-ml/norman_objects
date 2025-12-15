@@ -6,10 +6,9 @@ from norman_objects.shared.models.model_version_preview import ModelVersionPrevi
 class ModelPreview(NormanBaseModel):
     id: str
     account_id: str
-    invocation_count: int
 
     name: str
-    short_description: str
+    invocation_count: int
 
     versions: list[ModelVersionPreview] = []
     aggregate_tags: list[AggregateTag] = []
