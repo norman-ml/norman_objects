@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 
-from norman_objects.services.file_push.pairing.socket_input_pairing_request import SocketInputPairingRequest
+from norman_objects.services.file_push.pairing.socket_pairing_request import SocketPairingRequest
 
 
 class ChecksumRequest(BaseModel):
-    pairing_request: SocketInputPairingRequest
+    pairing_request: SocketPairingRequest
     pairing_id: str
     checksum: str
