@@ -12,6 +12,7 @@ class StatusFlagName(str, Enum):
     Requirements_S3_Storage = "Requirements_S3_Storage"
 
     File_EFS_Staging = "File_EFS_Staging"
+    File_EFS_Permanent = "File_EFS_Permanent"
     File_S3_Storage = "File_S3_Storage"
     File_Model_Deploy = "File_Model_Deploy"
 
