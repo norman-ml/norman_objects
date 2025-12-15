@@ -5,4 +5,5 @@ from norman_objects.services.file_push.pairing.socket_input_pairing_request impo
 
 class ChecksumRequest(BaseModel):
     pairing_request: SocketInputPairingRequest
+    pairing_id: str
     checksum: str
