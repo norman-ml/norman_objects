@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class SocketPairingResponse(BaseModel):
     pairing_id: str
     host: str
