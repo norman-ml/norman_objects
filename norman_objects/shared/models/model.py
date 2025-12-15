@@ -16,7 +16,7 @@ class Model(NormanBaseModel):
     creation_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     name: str
-    model_class: str # => category
+    category: str
 
     versions: List[ModelVersion] = []
     aggregate_tags: list[AggregateTag] = []
