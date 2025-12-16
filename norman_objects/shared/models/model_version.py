@@ -17,7 +17,7 @@ from norman_objects.shared.models.output_format import OutputFormat
 class ModelVersion(ModelVersionPreview):
     id: str = "0"
     model_id: str = "0"
-    creation_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    update_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     build_status: ModelBuildStatus
     active: bool = True
