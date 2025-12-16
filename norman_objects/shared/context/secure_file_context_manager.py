@@ -32,13 +32,15 @@ class SecureFileContextManager:
         segments = os.path.normpath(self.path).split(os.sep)
         try:
             (
-                entity_type_segment,
-                phase_segment,
+                file_system_name_segment,
                 account_id_segment,
-                entity_id_segment
-            ) = segments[-4:]
+                entity_id_segment,
+                entity_name_segment,
+                object_id_segment
+            ) = segments[-5:]
         except ValueError:
-            raise ValueError(f"File path {self.path} does not conform to the expected 4-segment structure")
+            raise ValueError(f"File path {self.path} does not conform to the expected 5-segment structure")
 
         if account_id_segment != self.account_id:
-            raise PermissionError(f"Path account segment {account_id_segment} does not match expected account ID {self.account_id}")
+            raise PermissionError(
+                f"Path account segment {account_id_segment} does not match expected account ID {self.account_id}")
