@@ -2,13 +2,11 @@ from datetime import datetime, timezone
 
 from pydantic import Field
 
+from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
-from norman_objects.shared.models.aggregate_tag import AggregateTag
-from norman_objects.shared.models.model_base import ModelBase
-from norman_objects.shared.models.model_version_preview import ModelVersionPreview
 
 
-class ModelPreview(ModelBase):
+class ModelBase(NormanBaseModel):
     id: str
     account_id: str
     creation_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -16,6 +14,3 @@ class ModelPreview(ModelBase):
     name: str
     category: str
     invocation_count: int
-
-    versions: list[ModelVersionPreview] = []
-    aggregate_tags: list[AggregateTag] = []
