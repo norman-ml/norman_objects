@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class SocketPairingRequest(BaseModel):
     account_id: str
     model_id: str
+    version_id: str
     file_size_in_bytes: int
 
     @property
