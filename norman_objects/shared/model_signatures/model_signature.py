@@ -16,6 +16,7 @@ class ModelSignature(NormanBaseModel):
     data_modality: DataModality
     data_domain: str
     data_encoding: str
+    file_encoding: str
     receive_format: ReceiveFormat
     http_location: HttpLocation
     hidden: bool
