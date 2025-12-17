@@ -3,13 +3,14 @@ from norman_objects.services.file_pull.requests.file_download_request import Nor
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.model_message import ModelMessage
 from norman_objects.shared.models.model import Model
+from norman_objects.shared.models.model_projection import ModelProjection
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
 class TrackedDownload(NormanBaseModel):
     download_request: NormanFileDownloadRequest
     file_link: str
-    model: Model
+    model: ModelProjection
     entity_type: EntityType
 
     downloaded_bytes: int = 0
