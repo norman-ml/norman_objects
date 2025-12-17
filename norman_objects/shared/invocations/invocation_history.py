@@ -11,6 +11,7 @@ class InvocationHistory(NormanBaseModel):
     id: str
     account_id: str
     model_id: str
+    version_id: str
     asset_id: str
     creation_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
     model_name: str
