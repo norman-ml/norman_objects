@@ -16,6 +16,7 @@ from norman_objects.shared.models.output_format import OutputFormat
 
 class ModelVersion(ModelVersionPreview):
     id: str = "0"
+    account_id: str
     model_id: str = "0"
     update_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

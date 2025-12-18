@@ -16,6 +16,7 @@ class InvocationMessage(ModelMessage):
     def run_validation(self):
         self.validate_account_id()
         self.validate_model_id()
+        self.validate_version_id()
         self.validate_entity_id()
         return self
 
@@ -26,6 +27,10 @@ class InvocationMessage(ModelMessage):
     def validate_model_id(self):
         if self.model.id != self.invocation.model_id:
             raise ValueError("Model id does not match invocation model id")
+
+    def validate_version_id(self):
+        if self.model.version.id != self.invocation.version_id:
+            raise ValueError("Model version id does not match invocation version id")
 
     def validate_entity_id(self):
         if self.invocation.id != self.status_flag.entity_id:

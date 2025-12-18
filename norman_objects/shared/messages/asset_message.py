@@ -19,6 +19,7 @@ class AssetMessage(ModelMessage, FileMessage):
     def run_validation(self):
         self.validate_account_id()
         self.validate_model_id()
+        self.validate_version_id()
         self.validate_entity_id()
         return self
 
@@ -31,6 +32,10 @@ class AssetMessage(ModelMessage, FileMessage):
     def validate_model_id(self):
         if self.model.id != self.asset.model_id:
             raise ValueError("Model id does not match asset model id")
+
+    def validate_version_id(self):
+        if self.model.version.id != self.asset.version_id:
+            raise ValueError("Model version id does not match asset version id")
 
     def validate_entity_id(self):
         if self.asset.id != self.status_flag.entity_id:
