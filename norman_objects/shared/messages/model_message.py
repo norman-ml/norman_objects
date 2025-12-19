@@ -3,12 +3,12 @@ from typing_extensions import Literal
 
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.norman_base_message import NormanBaseMessage
-from norman_objects.shared.models.model import Model
+from norman_objects.shared.models.model_projection import ModelProjection
 from norman_objects.shared.status_flags.status_flag import StatusFlag
 
 
 class ModelMessage(NormanBaseMessage):
-    model: Model
+    model: ModelProjection
     entity_type: Literal[EntityType.Model] = EntityType.Model
 
     @model_validator(mode="after")
@@ -24,7 +24,7 @@ class ModelMessage(NormanBaseMessage):
             raise ValueError("Message account id does not match model account id")
 
     def validate_entity_id(self):
-        if self.model.id != self.status_flag.entity_id:
+        if self.model.version.id != self.status_flag.entity_id:
             raise ValueError("Model id does not match status flag entity id")
 
     @NormanBaseMessage.entity_id.getter

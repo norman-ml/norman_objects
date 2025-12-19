@@ -5,4 +5,5 @@ class ModelAsset(NormanBaseModel):
     id: str = "0"
     account_id: str
     model_id: str = "0"
+    version_id: str = "0"
     asset_name: str

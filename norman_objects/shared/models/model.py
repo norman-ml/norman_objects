@@ -1,24 +1,23 @@
-from norman_objects.shared.model_signatures.model_signature import ModelSignature
-from norman_objects.shared.models.http_request_type import HttpRequestType
-from norman_objects.shared.models.model_hosting_location import ModelHostingLocation
+from datetime import datetime, timezone
+
+from pydantic import Field
+
+from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
+from norman_objects.shared.models.aggregate_tag import AggregateTag
 from norman_objects.shared.models.model_preview import ModelPreview
 from norman_objects.shared.models.model_tag import ModelTag
-from norman_objects.shared.models.model_type import ModelType
-from norman_objects.shared.models.output_format import OutputFormat
-from typing import Optional
+from norman_objects.shared.models.model_version import ModelVersion
 
 
 class Model(ModelPreview):
-    name: str
-    model_class: str
-    url: Optional[str] = None
-    request_type: HttpRequestType
-    model_type: ModelType
-    hosting_location: ModelHostingLocation
-    output_format: OutputFormat
-    long_description: str
+    id: str = "0"
+    account_id: str
+    creation_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-    inputs: list[ModelSignature] = []
-    outputs: list[ModelSignature] = []
-    http_headers: dict[str, str] = {}
-    user_added_tags: list[ModelTag] = []
+    name: str
+    category: str
+    invocation_count: int
+
+    versions: list[ModelVersion] = []
+    aggregate_tags: list[AggregateTag] = []
+    user_tags: list[ModelTag] = []

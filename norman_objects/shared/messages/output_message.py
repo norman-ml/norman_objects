@@ -19,6 +19,7 @@ class OutputMessage(InvocationMessage, FileMessage):
     def run_validation(self):
         self.validate_account_id()
         self.validate_model_id()
+        self.validate_version_id()
         self.validate_invocation_id()
         self.validate_entity_id()
         return self
@@ -34,6 +35,10 @@ class OutputMessage(InvocationMessage, FileMessage):
 
         if self.invocation.model_id != self.output.model_id:
             raise ValueError("Invocation model id does not match output model id")
+
+    def validate_version_id(self):
+        if self.model.version.id != self.invocation.version_id:
+            raise ValueError("Model version id does not match output version id")
 
     def validate_invocation_id(self):
         if self.invocation.id != self.output.invocation_id:

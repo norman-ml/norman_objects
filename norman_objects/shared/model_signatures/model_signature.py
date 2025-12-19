@@ -12,6 +12,7 @@ from norman_objects.shared.parameters.model_param import ModelParam
 class ModelSignature(NormanBaseModel):
     id: str = "0"
     model_id: str = "0"
+    version_id: str = "0"
     signature_type: SignatureType
     data_modality: DataModality
     data_domain: str
