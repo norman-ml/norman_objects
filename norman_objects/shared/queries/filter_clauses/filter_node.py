@@ -42,6 +42,14 @@ class FilterNode(NormanBaseModel):
 
     def build_expression_as_list(self, transforms: Collection[ConstraintTransform] = None):
         if self.operator == BinaryRelation.IN or self.operator == BinaryRelation.NIN:
+            if len(self.value) == 0:
+                if self.operator == BinaryRelation.IN:
+                    # Empty IN = no matches
+                    return " 1 = 0 ", []
+                else:
+                    # Empty NOT IN = always true
+                    return " 1 = 1 ", []
+
             collection_placeholders = ["%s"] * len(self.value)
             interpolation_placeholder = f"({', '.join(collection_placeholders)})"
 

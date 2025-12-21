@@ -30,9 +30,6 @@ class FilterClause(NormanBaseModel):
         if value is None:
             raise ValueError("Filter clause value cannot be None")
 
-        if len(value) <= 0:
-            raise ValueError("Filter clause value cannot be an empty collection")
-
         return cls.with_filter(
             table=table,
             column=column,
@@ -45,9 +42,6 @@ class FilterClause(NormanBaseModel):
     def not_includes(cls, table: str, column: str = "ID", value: FilterTypeCollection = None):
         if value is None:
             raise ValueError("Filter clause value cannot be None")
-
-        if len(value) <= 0:
-            raise ValueError("Filter clause value cannot be an empty collection")
 
         return cls.with_filter(
             table=table,
