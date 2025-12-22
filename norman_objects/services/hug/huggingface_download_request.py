@@ -12,6 +12,8 @@ from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 class HuggingFaceDownloadRequest(NormanBaseModel):
     account_id: str
     model_id: str
+    version_id: str
+    asset_id: str
     asset_id: str
     asset_name: str
     huggingface_model_id: str
