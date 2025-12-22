@@ -35,11 +35,12 @@ class SecureFileContextManager:
                 file_system_name_segment,
                 account_id_segment,
                 entity_id_segment,
+                entity_version_segment,
                 entity_name_segment,
                 object_id_segment
-            ) = segments[-5:]
+            ) = segments[-6:]
         except ValueError:
-            raise ValueError(f"File path {self.path} does not conform to the expected 5-segment structure")
+            raise ValueError(f"File path {self.path} does not conform to the expected 6-segment structure")
 
         if account_id_segment != self.account_id:
             raise PermissionError(
