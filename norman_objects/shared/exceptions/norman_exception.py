@@ -1,6 +1,8 @@
 from datetime import datetime, timezone
 from typing import Optional
+
 import opentelemetry.trace
+
 
 class NormanException(Exception):
     _norman_exception = True
