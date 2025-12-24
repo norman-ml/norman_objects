@@ -44,7 +44,7 @@ class HuggingFaceTrackedDownload(NormanBaseModel):
             asset=self.asset,
 
             file_properties=FileProperties(
-                entity_id="",
+                entity_id=self.model.id,
                 file_size_in_bytes=0,
                 file_checksum=""
             ),
