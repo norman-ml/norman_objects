@@ -11,7 +11,7 @@ class NormanException(Exception):
         error_type: str,
         message: str,
         cause: str,
-        suggestions: list[str],
+        suggestions: list[str]
     ):
         super().__init__(message)
         self.timestamp = datetime.now(timezone.utc)
