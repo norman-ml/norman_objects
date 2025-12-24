@@ -1,8 +1,6 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-import opentelemetry.trace
-
 
 class NormanException(Exception):
     _norman_exception = True
@@ -14,7 +12,6 @@ class NormanException(Exception):
         message: str,
         cause: str,
         suggestions: list[str],
-        trace_id: Optional[str] = None
     ):
         super().__init__(message)
         self.timestamp = datetime.now(timezone.utc)
@@ -24,16 +21,6 @@ class NormanException(Exception):
         self.cause = cause
         self.suggestions = suggestions
 
-        if trace_id is None:
-            current_span = opentelemetry.trace.get_current_span()
-            span_context = current_span.get_span_context()
-            if span_context.is_valid:
-                self.trace_id = format(span_context.trace_id, '032x')
-            else:
-                self.trace_id = "0"
-        else:
-            self.trace_id = trace_id
-
     def to_dict(self):
         return {
             "timestamp": self.timestamp.isoformat(),
@@ -42,7 +29,6 @@ class NormanException(Exception):
             "message": self.message,
             "cause": self.cause,
             "suggestions": self.suggestions,
-            "trace_id": self.trace_id
         }
 
     @staticmethod
@@ -62,7 +48,6 @@ class NormanException(Exception):
                     message=exception_dict["message"],
                     cause=exception_dict["cause"],
                     suggestions=exception_dict["suggestions"],
-                    trace_id=exception_dict["trace_id"]
                 )
                 return exception
 
