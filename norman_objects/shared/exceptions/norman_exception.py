@@ -11,7 +11,7 @@ class NormanException(Exception):
         error_type: str,
         message: str,
         cause: str,
-        suggestions: list[str],
+        suggestions: list[str]
     ):
         super().__init__(message)
         self.timestamp = datetime.now(timezone.utc)
@@ -28,7 +28,7 @@ class NormanException(Exception):
             "error_type": self.error_type,
             "message": self.message,
             "cause": self.cause,
-            "suggestions": self.suggestions,
+            "suggestions": self.suggestions
         }
 
     @staticmethod
@@ -47,7 +47,7 @@ class NormanException(Exception):
                     error_type=exception_dict["error_type"],
                     message=exception_dict["message"],
                     cause=exception_dict["cause"],
-                    suggestions=exception_dict["suggestions"],
+                    suggestions=exception_dict["suggestions"]
                 )
                 return exception
 
