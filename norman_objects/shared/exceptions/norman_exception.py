@@ -34,7 +34,6 @@ class NormanException(Exception):
         else:
             self.trace_id = trace_id
 
-
     def to_dict(self):
         return {
             "timestamp": self.timestamp.isoformat(),
