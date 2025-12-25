@@ -1,8 +1,7 @@
 # Norman Objects Overview
 
-Norman Objects is a shared library that defines the core request and response models used across the Norman SDK and internal services.
+Norman Objects is a shared library that defines the core request and response classes used across the Norman SDK and internal services.
 
-The library includes enums, data classes, and other structured objects that ensure consistency, type safety and clear contracts between services and SDK consumers.
+The library includes classes, enums, and other structured objects that establish clear, consistent, type-safe contracts between backend services and SDK clients.
 
-Comprehensive documentation is available on our website:
-https://sdk.norman-ai.com/api/api-reference-overview/objects
+For the full reference and detailed instructions, please visit our Core SDK documentation at https://sdk.norman-ai.com/api/api-reference-overview/objects.
