@@ -31,7 +31,7 @@ class HuggingFaceDownloadRequest(NormanBaseModel):
 
     def to_status_flag(self, flag_value: StatusFlagValue):
         update_time = datetime.now(timezone.utc)
-        flag_name = StatusFlagName[f"{self.huggingface_model_id}_EFS_Staging"]
+        flag_name = StatusFlagName[f"{self.asset_name}_EFS_Staging"]
 
         return StatusFlag(
             account_id=self.account_id,
