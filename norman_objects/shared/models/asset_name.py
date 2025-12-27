@@ -3,6 +3,6 @@ from enum import Enum
 
 class AssetName(str, Enum):
     File = "File"
-    Logo = "Logo"
     Inference = "Inference"
+    Logo = "Logo"
     Requirements = "Requirements"
