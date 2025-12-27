@@ -1,5 +1,4 @@
 from datetime import datetime, timezone
-from typing import Optional
 
 from pydantic import Field
 
@@ -18,6 +17,7 @@ class Model(ModelPreview):
     name: str
     category: str
     invocation_count: int
+
     versions: list[ModelVersion] = []
     aggregate_tags: list[AggregateTag] = []
     user_tags: list[ModelTag] = []
