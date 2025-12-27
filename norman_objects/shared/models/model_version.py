@@ -33,6 +33,9 @@ class ModelVersion(ModelVersionPreview):
     url: Optional[str] = None
     output_format: OutputFormat
 
+    cuda_version: Optional[str] = None
+    python_version: Optional[str] = None
+
     assets: list[ModelAsset] = []
     inputs: list[ModelSignature] = []
     outputs: list[ModelSignature] = []

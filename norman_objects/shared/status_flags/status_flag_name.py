@@ -5,9 +5,15 @@ class StatusFlagName(str, Enum):
     Logo_EFS_Staging = "Logo_EFS_Staging"
     Logo_S3_Storage = "Logo_S3_Storage"
 
+    Inference_EFS_Staging = "Inference_EFS_Staging"
+    Inference_S3_Storage = "Inference_S3_Storage"
+
+    Requirements_EFS_Staging = "Requirements_EFS_Staging"
+    Requirements_S3_Storage = "Requirements_S3_Storage"
+
     File_EFS_Staging = "File_EFS_Staging"
     File_S3_Storage = "File_S3_Storage"
-    File_Image_Build = "File_Image_Build"
+    File_Model_Deploy = "File_Model_Deploy"
 
     Input_EFS_Staging = "Input_EFS_Staging"
     Input_S3_Storage = "Input_S3_Storage"
