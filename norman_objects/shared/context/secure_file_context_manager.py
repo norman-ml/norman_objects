@@ -43,5 +43,4 @@ class SecureFileContextManager:
             raise ValueError(f"File path {self.path} does not conform to the expected 6-segment structure")
 
         if account_id_segment != self.account_id:
-            raise PermissionError(
-                f"Path account segment {account_id_segment} does not match expected account ID {self.account_id}")
+            raise PermissionError(f"Path account segment {account_id_segment} does not match expected account ID {self.account_id}")
