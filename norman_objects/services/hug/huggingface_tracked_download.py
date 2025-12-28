@@ -5,7 +5,7 @@ from norman_objects.services.hug.huggingface_download_request import HuggingFace
 from norman_objects.shared.context.norman_access_context import NormanAccessContext
 from norman_objects.shared.files.file_properties import FileProperties
 from norman_objects.shared.messages.asset_message import AssetMessage
-from norman_objects.shared.models.model_asset import ModelAsset
+from norman_objects.shared.model_assets.model_asset import ModelAsset
 from norman_objects.shared.models.model_projection import ModelProjection
 from norman_objects.shared.status_flags.status_flag import StatusFlag
 from norman_objects.shared.status_flags.status_flag_name import StatusFlagName

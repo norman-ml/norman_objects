@@ -1,5 +1,5 @@
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.shared.models.asset_name import AssetName
+from norman_objects.shared.model_assets.asset_name import AssetName
 
 
 class ModelAsset(NormanBaseModel):
