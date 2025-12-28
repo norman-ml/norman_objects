@@ -27,14 +27,14 @@ class ModelVersion(ModelVersionPreview):
     short_description: str
     long_description: str
 
+    cuda_version: str
+    python_version: str
+
     hosting_location: ModelHostingLocation
     model_type: ModelType
     request_type: HttpRequestType
     url: Optional[str] = None
     output_format: OutputFormat
-
-    cuda_version: Optional[str] = None
-    python_version: Optional[str] = None
 
     assets: list[ModelAsset] = []
     inputs: list[ModelSignature] = []
