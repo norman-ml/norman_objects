@@ -1,9 +1,7 @@
 from datetime import datetime, timezone
-from typing_extensions import override
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.messages.asset_message import AssetMessage
-from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.status_flags.status_flag import StatusFlag
 from norman_objects.shared.status_flags.status_flag_name import StatusFlagName
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
@@ -15,18 +13,10 @@ class HuggingFaceDownloadRequest(NormanBaseModel):
     version_id: str
     asset_id: str
     asset_name: str
-    huggingface_model_id: str
-
-    @property
-    def entity_id(self):
-        return self.asset_id
-
-    @property
-    def entity_type(self):
-        return EntityType.Asset
+    huggingface_model_name: str
 
     def to_base_message(self, flag_value: StatusFlagValue):
-        status_flag = super().to_status_flag(flag_value)
+        status_flag = self.to_status_flag(flag_value)
         return AssetMessage.base_message(status_flag)
 
     def to_status_flag(self, flag_value: StatusFlagValue):
@@ -35,7 +25,7 @@ class HuggingFaceDownloadRequest(NormanBaseModel):
 
         return StatusFlag(
             account_id=self.account_id,
-            entity_id=self.entity_id,
+            entity_id=self.asset_id,
             update_time=update_time,
             flag_name=flag_name,
             flag_value=flag_value
