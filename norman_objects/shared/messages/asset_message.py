@@ -6,7 +6,7 @@ from norman_objects.shared.files.file_properties import FileProperties
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.file_message import FileMessage
 from norman_objects.shared.messages.model_message import ModelMessage
-from norman_objects.shared.models.model_asset import ModelAsset
+from norman_objects.shared.model_assets.model_asset import ModelAsset
 from norman_objects.shared.status_flags.status_flag import StatusFlag
 
 
