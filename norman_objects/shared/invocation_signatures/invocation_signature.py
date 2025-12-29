@@ -1,4 +1,10 @@
+import os
+
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.shared.context.norman_path_context import NormanPathContext
+from norman_objects.shared.files.partition_name import PartitionName
+from norman_objects.shared.messages.entity_type import EntityType
+from norman_objects.shared.model_signatures.signature_type import SignatureType
 
 
 class InvocationSignature(NormanBaseModel):
@@ -8,4 +14,40 @@ class InvocationSignature(NormanBaseModel):
     version_id: str
     signature_id: str
     invocation_id: str = "0"
-    display_title: str = ""
+    signature_type: SignatureType
+
+    def bucket_key(self, file_name: str):
+        data_bucket_name = NormanPathContext.get_data_bucket()
+
+        bucket = os.sep.join([
+            data_bucket_name,
+            self.account_id,
+            self.model_id,
+            self.version_id,
+            self.invocation_id,
+            self.id,
+            file_name
+        ])
+
+        return bucket
+
+    def file_path(self, file_name: str):
+        mountpoint = NormanPathContext.get_mountpoint()
+        partition_name = PartitionName.Ephemeral.value.lower()
+        pluralized_entity_type = f"{EntityType.Invocation.name.lower()}s"
+        signature_type = self.signature_type.name.lower()
+
+        path = os.sep.join([
+            mountpoint,
+            partition_name,
+            self.account_id,
+            self.model_id,
+            self.version_id,
+            pluralized_entity_type,
+            self.invocation_id,
+            signature_type,
+            self.id,
+            file_name
+        ])
+
+        return path
