@@ -26,7 +26,5 @@ class SecureBucketContextManager:
             raise PermissionError("Account ID mismatch. Access denied.")
 
         segments = self.bucket_key.strip("/").split("/")
-        account_id_segment = segments[0]
-
-        if account_id_segment != self.account_id:
-            raise PermissionError(f"Path account segment {account_id_segment} does not match expected account ID {self.account_id}")
+        if self.account_id not in segments:
+            raise PermissionError(f"Bucket key {self.bucket_key} does not contain expected account ID {self.account_id}")
