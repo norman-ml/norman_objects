@@ -5,6 +5,7 @@ from norman_objects.services.hug.huggingface_download_request import HuggingFace
 from norman_objects.shared.context.norman_access_context import NormanAccessContext
 from norman_objects.shared.files.file_properties import FileProperties
 from norman_objects.shared.messages.asset_message import AssetMessage
+from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.model_assets.model_asset import ModelAsset
 from norman_objects.shared.models.model_projection import ModelProjection
 from norman_objects.shared.status_flags.status_flag import StatusFlag
@@ -27,7 +28,7 @@ class HuggingFaceTrackedDownload(NormanBaseModel):
             access_token=access_token,
             account_id=self.download_request.account_id,
             update_time=update_time,
-            entity_type=self.EntityType.Asset,
+            entity_type=EntityType.Asset,
 
             model=self.model,
             asset=self.asset,
