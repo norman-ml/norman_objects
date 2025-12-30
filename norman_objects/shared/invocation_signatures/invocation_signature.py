@@ -16,22 +16,7 @@ class InvocationSignature(NormanBaseModel):
     invocation_id: str = "0"
     signature_type: SignatureType
 
-    def bucket_key(self, file_name: str):
-        data_bucket_name = NormanPathContext.get_data_bucket()
-
-        bucket = os.sep.join([
-            data_bucket_name,
-            self.account_id,
-            self.model_id,
-            self.version_id,
-            self.invocation_id,
-            self.id,
-            file_name
-        ])
-
-        return bucket
-
-    def file_path(self, file_name: str):
+    def _file_path(self, file_name: str):
         mountpoint = NormanPathContext.get_mountpoint()
         partition_name = PartitionName.Ephemeral.value.lower()
         pluralized_entity_type = f"{EntityType.Invocation.name.lower()}s"
@@ -51,3 +36,27 @@ class InvocationSignature(NormanBaseModel):
         ])
 
         return path
+
+    def staging_path(self):
+        return self._file_path(file_name="staged")
+
+    def transcoding_path(self):
+        return self._file_path(file_name="transcoded")
+
+    def tensor_path(self, parameter_id: str):
+        return self._file_path(file_name=parameter_id)
+
+    def storage_path(self, file_name: str):
+        data_bucket_name = NormanPathContext.get_data_bucket()
+
+        bucket = os.sep.join([
+            data_bucket_name,
+            self.account_id,
+            self.model_id,
+            self.version_id,
+            self.invocation_id,
+            self.id,
+            file_name
+        ])
+
+        return bucket
