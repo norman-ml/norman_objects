@@ -15,22 +15,7 @@ class ModelAsset(NormanBaseModel):
     asset_name: AssetName
     partition_name: PartitionName
 
-    def bucket_key(self):
-        asset_bucket_name = NormanPathContext.get_asset_bucket()
-        asset_name = self.asset_name.value.lower()
-
-        bucket = os.sep.join([
-            asset_bucket_name,
-            self.account_id,
-            self.model_id,
-            self.version_id,
-            self.id,
-            asset_name
-        ])
-
-        return bucket
-
-    def file_path(self):
+    def staging_path(self):
         mountpoint = NormanPathContext.get_mountpoint()
         partition_name = self.partition_name.value.lower()
         pluralized_entity_type = f"{EntityType.Asset.value.lower()}s"
@@ -48,3 +33,18 @@ class ModelAsset(NormanBaseModel):
         ])
 
         return path
+
+    def storage_path(self):
+        asset_bucket_name = NormanPathContext.get_asset_bucket()
+        asset_name = self.asset_name.value.lower()
+
+        bucket = os.sep.join([
+            asset_bucket_name,
+            self.account_id,
+            self.model_id,
+            self.version_id,
+            self.id,
+            asset_name
+        ])
+
+        return bucket
