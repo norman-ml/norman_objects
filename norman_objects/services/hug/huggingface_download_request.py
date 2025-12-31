@@ -13,7 +13,7 @@ class HuggingFaceDownloadRequest(NormanBaseModel):
     version_id: str
     asset_id: str
     asset_name: str
-    huggingface_model_name: str
+    model_name: str
 
     def to_base_message(self, flag_value: StatusFlagValue):
         status_flag = self.to_status_flag(flag_value)
