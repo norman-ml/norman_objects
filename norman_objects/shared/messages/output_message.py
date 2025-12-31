@@ -57,6 +57,10 @@ class OutputMessage(InvocationMessage, FileMessage):
     def staging_path(self):
         return self.output.staging_path()
 
+    @override
+    def storage_path(self):
+        return self.output.storage_path()
+
     @classmethod
     def base_message(cls, status_flag: StatusFlag):
         return cls._base_message(EntityType.Output, status_flag)
