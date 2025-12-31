@@ -52,11 +52,9 @@ class ModelAsset(NormanBaseModel):
         return path
 
     def storage_path(self):
-        asset_bucket_name = NormanPathContext.get_asset_bucket()
         asset_name = self.asset_name.value.lower()
 
         bucket = os.sep.join([
-            asset_bucket_name,
             self.account_id,
             self.model_id,
             self.version_id,
