@@ -34,6 +34,9 @@ class NormanBaseMessage(NormanBaseModel):
     def entity_name(self):
         return self.entity_type.name.lower()
 
+    def staging_path(self):
+        raise NotImplementedError("Norman base message subclasses may implement this method if they stage files to a path on disk")
+
     @staticmethod
     def base_message(status_flag: StatusFlag):
         raise NotImplementedError("Norman base message subclasses must implement a serialization from flag method")
