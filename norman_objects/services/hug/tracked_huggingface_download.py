@@ -13,7 +13,7 @@ from norman_objects.shared.status_flags.status_flag_name import StatusFlagName
 from norman_objects.shared.status_flags.status_flag_value import StatusFlagValue
 
 
-class HuggingFaceTrackedDownload(NormanBaseModel):
+class TrackedHuggingFaceDownload(NormanBaseModel):
     asset: ModelAsset
     download_request: HuggingFaceDownloadRequest
     model: ModelProjection
