@@ -29,7 +29,7 @@ class ModelVersion(ModelVersionPreview):
 
     cuda_version: str
     python_version: str
-    os_version: str
+    ubuntu_version: str
 
     hosting_location: ModelHostingLocation
     model_type: ModelType
