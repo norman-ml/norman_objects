@@ -47,7 +47,6 @@ class InvocationSignature(NormanBaseModel):
         return self._file_path(file_name=parameter_id)
 
     def storage_path(self, file_name: str):
-
         bucket = os.sep.join([
             self.account_id,
             self.model_id,
