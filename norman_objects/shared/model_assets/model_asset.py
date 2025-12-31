@@ -34,6 +34,23 @@ class ModelAsset(NormanBaseModel):
 
         return path
 
+    def build_path(self):
+        mountpoint = NormanPathContext.get_mountpoint()
+        partition_name = self.partition_name.value.lower()
+        asset_name = self.asset_name.value.lower()
+
+        path = os.sep.join([
+            mountpoint,
+            partition_name,
+            self.account_id,
+            self.model_id,
+            self.version_id,
+            "norman_runtime",
+            asset_name
+        ])
+
+        return path
+
     def storage_path(self):
         asset_bucket_name = NormanPathContext.get_asset_bucket()
         asset_name = self.asset_name.value.lower()
