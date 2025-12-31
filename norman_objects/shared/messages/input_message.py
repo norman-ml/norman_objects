@@ -4,7 +4,7 @@ from pydantic import model_validator
 from typing_extensions import override
 
 from norman_objects.shared.files.file_properties import FileProperties
-from norman_objects.shared.invocation_signatures.invocation_input import InvocationSignature
+from norman_objects.shared.invocation_signatures.invocation_signature import InvocationSignature
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.file_message import FileMessage
 from norman_objects.shared.messages.invocation_message import InvocationMessage
