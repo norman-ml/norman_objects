@@ -57,6 +57,10 @@ class InputMessage(InvocationMessage, FileMessage):
     def staging_path(self):
         return self.input.staging_path()
 
+    @override
+    def storage_path(self):
+        return self.input.storage_path()
+
     @classmethod
     def base_message(cls, status_flag: StatusFlag):
         return cls._base_message(EntityType.Input, status_flag)

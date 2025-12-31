@@ -50,6 +50,10 @@ class AssetMessage(ModelMessage, FileMessage):
     def staging_path(self):
         return self.asset.staging_path()
 
+    @override
+    def storage_path(self):
+        return self.asset.storage_path()
+
     @classmethod
     def base_message(cls, status_flag: StatusFlag):
         return cls._base_message(EntityType.Asset, status_flag)
