@@ -36,7 +36,7 @@ class ModelAsset(NormanBaseModel):
 
     def build_path(self):
         mountpoint = NormanPathContext.get_mountpoint()
-        partition_name = self.partition_name.value.lower()
+        partition_name = PartitionName.Build.value.lower()
         asset_name = self.asset_name.value.lower()
 
         path = os.sep.join([
