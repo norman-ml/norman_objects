@@ -28,5 +28,8 @@ class TrackedDownload(NormanBaseModel):
     def entity_name(self):
         return self.entity_type.name.lower()
 
+    def staging_path(self):
+        raise NotImplementedError("Download request subclasses must implement this method to determine the staging path on disk")
+
     def to_message(self, flag_value: StatusFlagValue) -> ModelMessage:
         raise NotImplementedError("Download request subclasses must implement this method to serialize to a message")

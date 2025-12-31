@@ -23,6 +23,10 @@ class TrackedAssetDownload(TrackedDownload):
         return self.asset.id
 
     @override
+    def staging_path(self):
+        return self.asset.staging_path()
+
+    @override
     def to_message(self, flag_value: StatusFlagValue):
         access_token = NormanAccessContext.get()
         update_time = datetime.now(timezone.utc)

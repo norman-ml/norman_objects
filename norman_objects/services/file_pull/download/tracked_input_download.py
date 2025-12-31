@@ -25,6 +25,10 @@ class TrackedInputDownload(TrackedDownload):
         return self.invocation_input.id
 
     @override
+    def staging_path(self):
+        return self.invocation_input.staging_path()
+
+    @override
     def to_message(self, flag_value: StatusFlagValue):
         access_token = NormanAccessContext.get()
         update_time = datetime.now(timezone.utc)
