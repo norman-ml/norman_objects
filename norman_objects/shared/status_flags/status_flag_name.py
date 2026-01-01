@@ -2,17 +2,8 @@ from enum import Enum
 
 
 class StatusFlagName(str, Enum):
-    Logo_EFS_Staging = "Logo_EFS_Staging"
-    Logo_S3_Storage = "Logo_S3_Storage"
-
-    Inference_EFS_Staging = "Inference_EFS_Staging"
-    Inference_S3_Storage = "Inference_S3_Storage"
-
-    Requirements_EFS_Staging = "Requirements_EFS_Staging"
-    Requirements_S3_Storage = "Requirements_S3_Storage"
-
-    File_EFS_Staging = "File_EFS_Staging"
-    File_S3_Storage = "File_S3_Storage"
+    Asset_EFS_Staging = "Asset_EFS_Staging"
+    Asset_S3_Storage = "Asset_S3_Storage"
     Model_Deploy = "Model_Deploy"
 
     Input_EFS_Staging = "Input_EFS_Staging"
