@@ -29,7 +29,7 @@ class AssetDownloadRequest(NormanFileDownloadRequest):
     @override
     def to_status_flag(self, flag_value: StatusFlagValue):
         update_time = datetime.now(timezone.utc)
-        flag_name = StatusFlagName[f"{self.asset_name}_EFS_Staging"]
+        flag_name = StatusFlagName["Asset_EFS_Staging"]
 
         return StatusFlag(
             account_id=self.account_id,
