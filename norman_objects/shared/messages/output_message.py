@@ -1,6 +1,7 @@
 from typing import Literal
 
 from pydantic import model_validator
+from typing_extensions import override
 
 from norman_objects.shared.files.file_properties import FileProperties
 from norman_objects.shared.invocation_signatures.invocation_signature import InvocationSignature
@@ -51,6 +52,14 @@ class OutputMessage(InvocationMessage, FileMessage):
     @InvocationMessage.entity_id.getter
     def entity_id(self):
         return self.output.id
+
+    @override
+    def staging_path(self):
+        return self.output.staging_path()
+
+    @override
+    def storage_path(self):
+        return self.output.storage_path()
 
     @classmethod
     def base_message(cls, status_flag: StatusFlag):

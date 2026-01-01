@@ -1,5 +1,5 @@
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.services.file_pull.requests.file_download_request import NormanFileDownloadRequest
+from norman_objects.services.file_pull.requests.norman_file_download_request import NormanFileDownloadRequest
 from norman_objects.shared.messages.entity_type import EntityType
 from norman_objects.shared.messages.model_message import ModelMessage
 from norman_objects.shared.models.model_projection import ModelProjection
@@ -27,6 +27,9 @@ class TrackedDownload(NormanBaseModel):
     @property
     def entity_name(self):
         return self.entity_type.name.lower()
+
+    def staging_path(self):
+        raise NotImplementedError("Download request subclasses must implement this method to determine the staging path on disk")
 
     def to_message(self, flag_value: StatusFlagValue) -> ModelMessage:
         raise NotImplementedError("Download request subclasses must implement this method to serialize to a message")

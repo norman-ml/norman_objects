@@ -30,15 +30,5 @@ class SecureFileContextManager:
             raise PermissionError("Account ID mismatch. Access denied.")
 
         segments = os.path.normpath(self.path).split(os.sep)
-        try:
-            (
-                entity_type_segment,
-                phase_segment,
-                account_id_segment,
-                entity_id_segment
-            ) = segments[-4:]
-        except ValueError:
-            raise ValueError(f"File path {self.path} does not conform to the expected 4-segment structure")
-
-        if account_id_segment != self.account_id:
-            raise PermissionError(f"Path account segment {account_id_segment} does not match expected account ID {self.account_id}")
+        if self.account_id not in segments:
+            raise PermissionError(f"File path {self.path} does not contain expected account ID {self.account_id}")
