@@ -1,13 +1,13 @@
 [build-system]
-requires = ["setuptools==67.6.0"]
-build-backend = "setuptools.build_meta"
+requires = ["flit_core==3.12.0"]
+build-backend = "flit_core.buildapi"
 
 [project]
 name = "norman-objects"
-description = "norman objects common classes"
+description = "Norman objects and data classes"
 version = "0.0.1"
 authors = [
-    {name = "Norman Artificial Intelligence LTD", email = "yonatan.alon@norman-ai.com"},
+    {name = "Norman Artificial Intelligence LTD", email = "contact@norman-ai.com"},
 ]
 
 requires-python = ">=3.9"
@@ -16,5 +16,5 @@ dependencies = [
     "pydantic==2.12.4"
 ]
 
-[tools.setuptools]
-packages = ["norman_objects"]
+[tool.flit.module]
+name = "norman_objects"
