@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
 from norman_objects.shared.models.aggregate_tag import AggregateTag
@@ -21,3 +21,23 @@ class Model(ModelPreview):
     versions: list[ModelVersion] = []
     aggregate_tags: list[AggregateTag] = []
     user_tags: list[ModelTag] = []
+
+    @model_validator(mode="after")
+    def run_validators(self):
+        self.validate_account_id()
+        self.validate_model_id()
+        return self
+
+    def validate_account_id(self):
+        super().validate_account_id()
+
+        for tag in self.user_tags:
+            if self.account_id != tag.account_id:
+                raise ValueError("Model account id does not match user tag account id")
+
+    def validate_model_id(self):
+        super().validate_model_id()
+
+        for tag in self.user_tags:
+            if self.id != tag.model_id:
+                raise ValueError("Model id does not match user tag model id")

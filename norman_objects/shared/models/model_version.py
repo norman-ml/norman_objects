@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from pydantic import Field
+from pydantic import Field, model_validator
 
 from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
 from norman_objects.shared.model_signatures.model_signature import ModelSignature
@@ -27,10 +27,6 @@ class ModelVersion(ModelVersionPreview):
     short_description: str
     long_description: str
 
-    cuda_version: str
-    python_version: str
-    ubuntu_version: str
-
     hosting_location: ModelHostingLocation
     model_type: ModelType
     request_type: HttpRequestType
@@ -41,3 +37,43 @@ class ModelVersion(ModelVersionPreview):
     inputs: list[ModelSignature] = []
     outputs: list[ModelSignature] = []
     http_headers: dict[str, str] = {}
+
+    @model_validator(mode="after")
+    def run_validators(self):
+        self.validate_account_id()
+        self.validate_model_id()
+        self.validate_version_id()
+        return self
+
+    def validate_account_id(self):
+        super().validate_account_id()
+
+        for input_signature in self.inputs:
+            if self.account_id != input_signature.account_id:
+                raise ValueError("Model version account id does not match model input signature account id")
+
+        for output_signature in self.outputs:
+            if self.account_id != output_signature.account_id:
+                raise ValueError("Model version account id does not match model output signature account id")
+
+    def validate_model_id(self):
+        super().validate_model_id()
+
+        for input_signature in self.inputs:
+            if self.model_id != input_signature.model_id:
+                raise ValueError("Model version model id does not match model input signature model id")
+
+        for output_signature in self.outputs:
+            if self.model_id != output_signature.model_id:
+                raise ValueError("Model version model id does not match model output signature model id")
+
+    def validate_version_id(self):
+        super().validate_version_id()
+
+        for input_signature in self.inputs:
+            if self.id != input_signature.version_id:
+                raise ValueError("Model version id does not match model input signature version id")
+
+        for output_signature in self.outputs:
+            if self.id != output_signature.account_id:
+                raise ValueError("Model version id does not match model output signature version id")
