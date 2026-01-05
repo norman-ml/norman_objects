@@ -25,7 +25,7 @@ class QueryConstraints(NormanBaseModel):
     @classmethod
     def not_equals(cls, table: str, column: str = "ID", value: FilterTypeValue = None):
         return cls(
-            filter=FilterClause.equals(table, column, value)
+            filter=FilterClause.not_equals(table, column, value)
         )
 
     @classmethod
