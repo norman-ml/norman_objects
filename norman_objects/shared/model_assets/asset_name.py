@@ -6,3 +6,4 @@ class AssetName(str, Enum):
     Inference = "Inference"
     Logo = "Logo"
     Requirements = "Requirements"
+    Runtime = "Runtime"
