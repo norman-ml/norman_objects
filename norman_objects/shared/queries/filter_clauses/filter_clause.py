@@ -26,6 +26,16 @@ class FilterClause(NormanBaseModel):
         )
 
     @classmethod
+    def not_equals(cls, table: str, column: str = "ID", value: FilterTypeValue = None):
+        return cls.with_filter(
+            table=table,
+            column=column,
+            operator=BinaryRelation.NE,
+            value=value,
+            join_condition=UnaryRelation.AND
+        )
+
+    @classmethod
     def includes(cls, table: str, column: str = "ID", value: FilterTypeCollection = None):
         if value is None:
             raise ValueError("Filter clause value cannot be None")
