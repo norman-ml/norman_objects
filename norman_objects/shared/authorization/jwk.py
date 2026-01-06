@@ -1,7 +1,7 @@
 from norman_objects.norman_base_model import NormanBaseModel
 
 
-class JWK(NormanBaseModel):
+class Jwk(NormanBaseModel):
     kty: str
     kid: str
     use: str
