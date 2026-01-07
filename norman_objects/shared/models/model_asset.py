@@ -7,3 +7,4 @@ class ModelAsset(NormanBaseModel):
     model_id: str = "0"
     version_id: str = "0"
     asset_name: str
+    data_modality: str
