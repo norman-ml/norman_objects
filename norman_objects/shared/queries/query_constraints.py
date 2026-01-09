@@ -23,6 +23,12 @@ class QueryConstraints(NormanBaseModel):
         )
 
     @classmethod
+    def not_equals(cls, table: str, column: str = "ID", value: FilterTypeValue = None):
+        return cls(
+            filter=FilterClause.not_equals(table, column, value)
+        )
+
+    @classmethod
     def includes(cls, table: str, column: str = "ID", value: FilterTypeCollection = None):
         return cls(
             filter=FilterClause.includes(table, column, value)
