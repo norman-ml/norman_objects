@@ -7,7 +7,8 @@ class ModelParameter(NormanBaseModel):
     model_id: str = "0"
     version_id: str = "0"
     signature_id: str = "0"
-    data_modality: DataModality
+    channel_modality: DataModality
     channel_encoding: str
     sample_encoding: str
+    tensor_encoding: str
     parameter_name: str
