@@ -14,7 +14,7 @@ class ModelSignature(NormanBaseModel):
     model_id: str = "0"
     version_id: str = "0"
     signature_type: SignatureType
-    data_modality: DataModality
+    container_modality: DataModality
     data_domain: str
     container_encoding: str
     receive_format: ReceiveFormat
