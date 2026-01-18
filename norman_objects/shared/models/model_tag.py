@@ -1,8 +1,11 @@
+from typing import Annotated
+
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.hydration import GeneratedId, DerivedId
 
 
 class ModelTag(NormanBaseModel):
-    id: str = "0"
-    account_id: str = "0"
-    model_id: str = "0"
+    id: Annotated[str, GeneratedId()]
+    account_id: str = ""
+    model_id: Annotated[str, DerivedId("model_id")]
     name: str

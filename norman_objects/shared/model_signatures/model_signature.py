@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Annotated, Dict, List, Optional
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.model_signatures.http_location import HttpLocation
@@ -7,12 +7,14 @@ from norman_objects.shared.model_signatures.signature_transform import Signature
 from norman_objects.shared.model_signatures.signature_type import SignatureType
 from norman_objects.shared.parameters.data_modality import DataModality
 from norman_objects.shared.parameters.model_param import ModelParam
+from norman_objects.hydration import GeneratedId, DerivedId
 
 
 class ModelSignature(NormanBaseModel):
-    id: str = "0"
-    model_id: str = "0"
-    version_id: str = "0"
+    # ID is generated and exposed as "signature_id" in context for children
+    id: Annotated[str, GeneratedId(context_key="signature_id")]
+    model_id: Annotated[str, DerivedId("model_id")]
+    version_id: Annotated[str, DerivedId("version_id")]
     signature_type: SignatureType
     data_modality: DataModality
     data_domain: str
@@ -23,6 +25,6 @@ class ModelSignature(NormanBaseModel):
     display_title: str
     default_value: Optional[str] = None
 
-    parameters: list[ModelParam] = []
-    transforms: list[SignatureTransform] = []
-    signature_args: dict[str, str] = {}
+    parameters: List[ModelParam] = []
+    transforms: List[SignatureTransform] = []
+    signature_args: Dict[str, str] = {}

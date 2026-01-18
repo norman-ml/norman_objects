@@ -1,8 +1,11 @@
+from typing import Annotated, Dict
+
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.hydration import GeneratedId, DerivedId
 
 
 class SignatureTransform(NormanBaseModel):
-    id: str = "0"
-    signature_id: str = "0"
+    id: Annotated[str, GeneratedId()]
+    signature_id: Annotated[str, DerivedId("signature_id")]
     transform_name: str
-    transform_args: dict[str, str] = {}
+    transform_args: Dict[str, str] = {}

@@ -1,7 +1,10 @@
+from typing import Annotated
+
 from norman_objects.norman_base_model import NormanBaseModel
+from norman_objects.hydration import DerivedId
 
 
 class AggregateTag(NormanBaseModel):
-    model_id: str
+    model_id: Annotated[str, DerivedId("model_id")]
     name: str
     tag_count: int
