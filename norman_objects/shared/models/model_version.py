@@ -33,6 +33,10 @@ class ModelVersion(ModelVersionPreview):
     url: Optional[str] = None
     output_format: OutputFormat
 
+    dedicated_provisioning: bool = False
+    machine_type: Optional[str] = None
+    capacity: Optional[int] = None
+
     assets: list[ModelAsset] = []
     inputs: list[ModelSignature] = []
     outputs: list[ModelSignature] = []
