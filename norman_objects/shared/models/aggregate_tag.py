@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from norman_objects.norman_base_model import NormanBaseModel
-from norman_objects.hydration import DerivedId
+from norman_objects.hydration.id_markers import DerivedId
 
 
 class AggregateTag(NormanBaseModel):

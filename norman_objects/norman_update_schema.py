@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class NormanUpdateSchema(BaseModel):
     def to_sql_fields(self):
-        field_dictionary = self.dict(exclude_unset=True)
+        field_dictionary = self.model_dump(exclude_unset=True)
         sql_dictionary = {self.to_sql_field_name(key): value for key, value in field_dictionary.items()}
         return sql_dictionary
 

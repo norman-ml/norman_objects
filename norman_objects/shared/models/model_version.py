@@ -12,13 +12,12 @@ from norman_objects.shared.models.model_hosting_location import ModelHostingLoca
 from norman_objects.shared.models.model_type import ModelType
 from norman_objects.shared.models.model_version_preview import ModelVersionPreview
 from norman_objects.shared.models.output_format import OutputFormat
-from norman_objects.hydration import GeneratedId, DerivedId
+from norman_objects.hydration.id_markers import GeneratedId, DerivedId
 
 
 class ModelVersion(ModelVersionPreview):
-    # ID is generated and exposed as "version_id" in context for children
     id: Annotated[str, GeneratedId(context_key="version_id")]
-    account_id: str = ""
+    account_id: Annotated[str, DerivedId("account_id")]
     model_id: Annotated[str, DerivedId("model_id")]
     update_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

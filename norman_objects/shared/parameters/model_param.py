@@ -2,7 +2,7 @@ from typing import Annotated
 
 from norman_objects.norman_base_model import NormanBaseModel
 from norman_objects.shared.parameters.data_modality import DataModality
-from norman_objects.hydration import GeneratedId, DerivedId
+from norman_objects.hydration.id_markers import GeneratedId, DerivedId
 
 
 class ModelParam(NormanBaseModel):

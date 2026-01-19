@@ -6,23 +6,29 @@ from pydantic.fields import FieldInfo
 from norman_objects.hydration.id_markers import GeneratedId, DerivedId
 
 
-def get_id_markers(model_class: Type[BaseModel]) -> Dict[str, Union[GeneratedId, DerivedId]]:
-    markers: Dict[str, Union[GeneratedId, DerivedId]] = {}
+class SchemaUtils:
+    @staticmethod
+    def get_id_marker(field_info: FieldInfo) -> Optional[Union[GeneratedId, DerivedId]]:
+        for metadata in field_info.metadata:
+            if isinstance(metadata, (GeneratedId, DerivedId)):
+                return metadata
+        return None
 
-    for field_name, field_info in model_class.model_fields.items():
-        marker = _get_id_marker(field_info)
-        if marker is not None:
-            markers[field_name] = marker
+    @staticmethod
+    def is_id_field(field_info: FieldInfo) -> bool:
+        return SchemaUtils.get_id_marker(field_info) is not None
 
-    return markers
+    @staticmethod
+    def get_id_markers(model_class: Type[BaseModel]) -> Dict[str, Union[GeneratedId, DerivedId]]:
+        markers: Dict[str, Union[GeneratedId, DerivedId]] = {}
 
+        for field_name, field_info in model_class.model_fields.items():
+            marker = SchemaUtils.get_id_marker(field_info)
+            if marker is not None:
+                markers[field_name] = marker
 
-def _get_id_marker(field_info: FieldInfo) -> Optional[Union[GeneratedId, DerivedId]]:
-    for metadata in field_info.metadata:
-        if isinstance(metadata, (GeneratedId, DerivedId)):
-            return metadata
-    return None
+        return markers
 
-
-def get_full_model_class(create_schema_instance: Any) -> Optional[Type[BaseModel]]:
-    return getattr(create_schema_instance, "_norman_full_model_class", None)
+    @staticmethod
+    def get_model_class(create_schema_instance: Any):
+        return getattr(create_schema_instance, "_norman_model_class", None)
