@@ -46,5 +46,5 @@ class AssetMessage(ModelMessage, FileMessage):
         return self.asset.id
 
     @classmethod
-    def base_message(cls, status_flag: StatusFlag):
+    def base_message(cls, status_flag: StatusFlag.CreateSchema):
         return cls._base_message(EntityType.Asset, status_flag)

@@ -32,5 +32,5 @@ class ModelMessage(NormanBaseMessage):
         return self.model.id
 
     @classmethod
-    def base_message(cls, status_flag: StatusFlag):
+    def base_message(cls, status_flag: StatusFlag.CreateSchema):
         return cls._base_message(EntityType.Model, status_flag)

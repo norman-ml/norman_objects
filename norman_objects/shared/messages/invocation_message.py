@@ -41,5 +41,5 @@ class InvocationMessage(ModelMessage):
         return self.invocation.id
 
     @classmethod
-    def base_message(cls, status_flag: StatusFlag):
+    def base_message(cls, status_flag: StatusFlag.CreateSchema):
         return cls._base_message(EntityType.Invocation, status_flag)

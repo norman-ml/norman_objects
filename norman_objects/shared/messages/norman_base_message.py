@@ -15,7 +15,7 @@ class NormanBaseMessage(NormanBaseModel):
     account_id: str
     update_time: NormalizedDateTime
     entity_type: EntityType
-    status_flag: StatusFlag
+    status_flag: StatusFlag.CreateSchema
 
     @model_validator(mode="after")
     def run_validators(self):
@@ -35,11 +35,11 @@ class NormanBaseMessage(NormanBaseModel):
         return self.entity_type.name.lower()
 
     @staticmethod
-    def base_message(status_flag: StatusFlag):
+    def base_message(status_flag: StatusFlag.CreateSchema):
         raise NotImplementedError("Norman base message subclasses must implement a serialization from flag method")
 
     @classmethod
-    def _base_message(cls, entity_type: EntityType, status_flag: StatusFlag):
+    def _base_message(cls, entity_type: EntityType, status_flag: StatusFlag.CreateSchema):
         access_token = NormanAccessContext.get()
         update_time = datetime.now(timezone.utc)
 

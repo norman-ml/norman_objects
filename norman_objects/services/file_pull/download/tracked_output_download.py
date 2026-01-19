@@ -45,7 +45,7 @@ class TrackedOutputDownload(TrackedDownload):
                 file_checksum=self.file_checksum
             ),
 
-            status_flag=StatusFlag(
+            status_flag=StatusFlag.CreateSchema(
                 account_id=self.download_request.account_id,
                 entity_id=self.invocation_output.id,
                 update_time=update_time,

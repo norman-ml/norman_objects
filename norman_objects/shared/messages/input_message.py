@@ -53,5 +53,5 @@ class InputMessage(InvocationMessage, FileMessage):
         return self.input.id
 
     @classmethod
-    def base_message(cls, status_flag: StatusFlag):
+    def base_message(cls, status_flag: StatusFlag.CreateSchema):
         return cls._base_message(EntityType.Input, status_flag)
