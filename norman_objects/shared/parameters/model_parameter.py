@@ -12,3 +12,5 @@ class ModelParameter(NormanBaseModel):
     sample_encoding: str
     tensor_encoding: str
     parameter_name: str
+
+    arguments: dict[str, str] = {}

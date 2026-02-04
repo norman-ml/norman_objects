@@ -25,4 +25,4 @@ class ModelSignature(NormanBaseModel):
 
     parameters: list[ModelParameter] = []
     transforms: list[SignatureTransform] = []
-    signature_args: dict[str, str] = {}
+    arguments: dict[str, str] = {}
