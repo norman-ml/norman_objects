@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools==67.6.0"]
-build-backend = "setuptools.build_meta"
+requires = ["flit_core==3.12.0"]
+build-backend = "flit_core.buildapi"
 
 [project]
 name = "norman-objects"
@@ -16,5 +16,5 @@ dependencies = [
     "pydantic==2.12.4"
 ]
 
-[tools.setuptools]
-packages = ["norman_objects"]
+[tool.flit.module]
+name = "norman_objects"
