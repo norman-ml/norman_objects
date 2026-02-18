@@ -9,5 +9,5 @@ class ProvisionedInstance(NormanBaseModel):
     account_id: str
     model_id: str
     version_id: str
-    instance_id: Optional[str] = None
+    ec2_instance_id: Optional[str] = None
     status: ProvisionedInstanceStatus
