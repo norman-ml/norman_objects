@@ -2,5 +2,7 @@ from enum import Enum
 
 
 class ProvisionedInstanceStatus(str, Enum):
-    Down = "Down"
-    Up = "Up"
+    Pending = "Pending"
+    Running = "Running"
+    ShuttingDown = "ShuttingDown"
+    Terminated = "Terminated"
