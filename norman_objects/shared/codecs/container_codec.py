@@ -10,9 +10,9 @@ class ContainerCodec(str, Enum):
     Wav = "wav"
 
     # Image (Pillow formats)
-    Jpeg = "JPEG"
-    Png = "PNG"
-    Webp = "WEBP"
+    Jpeg = "jpeg"
+    Png = "png"
+    Webp = "webp"
 
     # Video (PyAV formats)
     Matroska = "matroska"
