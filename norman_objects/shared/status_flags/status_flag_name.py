@@ -16,5 +16,8 @@ class StatusFlagName(str, Enum):
 
     Model_Function_Run = "Model_Function_Run"
 
+    Model_Provisioning = "Model_Provisioning"
+
     Output_EFS_Staging = "Output_EFS_Staging"
     Output_S3_Storage = "Output_S3_Storage"
+
