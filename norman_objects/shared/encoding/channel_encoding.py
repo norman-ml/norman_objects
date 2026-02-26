@@ -9,11 +9,11 @@ class ChannelEncoding(str, Enum):
     Mp3 = "mp3"
     Mp3Vbr = "mp3_vbr"
     Opus = "opus"
-    Vorbis = "vorbis"
     PcmF32Le = "pcm_f32le"
     PcmS16Le = "pcm_s16le"
     PcmS24Le = "pcm_s24le"
     PcmS32Le = "pcm_s32le"
+    Vorbis = "vorbis"
 
     # Image
     One = "1"
