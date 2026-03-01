@@ -13,7 +13,7 @@ class ContainerCodec(str, Enum):
     # Image (Pillow formats)
     Jpeg = "jpeg"
     Png = "png"
-    Webp = "webp"
+    WebP = "webp"
 
     # Video (PyAV formats)
     Matroska = "matroska"
@@ -21,4 +21,4 @@ class ContainerCodec(str, Enum):
     Mov = "mov"
     MovMp4M4a3gp3g2Mj2 = "mov,mp4,m4a,3gp,3g2,mj2"
     Mp4 = "mp4"
-    Webm = "webm"
+    WebM = "webm"
