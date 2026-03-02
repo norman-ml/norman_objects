@@ -21,7 +21,7 @@ class ModelVersion(ModelVersionPreview):
     update_time: NormalizedDateTime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     build_status: ModelBuildStatus
-    active: bool = True
+    active: bool = False
 
     label: str
     short_description: str
