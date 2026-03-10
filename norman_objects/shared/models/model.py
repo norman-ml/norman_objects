@@ -3,9 +3,9 @@ from datetime import datetime, timezone
 from pydantic import Field
 
 from norman_objects.shared.date.normalized_datetime import NormalizedDateTime
-from norman_objects.shared.models.aggregate_tag import AggregateTag
+from norman_objects.shared.tags.aggregate_tag import AggregateTag
 from norman_objects.shared.models.model_preview import ModelPreview
-from norman_objects.shared.models.model_tag import ModelTag
+from norman_objects.shared.tags.model_tag import ModelTag
 from norman_objects.shared.models.model_version import ModelVersion
 
 
