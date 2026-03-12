@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "norman-objects"
-description = "norman objects common classes stub one"
+description = "norman objects common classes stub two"
 version = "0.0.1"
 authors = [
     {name = "Norman Artificial Intelligence LTD", email = "yonatan.alon@norman-ai.com"},
