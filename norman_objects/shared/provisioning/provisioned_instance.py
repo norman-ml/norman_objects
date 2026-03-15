@@ -1,8 +1,7 @@
 from typing import Optional
 
 from norman_objects.norman_base_model import NormanBaseModel
-
-from norman_objects_internal.shared.provisioning.provisioned_instance_status import ProvisionedInstanceStatus
+from norman_objects.shared.provisioning.provisioned_instance_status import ProvisionedInstanceStatus
 
 
 class ProvisionedInstance(NormanBaseModel):
