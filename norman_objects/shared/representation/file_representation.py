@@ -8,7 +8,7 @@ class FileRepresentation(NormanBaseModel):
     container_encoding: ContainerEncoding
     mime_type: str
 
-    def to_dict(self):
+    def to_metadata(self):
         return {
             "container_modality": self.container_modality,
             "container_encoding": self.container_encoding,
