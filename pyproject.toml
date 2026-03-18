@@ -16,5 +16,10 @@ dependencies = [
     "pydantic==2.12.4"
 ]
 
+[project.optional-dependencies]
+dev = [
+    # Intentional boilerplate (for build scripts)
+]
+
 [tool.flit.module]
 name = "norman_objects"
