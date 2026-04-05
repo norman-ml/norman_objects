@@ -1,4 +1,5 @@
 from typing import Literal
+from typing_extensions import override
 
 from norman_objects.services.file_pull.download.tracked_download import TrackedDownload
 from norman_objects.shared.assets.model_asset import ModelAsset
@@ -12,3 +13,7 @@ class TrackedAssetDownload(TrackedDownload):
     @TrackedDownload.entity_id.getter
     def entity_id(self):
         return self.asset.id
+
+    @override
+    def staging_path(self):
+        return self.asset.staging_path()
