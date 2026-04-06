@@ -15,7 +15,3 @@ class TrackedInputDownload(TrackedDownload):
     @TrackedDownload.entity_id.getter
     def entity_id(self):
         return self.invocation_input.id
-
-    @override
-    def staging_path(self):
-        return self.invocation_input.staging_path()

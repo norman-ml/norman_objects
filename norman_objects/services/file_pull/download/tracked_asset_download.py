@@ -13,7 +13,3 @@ class TrackedAssetDownload(TrackedDownload):
     @TrackedDownload.entity_id.getter
     def entity_id(self):
         return self.asset.id
-
-    @override
-    def staging_path(self):
-        return self.asset.staging_path()
