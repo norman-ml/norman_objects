@@ -9,5 +9,4 @@ class InvocationSignature(NormanBaseModel):
     version_id: str
     signature_id: str
     invocation_id: str = "0"
-    display_title: str = ""
     signature_type: SignatureType
