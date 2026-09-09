@@ -75,7 +75,6 @@ venv/
 venv.bak/
 wheels/
 
-# Never commit the dev pyproject in public repositories - it leaks the local repository layout
-pyproject.toml.dev
-# Norman pyproject toggle backup (see norman_scripts/client)
+# Norman dev/prod toggle backups (see norman_root/scripts/dev_prod)
 pyproject.toml.prod
+uv.lock.prod

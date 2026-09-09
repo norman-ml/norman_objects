@@ -1,0 +1,31 @@
+[build-system]
+requires = ["flit_core==3.12.0"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "norman-objects"
+description = "norman objects common classes"
+version = "0.0.1"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "Norman Artificial Intelligence LTD", email = "contact@norman-ai.com"},
+]
+
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic==2.12.4"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pip==26.1.2" # Not needed, but used by some IDEs for package detection.
+]
+
+[tool.flit.module]
+name = "norman_objects"
+
+[tool.uv]
+override-dependencies = [
+    # Intentional boilerplate (for build scripts)
+]
